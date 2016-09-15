@@ -1,11 +1,8 @@
 # Innkeeper
-JavaScript project for managing accomodation and reimbursement logistics
-
-# RLMS
-This application is an online logistics system that incorporates various service features.  It allows, admins and associates to interact within a facilities portal.  The environment is complete with Angular, Webpack, Mongo Driver, Express, and Node.
+This JavaScript application is an online system for managing accomodation and reimbursement logistics that incorporates various service features.  It allows admins and associates to interact within a facilities portal.  The environment is complete with Angular, Webpack, Mongo Driver, Express, and Node.
 
 ###### menu
-- [Description](#rlms)
+- [Description](#innkeeper)
 - [Responsibilities](#responsibilities)
 - [Features & Services](#features-and-services)
 - [Technologies](#technologies)
@@ -25,7 +22,7 @@ This application is an online logistics system that incorporates various service
 - Created unit tests with Jasmine and Karma
 
 ### Features and Services
-###### end-to-end service (developed by)
+###### end-to-end module (developed by)
 - Reimbursement ([Kevin](#developers))
 - Main & Express Services ([Michael](#developers))
 - Room & Apt Management ([Sam](#developers))
