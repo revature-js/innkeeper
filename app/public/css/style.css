@@ -1,0 +1,8 @@
+body {
+	background: linear-gradient(180deg,#89ECFF,white);    
+    height:100%;
+    background-attachment:fixed;
+}
+.transparentBack{
+	background-color: rgba(255,255,255,0.3) !important;
+}

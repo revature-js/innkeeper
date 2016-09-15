@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+		<title>Projections</title>
+	</head>
+		
+		<body ng-app='test'>
+		<div class='container'>
+			<div class= "jumbotron">
+				<h1>Projections</h1>
+			</div>
+
+		<div ng-controller='projectionCtrl'>
+		<h2>Apartment Information</h2>
+		<section style="border:solid 1px blue">
+			<div class= "well well-sm" color: gray>
+				<p>Rooms Currently in Use: <span>{{roomsInUse}}</span></br>
+				<p>Number of Open Apartments: <span>{{calculateOpenApart()}}</span></br>
+			</div>
+			<p>Total Number of Rooms: <span>{{totalOfRooms}}</span></br>
+			<p>Total Number of Apartments: <span>{{totalOfApartments}}</span></br>
+		</section>
+			<div>
+				<div>
+					<h2>Batch Information</h2>
+					<section style="border:solid 1px blue">
+						<div class= "well well-sm" color: gray>
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										
+										<th>Batch Name</th>
+										<th>Current Size</th>
+										<th>Start Date</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="x in batch">
+											<th>{{x.name}}</th>
+											<th>{{x.currentsize}}</th>
+											<th>{{x.startdate}}</th>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p>Total available seats: <span>{{getAvailableSeats()}}</span></br>
+						<p>Number of available Batches: <span>{{numOfBatch()}}</span></br>
+					</section>
+				</div>
+			</div>
+			<div>
+				<button ng-click='displayStats()' ng-show='magic'>Get Statistics</button>
+			</div>
+			<div ng-show='showMe'>
+				<h2>Statistics</h2>
+				<section style="border:solid 1px blue">
+					<div class= "well well-sm" color: gray>
+						<p>Number of Filled batches: <span>{{getFilledBatch()}}</span></p>
+						<p>Number of Apartments needed: <span>{{calculateApartNeed()}}</span></p>
+						<p>Number of Incoming Trainies: <span>{{calculateNumOfTraines()}}</span></p>
+					</div>
+				</section>
+			</div>
+			</div>
+			</div>
+			<script src="./dev/projections/controllers/projectionsScript.js"></script>
+			<script src="./dev/projections/services/projectionsbatchfactoryScript.js"></script>
+			<script src="./dev/projections/services/projectionsApartmentfactoryScript.js"></script>
+			<link rel="stylesheet" href="./app/public/style.css"/>
+	</body>
+
+</html>
