@@ -1,22 +1,22 @@
-reimbursement.factory("burseService", function(){
+reimbursement.factory("burseService", function($http){
 
-	var burseHistory = [];
 	var service = {};
 
-	service.updateBurseHistory = function(index, burse){
-		burseHistory.splice(index,1,burse);
+	service.updateReimbursement = function(){
+
 	};
 
 	service.getTypesOfBurse = function(){
 		return ["Travel","Certification","Supplies"];
 	};
 
-	service.getBurseHistory = function(){
-		return burseHistory;
+	service.getAllReimbursements = function(){
+		return $http.get('http://localhost:3030/reimbursements/');
 	};
 
-	service.addBurseHistory = function(data){
-		burseHistory.push(data);
+	service.addReimbursement = function(data){
+		console.log(data);
+		return $http.post('http://localhost:3030/reimbursements/', data);
 	};
 
 	return service;
