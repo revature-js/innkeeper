@@ -1,8 +1,8 @@
 # Innkeeper
-React project for managing accomodation and reimbursement logistics
+JavaScript project for managing accomodation and reimbursement logistics
 
 # RLMS
-This React application is an online logistics system that incorporates various service features.  It allows, admins and associates to interact within a facilities portal.  The environment is complete with React, Webpack, Babel, Express, and Node.
+This application is an online logistics system that incorporates various service features.  It allows, admins and associates to interact within a facilities portal.  The environment is complete with Angular, Webpack, Mongo Driver, Express, and Node.
 
 ###### menu
 - [Description](#rlms)
@@ -14,11 +14,11 @@ This React application is an online logistics system that incorporates various s
 - [License](#license)
 
 ### Responsibilities
-- Created a portal with React to provide features
-- Develop UI dashboard for each service using React framework and Bootstrap styles
-- Leveraged React Routing for navigating the application
-- Wrote React components using JSX syntax and ES6 Classes
-- Developed Express web services to provide JSON and React components
+- Created a portal with Angular to provide features
+- Develop UI dashboard for each service using Angular framework and Bootstrap styles
+- Leveraged Angular Routing for navigating the application
+- Wrote Angular components for controllers, directives, and service factories 
+- Developed Express web services to provide JSON data
 - Incorporated security using Passport running on Node
 - Wrote data access modules to access MongoDB using a NodeDriver
 - Configured WebPack to run on Node, for rapid development
@@ -34,14 +34,13 @@ This React application is an online logistics system that incorporates various s
 - Estimate Apt Requirements ([Alex](#developers))
 
 ### Technologies
-- React JS
+- Angular JS
 - Express JS
 - Node JS
 - Bootstrap
 - Passport
 - Jasmine & Karma
 - WebPack
-- Babel
 - Mongo Driver
 - Mongo DB
 - HTML
