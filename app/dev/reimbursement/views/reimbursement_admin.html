@@ -1,0 +1,78 @@
+<div ng-app="burseManager">
+	<div class="container">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h2 class="text-center">Reimbursement Requests</h2>
+			</div>
+			<div ng-show="emptyHistory" class="panel-body">
+				<h4 class="text-center">No Pending Reimbursements</h4>
+			</div>
+			<div ng-hide="emptyHistory" class="panel-body">
+				<nav class="col-md-4 well">
+					<ul class="nav nav-pills nav-stacked" ng-click="setSidebarActive($event)">
+					    <li class="navButton nav-link" ng-repeat="line in burseHistory" ng-click="display($index)">
+					    	<a href="">
+					    		{{line.date | date : 'M/d/yyyy'}} - {{line.type}}: {{line.desc}} - {{line.amount | currency}}
+					    	</a>
+					    </li>
+					</ul>
+				</nav>
+			
+				<div class="col-md-8" ng-show="selected">
+					<div class="form-horizontal">
+						<div class="form-group">
+							<label class="col-md-2">Date: </label>
+							<div class="col-md-9">
+								<span>{{displayBurse.date | date : 'M/d/yyyy'}}</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2">Type: </label>
+							<div class="col-md-9">
+								<span>{{displayBurse.type}}</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2">Description: </label>
+							<div class="col-md-9">
+								<span>{{displayBurse.desc}}</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2">Amount: </label>
+							<div class="col-md-9">
+								<span>{{displayBurse.amount | currency}}</span>
+							</div>
+						</div>
+						<div class="form-group" ng-hide="completed">
+							<label class="col-md-2">Comments: </label>
+							<div class="col-md-9">
+								<span>{{displayBurse.comment}}</span>
+							</div>
+						</div>
+						<div class="form-group" ng-hide="completed">
+							<label class="col-md-2">Status: </label>
+							<div class="col-md-9">
+								<span>{{displayBurse.status}}</span>
+							</div>
+						</div>
+						<div class="form-group" ng-show="completed">
+							<label class="col-md-2">Comments: </label>
+							<div class="col-md-9">
+								<textarea class="form-control" ng-model="displayBurse.comment" rows="4"></textarea>
+							</div>
+						</div>
+						<div class="btn-group  col-md-offset-9">
+							<button class="btn btn-success" ng-show="completed" ng-click="makeDecision('Approved')">
+								Approve
+							</button>
+							<button class="btn btn-danger" ng-show="completed" ng-click="makeDecision('Denied')">
+								Deny
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
