@@ -1,5 +1,5 @@
 # Innkeeper
-This JavaScript application is an online system for managing accomodation and reimbursement logistics that incorporates various service features.  It allows admins and associates to interact within a facilities portal.  The environment is complete with Angular, Webpack, Mongo Driver, Express, and Node.
+This Angular application is an online system for managing accomodation and reimbursement logistics that incorporates various service features.  It allows admins and associates to interact within a facilities portal.  The environment is complete with Angular, Webpack, Mongo Driver, Express, and Node.
 
 ###### menu
 - [Description](#innkeeper)
@@ -14,7 +14,7 @@ This JavaScript application is an online system for managing accomodation and re
 - Created a portal with Angular to provide features
 - Develop UI dashboard for each service using Angular framework and Bootstrap styles
 - Leveraged Angular Routing for navigating the application
-- Wrote Angular components for controllers, directives, and service factories 
+- Wrote Angular components for controllers, directives, and service factories using JavaScript syntax
 - Developed Express web services to provide JSON data
 - Incorporated security using Passport running on Node
 - Wrote data access modules to access MongoDB using a NodeDriver
