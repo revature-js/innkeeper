@@ -2,7 +2,7 @@ login.factory('registerFactory', function($http,$window){
 
 	var factory = {};
 
-		factory.getLoginInfo = function(successCallback, errorCallback){
+		factory.getRegisterInfo = function(successCallback, errorCallback){
 			$http.get('mockdata.json')
 			.then(function(data){
 				successCallback(data);
@@ -11,6 +11,5 @@ login.factory('registerFactory', function($http,$window){
 				errorCallback(err);
 			});
 		};
-	
 		return factory;
 });

@@ -11,7 +11,6 @@ login.factory('loginFactory', function($http,$window){
 				errorCallback(err);
 			});
 		};
-	
 		return factory;
 });
 
