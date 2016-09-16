@@ -1,5 +1,4 @@
 reimbursement.controller("BurseAdminCtrl", function($scope, burseService){
-	var idx = 0;
 
 	$scope.burseHistory = [];
 	$scope.emptyHistory = emptyHistory($scope.burseHistory);
@@ -35,17 +34,23 @@ reimbursement.controller("BurseAdminCtrl", function($scope, burseService){
 		$scope.displayBurse = data;
 		$scope.selected = true;
 		$scope.completed = checkCompleted($scope.displayBurse);
-		idx = index;
 	};
 
 	$scope.makeDecision = function(decision){
 		if($scope.displayBurse.comment===""||$scope.displayBurse.comment===undefined){
 			$scope.displayBurse.comment="No comment";
 		}
-		$scope.displayBurse.status = decision;
-		$scope.completed = true;
-		burseService.updateReimbursement(idx, $scope.displayBurse);
-		$scope.display(idx);
+		burseService.updateReimbursement($scope.displayBurse, decision)
+		.then(
+			function(data){
+				$scope.selected = false;
+				getAllReimbursements();
+			},
+			function(){
+				alert("Update failed...")
+			}
+		);
+		
 	}
 });
 

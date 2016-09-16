@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="panel panel-primary">
+              <div class="panel-heading"><h3>Apartment Address</h3></div>
+<div class="panel-body">
+                <div class="col-md-offset-2">{{data.addr.num}} {{data.addr.street}}</div></p>
+                  <p><div class="col-md-offset-2">{{data.addr.city}}</div></p>
+                  <p><div class="col-md-offset-2">{{data.addr.state}}</div></p>
+                  <p><div class="col-md-offset-2">{{data.addr.zip}}</div></p>
+             <p> Suite No.<div class="col-md-offset-2">{{data.addr.suite}}</p></div>
+            </div>
+          </div>
+              <div class="panel panel-primary">
+              <div class="panel-heading">
+                  <h3>Room Information</h3>
+              </div>
+              <div class="panel-body">
+              <p>Room# {{data.rooms[0].bedrooms[0].room.number}}</p>
+                  <p>chairs:{{data.rooms[0].bedrooms[0].room.chair}}</p>
+                  <p>beds:{{data.rooms[0].bedrooms[0].room.bed}}</p>
+                  <p>occupants:{{data.rooms[0].bedrooms[0].room.occupants[0]}} {{data.rooms[0].bedrooms[0].room.occupants[1]}}</p>
+     </div>
+  </div>
+</div>
+
+  
+
