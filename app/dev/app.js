@@ -4,28 +4,38 @@
  */
  
 // main module.
-var app = angular.module("mainApp",['ngRoute',
-									'reimbursementApp',
-									'loginModule',
-									'registerModule',
-									'maintenanceApp',
-									'apartmentApp']);
+var app = angular.module("mainApp",['ngRoute']);
+
+//'reimbursementApp','loginModule','registerModule','maintenanceApp','apartmentApp'
+
+app.constant('seshkey',{
+	fname: "fname",
+	lname: "lname",
+	username: "username",
+	aptid: "aptId",
+	isAdmin: "isAdmin"
+})
+
+app.controller('NavbarCtrl',function($scope, $location){
+
+	$scope.admin = true;
+
+	$scope.isActive = function (viewLocation) { 
+        return viewLocation === $location.path();
+    };
+});
 
 /**
 *	Configure routing paths. Responsible for
 *	mapping views into the main page.
 */
 app.config(function($routeProvider) {
-
 	$routeProvider
-	.when("/", {
-		templateUrl: ""
-	})
 	.when("/apartments", {
 		templateUrl: "Room_Apt/views/aptPage.html",
 		controller: "apt_list_user"
 	})
-	when("/apartments/manage",{
+	.when("/apartments/manage",{
 		templateUrl: "Room_Apt/views/apt_admin.html",
 		controller: "apt_list_admin"
 	})
@@ -44,9 +54,6 @@ app.config(function($routeProvider) {
 	.when("/reimbursement/manage",{
 		templateUrl: "reimbursement/views/reimbursement_admin.html",
 		controller: "BurseAdminCtrl"
-	})
-	.when("/projection", {
-		templateUrl: ""
 	})
 	.when("/login", {
 		templateUrl: "loginRegistration/views/login.html",
