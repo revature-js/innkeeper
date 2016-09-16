@@ -4,7 +4,12 @@
  */
  
 // main module.
-var app = angular.module("mainapp",['ngRoute']);
+var app = angular.module("mainApp",['ngRoute',
+									'reimbursementApp',
+									'loginModule',
+									'registerModule',
+									'maintenanceApp',
+									'apartmentApp']);
 
 /**
 *	Configure routing paths. Responsible for
@@ -13,17 +18,45 @@ var app = angular.module("mainapp",['ngRoute']);
 app.config(function($routeProvider) {
 
 	$routeProvider
-
-	// navbar routes.
-	.when("/innkeeper",       { templateUrl: "/main/views/index2.html" } )
-	.when("/room",            { templateUrl: "/main/views/index3.html" } )
-	.when("/maintain/manage", { templateUrl: "/main/views/index3.html" } )
-	.when("/maintain/view",   { templateUrl: "/main/views/index3.html" } )
-	.when("/reimb",           { templateUrl: "/main/views/index3.html" } )
-	.when("/projection",      { templateUrl: "/main/views/index3.html" } )
-	.when("/logout",          { templateUrl: "/main/views/index3.html" } )
-
-	// these two are unique cases.
-	.when("/",                { templateUrl: "/main/views/index2.html" } )
-	.otherwise(               { redirectTo:  "/"                 } );
+	.when("/", {
+		templateUrl: ""
+	})
+	.when("/apartments", {
+		templateUrl: "Room_Apt/views/aptPage.html",
+		controller: "apt_list_user"
+	})
+	when("/apartments/manage",{
+		templateUrl: "Room_Apt/views/apt_admin.html",
+		controller: "apt_list_admin"
+	})
+	.when("/maintenance", {
+		templateUrl: "Maintenance/views/Maintenance.html",
+		controller: "maintenanceCtrl"
+	})
+	.when("/maintenance/manage", {
+		templateUrl: "Maintenance/views/MaintenaceAdmin.html",
+		controller: "maintenanceAdminCtrl"
+	})
+	.when("/reimbursement", {
+		templateUrl: "reimbursement/views/reimbursement.html",
+		controller: "BurseCtrl"
+	})
+	.when("/reimbursement/manage",{
+		templateUrl: "reimbursement/views/reimbursement_admin.html",
+		controller: "BurseAdminCtrl"
+	})
+	.when("/projection", {
+		templateUrl: ""
+	})
+	.when("/login", {
+		templateUrl: "loginRegistration/views/login.html",
+		controller: "loginCtrl"
+	})
+	.when("/register", {
+		templateUrl: "loginRegistration/views/register.html",
+		controller: "registerCtrl"
+	})
+	.otherwise({
+		redirectTo: "/"
+	});
 });
