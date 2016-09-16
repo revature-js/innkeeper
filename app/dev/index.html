@@ -1,160 +1,74 @@
 <!DOCTYPE html>
-
-<html lang="en"  ng-app="mainapp">
-
-	<head>
-
-		<!-- Bootstrap styles -->
-		<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	
-		<!-- JQuery and Bootstrap -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>		
-		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-		<!-- Angular and ng-route -->
-		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-		<script src="https://code.angularjs.org/1.4.5/angular-route.js"></script> 
-
-		<!-- styles -->		
-		<link rel="stylesheet" type="text/css" href="/main/css/style.css">
-
-		<!-- main application -->
-		<script src="app.js"></script>
-
-		<!-- services -->
-     	<script src="/main/services/user.js"></script> 
-		<script src="/main/services/ticket.js"></script>
-
-		<!-- controllers -->
-	    <script src="/main/ctrls/appControl.js"></script>
-	    <script src="/main/ctrls/ticketControl.js"></script>	
-
-		<title>Inn Keeper</title>
-		
-	</head>
-
-	<body>
-
-		<div id="header">	
-
-			<nav class="navbar nav-pills navbar-inverse navbar-fixed-top">
-
-				<div nav-header="">
-					<h3 style="color:white;">&nbsp;Inn Keeper</h3>
+<html>
+<head>
+	<title>InnKeeper</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+</head>
+<body ng-app="mainApp">
+	<div ng-controller="NavbarCtrl">
+	<!-- SAVE FOR LATER -->
+	<!--<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand">InnKeeper</a>
 				</div>
-
-				<div class="container-fluid">	
-
-					<div id="main_navbar" ng-controller="navbar_control">
-
-						<ul class="nav navbar-nav navbar-left">	
-							
-							<li class="dropdown navbar_border">
-								<a ng-href="#/innkeeper" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
-									onclick="activate_menu_item('#/innkeeper')">
-									Innkeeper
-								</a>
-							</li>							
-							
-							<li class="dropdown navbar_border">
-								<a ng-href="#/room" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
-									onclick="activate_menu_item('#/room')">
-									Room and Apartments
-								</a>
-							</li>
-
-							<li class="dropdown navbar_border">
-								<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-									Maintainance
-									<span class="caret"></span>
-								</a>
-								<ul class="dropdown-menu">
-									<li><a ng-href="#/maintain/manage" onclick="activate_menu_item('#/maintain/manage');">Manage</a></li>
-									<li><a ng-href="#/maintain/view" onclick="activate_menu_item('#/maintain/view');">View</a></li>											
-								</ul>
-							</li>
-
-							<li id="reimbursements" class="dropdown navbar_border">
-								<a ng-href="#/reimb" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
-									onclick="activate_menu_item('#/reimb');">
-									Reimbursements
-								</a>
-							</li>
-
-							<li class="dropdown navbar_border" id="projections_view">
-								<a ng-href="#/projection" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
-									onclick="activate_menu_item('#/projection');">
-									Projections
-								</a>
-							</li>	
-							
-						</ul>			
-
-						<!-- Custom style to properly align the navbar -->
-						<span class="nav navbar-nav navbar-right" style="padding:15px; margin:0;">		
-							<!--
-								There is no registration option. Users are expected to already have an account. If they
-								do not, they should contact an administrator.
-							-->
-							<span ng-if="user.admin==true">
-								<font class="user_admin">	
-										{{user.fname}} {{user.lname}} ({{user.username}})
-								</font>
-							</span>
-             				<span ng-if="user.admin==false">
-								<font class="user_standard">	
-										{{user.fname}} {{user.lname}} ({{user.username}})
-								</font>
-							</span>													
-							&nbsp;|&nbsp;
-							<a href="#/logout">
-								<span class="glyphicon glyphicon-log-out"></span>
-									Logout
-							</a>
-						</span>
-					</div>
-				</div>
-			</nav>
-		</div>
-
-		<!-- This is the main application content. -->
-		
-		<div id="content">
-			<div ng-view>
+				<ul class="nav navbar-nav">
+					<li ng-class="{active: isActive('/apartments')}">
+						<a href="#/apartments">Rooms and Apartments</a>
+					</li>
+					<li ng-class="{active: isActive('/reimbursement')}">
+						<a href="#/reimbursement">Reimbursements</a>
+					</li>
+					<li ng-class="{active: isActive('/maintenance')}">
+						<a href="#/maintenance">Maintenance</a>
+					</li>
+					<li ng-class="{active: isActive('/projection')}">
+						<a href="#/projection">Projection</a>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				</ul>
 			</div>
-		</div>
-		
-		<script>
+		</nav> -->
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand">InnKeeper</a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li ng-class="{active: isActive('/apartments')}">
+						<a href="#/apartments">Rooms and Apartments</a>
+					</li>
+					<li ng-class="{active: isActive('/reimbursement')}">
+						<a href="#/reimbursement">Reimbursements</a>
+					</li>
+					<li class="dropdown" ng-class="{active: isActive('/maintenance')}">
+						<a class="dropdown-toggle" data-toggle="dropdown">Maintenance
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#/maintenance">View</a></li>
+							<li><a href="#/maintenance/manage">Manage</a></li>
+						</ul>
+					</li>
+					<li ng-class="{active: isActive('/projection')}">
+						<a href="#/projection">Projection</a>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+	<br>
+	<div ng-view></div>
 
-      // ref: http://stackoverflow.com/questions/11533542/twitter-bootstrap-add-active-class-to-li
-
-		/**
-		 *	Activate selected menu item.
-		*		EVENT: onclick
-		*		name - URI name of menu element.
-		*/
-		function activate_menu_item(name){
-
-			// deactivate everything.
-
-			$('ul.nav a[href="'+ "#/innkeeper" +'"]').parent().removeClass('active');
-			$('ul.nav a[href="'+ "#/room" +'"]').parent().removeClass('active');
-			$('ul.nav a[href="'+ "#/maintain/manage" +'"]').parent().removeClass('active');
-			$('ul.nav a[href="'+ "#/maintain/view" +'"]').parent().removeClass('active');
-			$('ul.nav a[href="'+ "#/reimb" +'"]').parent().removeClass('active');
-			$('ul.nav a[href="'+ "#/projection" +'"]').parent().removeClass('active');
-
-			// activate current selection.
-
-			$('ul.nav a[href="'+ name +'"]').parent().addClass('active');
-
-			$('ul.nav a').filter(function() {
-				return this.href == name;
-			}).parent().addClass('active');
-
-			};
-
-   		</script>
-		
-	</body>
+	<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://code.angularjs.org/1.5.8/angular.js"></script>
+	<script src="https://code.angularjs.org/1.5.8/angular-route.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+</body>
 </html>
