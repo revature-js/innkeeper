@@ -18,7 +18,7 @@ exports.findAllTickets = function(req,res){
 	
 };
 
-exports.submitNewTicket = function(ticket)
+exports.submitNewTicket = function($scope)
 {
 
  MongoClient.connect(url, function (err, db) 
@@ -31,13 +31,13 @@ exports.submitNewTicket = function(ticket)
     	var newTicket = collection.insert
     	(
 	    	{
-				category: ticket.category,
-				description: ticket.description,
-				startDate: ticket.startDate,
+				category: $scope.category,
+				description: $scope.description,
+				startDate: $scope.startDate,
 				completeDate: 0,
-				status: ticket.status,
-				aptID: ticket.aptID,
-				usr: ticket.usr
+				status: $scope.status,
+				aptID: $scope.aptID,
+				usr: $scope.usr
 
 			}
 
