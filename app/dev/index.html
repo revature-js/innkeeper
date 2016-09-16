@@ -38,26 +38,33 @@
 					<a class="navbar-brand">InnKeeper</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li ng-class="{active: isActive('/apartments')}">
-						<a href="#/apartments">Rooms and Apartments</a>
+					<li ng-class="{active: isActive('apartments')}">
+						<a href="">Rooms and Apartments</a>
 					</li>
-					<li ng-class="{active: isActive('/reimbursement')}">
-						<a href="#/reimbursement">Reimbursements</a>
+					<li class="dropdown" ng-class="{active: isActive('reimbursement')}" >
+						<a class="dropdown-toggle" data-toggle="dropdown" href="">Reimbursement
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#/reimbursement">View</a></li>
+							<li><a href="#/reimbursement/manage">Manage</a></li>
+						</ul>
 					</li>
-					<li class="dropdown" ng-class="{active: isActive('/maintenance')}">
+					<li class="dropdown" ng-class="{active: isActive('maintenance')}">
 						<a class="dropdown-toggle" data-toggle="dropdown">Maintenance
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="#/maintenance">View</a></li>
-							<li><a href="#/maintenance/manage">Manage</a></li>
+							<li><a href="">View</a></li>
+							<li><a href="">Manage</a></li>
 						</ul>
 					</li>
-					<li ng-class="{active: isActive('/projection')}">
-						<a href="#/projection">Projection</a>
+					<li ng-class="{active: isActive('projection')}">
+						<a href="">Projection</a>
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+					<li>
+						<a href=""><span class="glyphicon glyphicon-log-in"></span> Login</a>
+					</li>
 				</ul>
 			</div>
 		</nav>
@@ -69,6 +76,12 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://code.angularjs.org/1.5.8/angular.js"></script>
 	<script src="https://code.angularjs.org/1.5.8/angular-route.js"></script>
+
+	<script src="reimbursement/controllers/reimbursementController.js"></script>
+	<script src="reimbursement/controllers/reimbursementAdminController.js"></script>
+	<script src="reimbursement/services/reimbursementService.js"></script>
+	<script src="reimbursement/assets/common.js"></script>
+
 	<script type="text/javascript" src="app.js"></script>
 </body>
 </html>
