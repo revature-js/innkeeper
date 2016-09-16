@@ -10,7 +10,7 @@
 			<div ng-hide="emptyHistory" class="panel-body">
 				<nav class="col-md-4 well">
 					<ul class="nav nav-pills nav-stacked" ng-click="setSidebarActive($event)">
-					    <li class="navButton nav-link" ng-repeat="line in burseHistory" ng-click="display($index)">
+					    <li class="navButton nav-link" ng-repeat="line in burseHistory" ng-click="display(line)">
 					    	<a href="">
 					    		{{line.date | date : 'M/d/yyyy'}} - {{line.type}}: {{line.desc}} - {{line.amount | currency}}
 					    	</a>
