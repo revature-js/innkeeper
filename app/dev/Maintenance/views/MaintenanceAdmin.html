@@ -180,21 +180,23 @@
         </div>
     </div>
 
-    <div ng-model = 'ticketsPulled' ng-repeat='ones in ticketHistory'>
+    <div ng-model = 'ticketsPulled' >
+      <div ng-repeat='ones in ticketSubmission'>
 
-    <span class='ticketsPulled'>
+      <span class='ticketsPulled'>
         
         <!-- <label for='Category'>Category</label> -->
-        {{ones.ticketHistory}}
+        {{ones.ticketSubmission.category}}
         
 
        
        
         
 
-    </span>
+      </span>
         <!-- dynamic data -->
 
+      </div>
     </div>
 
 

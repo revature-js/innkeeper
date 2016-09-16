@@ -39,7 +39,7 @@ maintenance.controller('maintenanceAdminCtrl', function($scope){
 			usr:''});
 
 		console.log($scope.ticketSubmission[0].aptID);
-		alert($scope.ticketSubmission[0].aptID);
+		alert($scope.ticketSubmission[0]);
 	}
 
 
