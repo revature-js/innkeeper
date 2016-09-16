@@ -9,9 +9,6 @@ module.exports = {
 	entry: glob.sync(DEV_DIR + '/**/*.js'),
 	output: {
 		path: BUILD_DIR,
-		filename: "bundle.min.js"
-	},
-	plugins: [
-		new webpack.optimize.UglifyJsPlugin()
-	]
+		filename: "bundle.js"
+	}
 };
