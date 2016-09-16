@@ -5,7 +5,7 @@ login.controller('loginCtrl', function($scope,$window,loginFactory){
 	var successFunction = function(data){
 		$scope.data = data;
 		//console.log($scope.data.data);
-	};
+	}
 
 	var errorFunction = function(err){
 		$scope.data = err;

@@ -1,0 +1,47 @@
+/*
+ *	css/style.css
+ *		- CSS Styles.
+ */
+
+body {
+	
+	background: linear-gradient(180deg, #aaaaff, white);	
+	height:100%;
+	background-attachment:fixed;
+}
+
+#content {
+
+	padding-left: 50px;
+	padding-top:100px;
+	padding-bottom:80px;
+	margin-bottom:30px;
+}
+
+#projections_view {
+
+	display: none;
+}
+
+/* 768px is size of bootstrap menu before
+it switches from horizontal to vertical mode.
+We don't want borders when in vertical mode.
+This scales with zoom level. */
+@media (min-width: 768px) {
+
+//	.navbar_border {
+//		 border-right:1px solid white;
+//	}
+}
+
+.user_admin {
+	
+	color:red;
+	font-weight:bold;
+}
+
+.user_standard {
+	
+	color:green;
+	font-weight:bold;
+}
