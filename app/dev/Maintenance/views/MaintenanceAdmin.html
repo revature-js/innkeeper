@@ -13,10 +13,10 @@
 <br>
 
 <div ng-app ='maintananceApp'>
-<div class= "container" id='maintenance' >
+<div class= "container"  >
 
 <div class='well'>
-  <form class='form-inline'>
+  <form class='form-inline' ng-submit='submitNewTicket()'>
     <div class='row'>
       <div class='col-md-4'>
          <div class='form-group'>
@@ -46,7 +46,7 @@
       <div class='col-md-4'>
         
           <h2><label for='descript'><span class="glyphicon glyphicon-comment"></span> Description </label></h2>
-          <textarea class='form-control' rows='3' cols='30' id='descript'></textarea>
+          <textarea class='form-control' rows='3' cols='30' id='descript' placeholder="Enter details here."></textarea>
         
       </div>
 
@@ -61,7 +61,7 @@
     <div class='row'>
 
       <div class='col-sm-11'></div>
-      <div class='col-m-1'> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil" ng-click='submitNewTicket()' ></span> Submit</button>  
+      <div class='col-m-1'> <input type="submit" class="btn btn-primary"> 
     </div>
     </div>
   </div>
@@ -172,7 +172,37 @@
         </div>
     </div>
 
-    <div class="row" ng-repeat=''>
+    <div class="row" ng-model = 'ticketsPulled' ng-repeat='ones in tickets'>
+
+      <div class="col-sm-2">
+        <!-- <label for='Category'>Category</label> -->
+        {{ones.ticketHistory.category}}
+        </div>
+
+        <div class="col-sm-2">
+        <!-- <label for='Description'>Description</label> -->
+        {{ones.ticketHistory.description}}
+        </div>
+
+        <div class="col-sm-2">
+        <!-- <label for='Apartment'>Apartment</label> -->
+        {{ones.ticketHistory.aptID}}
+        </div>
+
+        <div class="col-sm-2">
+        <!-- <label for='Start Date'>Start Date</label> -->
+        {{ones.ticketHistory.startDate}}
+        </div>
+
+        <div class="col-sm-2">
+        <!-- <label for='Complete Date'>Complete Date</label> -->
+        {{ones.ticketHistory.completeDate}}
+        </div>
+
+        <div class="col-sm-2">
+        <!-- <label for='Status'>Status</label> -->
+        {{ones.ticketHistory.status}}
+        </div>
 
 
         <!-- dynamic data -->
@@ -189,13 +219,6 @@
 
 </div>
 </div>
-
-
-
-
-
-
-
 
 
 

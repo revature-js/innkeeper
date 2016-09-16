@@ -20,9 +20,13 @@ maintenance.controller('maintenanceAdminCtrl', function($scope, ticketFactory){
 	getAllTickets();
 
 	$scope.submitNewTicket  = function(){
-		$scope.ticketSubmission.push({category:'',description:'',startDate:'',
-		completeDate:'',status:'Submitted',aptID:'',usr:''})
+		$scope.ticketSubmission.push({category:$scope.category,description:'',startDate:'',
+		completeDate:'',status:'Submitted',aptID:'',usr:''});
+
+		console.log(ticketSubmission.category);
+		alert(ticketSubmission.category);
 	}
+
 
 
 });

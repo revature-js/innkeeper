@@ -34,7 +34,7 @@ exports.submitNewTicket = function($scope)
 				category: $scope.category,
 				description: $scope.description,
 				startDate: $scope.startDate,
-				completeDate: 0,
+				completeDate: $scope.completeDate,
 				status: $scope.status,
 				aptID: $scope.aptID,
 				usr: $scope.usr
