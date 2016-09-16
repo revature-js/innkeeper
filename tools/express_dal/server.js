@@ -23,8 +23,12 @@ app.use(bodyParser.json());
 
 app.get('/reimbursements', reimbursement.findAllReimbursements);
 app.get('/reimbursements/:id', reimbursement.findReimbursementById);
+app.get('/apartments', apartments.findAllApartments);
+app.get('/apartments/:userName', apartments.findApartmentsByUsername);
 app.post('/reimbursements', reimbursement.addReimbursement);
-app.post('/reimbursements/:id',reimbursement.updateReimbursement)
+app.post('/reimbursements/:id',reimbursement.updateReimbursement);
+app.post('/apartments', apartment.addApartment);
+app.post('/apartments/:userName',apartment.updateApartment)
 
 app.listen(3030);
 console.log('Listening on port 3030...');
