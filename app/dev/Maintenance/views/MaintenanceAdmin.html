@@ -26,9 +26,9 @@
          <div class='form-group'>
 
           <h2><label for='category'><span class="glyphicon glyphicon-menu-hamburger"></span> Category</label></h2><!-- dynamic populate -->
-            <select class= 'form-control' ng-model='category'>
+            <select class= 'form-control' ng-model='category' >
 
-              <option>---Choose---</option>
+              
               <option>Broken item</option>
               <option>Missing item</option>
               <option>Request item</option>
@@ -48,9 +48,13 @@
       </div>
 
       <div class='col-md-4'>
-        
-          <h2><label for='descript'><span class="glyphicon glyphicon-comment"></span> Description </label></h2>
-          <textarea class='form-control' rows='3' cols='30' id='descript' placeholder="Enter details here."></textarea>
+          
+            <h2><label for='descript'><span class="glyphicon glyphicon-comment"></span>     Description 
+            </label></h2>
+
+            <textarea class='form-control' rows='3' cols='30' ng-model='descript' placeholder="Enter details here.">
+              
+            </textarea>
         
       </div>
 
@@ -129,7 +133,7 @@
 </div>
         <div class="col-sm-3">
 
-        <input type='date'>
+          <input type='date'>
 
 
         </div>
@@ -176,39 +180,19 @@
         </div>
     </div>
 
-    <div class="row" ng-model = 'ticketsPulled' ng-repeat='ones in tickets'>
+    <div ng-model = 'ticketsPulled' ng-repeat='ones in ticketHistory'>
 
-      <div class="col-sm-2">
+    <span class='ticketsPulled'>
+        
         <!-- <label for='Category'>Category</label> -->
-        {{ones.ticketHistory.category}}
-        </div>
+        {{ones.ticketHistory}}
+        
 
-        <div class="col-sm-2">
-        <!-- <label for='Description'>Description</label> -->
-        {{ones.ticketHistory.description}}
-        </div>
+       
+       
+        
 
-        <div class="col-sm-2">
-        <!-- <label for='Apartment'>Apartment</label> -->
-        {{ones.ticketHistory.aptID}}
-        </div>
-
-        <div class="col-sm-2">
-        <!-- <label for='Start Date'>Start Date</label> -->
-        {{ones.ticketHistory.startDate}}
-        </div>
-
-        <div class="col-sm-2">
-        <!-- <label for='Complete Date'>Complete Date</label> -->
-        {{ones.ticketHistory.completeDate}}
-        </div>
-
-        <div class="col-sm-2">
-        <!-- <label for='Status'>Status</label> -->
-        {{ones.ticketHistory.status}}
-        </div>
-
-
+    </span>
         <!-- dynamic data -->
 
     </div>

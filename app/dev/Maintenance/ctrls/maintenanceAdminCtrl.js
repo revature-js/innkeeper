@@ -20,11 +20,26 @@ maintenance.controller('maintenanceAdminCtrl', function($scope){
 	//getAllTickets();
 
 	$scope.submitNewTicket  = function(){
-		$scope.ticketSubmission.push({category:$scope.category,description:$scope.description
-			,startDate:'',completeDate:'',status:'Submitted',aptID:'',usr:''});
+		$scope.ticketSubmission.push({
+			category:$scope.category,
+			description:$scope.description,
+			startDate:'',
+			completeDate:'',
+			status:'Submitted',
+			aptID:$scope.apartment,
+			usr:''});
 
-		console.log($scope.ticketSubmission[0].category);
-		alert($scope.ticketSubmission[0].category);
+		$scope.ticketHistory.push({
+			category:$scope.category,
+			description:$scope.description,
+			startDate:'',
+			completeDate:'',
+			status:'Submitted',
+			aptID:$scope.apartment,
+			usr:''});
+
+		console.log($scope.ticketSubmission[0].aptID);
+		alert($scope.ticketSubmission[0].aptID);
 	}
 
 
