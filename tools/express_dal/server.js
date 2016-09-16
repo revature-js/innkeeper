@@ -33,7 +33,7 @@ app.post('/apartments', apartment.addApartment);
 app.post('/apartments/:userName',apartment.updateApartment);
 
 app.get('/maintenance', maintenance.findAllTickets);
-app.get('/maintenance', maintenance.findTicketByUser);
+app.get('/maintenance/:userName', maintenance.findTicketByUser);
 app.get('/maintenance', maintenance.getAllCategories);
 app.get('/maintenance', maintenance.getAllApartments);
 app.post('/maintenance', maintenance.submitNewTicket);
