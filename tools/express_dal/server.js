@@ -6,6 +6,8 @@ var app = express();
 
 var reimbursement = require('./reimbursement');
 
+var maintenance = require('./maintenance');
+
 app.use(function(req, res, next) {
   var allowedOrigins = ['http://127.0.0.1:3000', 'http://localhost:3000'];
   var origin = req.headers.origin;
@@ -28,7 +30,14 @@ app.get('/apartments/:userName', apartments.findApartmentsByUsername);
 app.post('/reimbursements', reimbursement.addReimbursement);
 app.post('/reimbursements/:id',reimbursement.updateReimbursement);
 app.post('/apartments', apartment.addApartment);
-app.post('/apartments/:userName',apartment.updateApartment)
+app.post('/apartments/:userName',apartment.updateApartment);
+
+app.get('/maintenance', maintenance.findAllTickets);
+app.get('/maintenance', maintenance.findTicketByUser);
+app.get('/maintenance', maintenance.getAllCategories);
+app.get('/maintenance', maintenance.getAllApartments);
+app.post('/maintenance', maintenance.submitNewTicket);
+app.post('/maintenance/:id', maintenance.updateTicket)
 
 app.listen(3030);
 console.log('Listening on port 3030...');
