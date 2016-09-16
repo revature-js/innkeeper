@@ -9,7 +9,8 @@ var app = angular.module("mainApp",['ngRoute',
 									'loginModule',
 									'registerModule',
 									'maintenanceApp',
-									'apartmentApp']);
+									'apartmentApp',
+									'projectionApp']);
 
 /**
 *	Configure routing paths. Responsible for
@@ -45,8 +46,9 @@ app.config(function($routeProvider) {
 		templateUrl: "reimbursement/views/reimbursement_admin.html",
 		controller: "BurseAdminCtrl"
 	})
-	.when("/projection", {
-		templateUrl: ""
+	.when("/projections", {
+		templateUrl: "projections/views/projections.html",
+		controller: "projectionCtrl"
 	})
 	.when("/login", {
 		templateUrl: "loginRegistration/views/login.html",
