@@ -28,11 +28,12 @@ app.get('/reimbursements/:id', reimbursement.findReimbursementById);
 app.post('/reimbursements', reimbursement.addReimbursement);
 app.post('/reimbursements/:id',reimbursement.updateReimbursement);
 
-app.get('/reimbursements', reimbursement.findAllTickets);
-app.get('/reimbursements', reimbursement.findTicketByUser);
-app.get('/reimbursements', reimbursement.getAllCategories);
-app.post('/reimbursements', reimbursement.submitNewTicket);
-app.post('/reimbursements', reimbursement.updateTicket);
+app.get('/maintenance', maintenance.findAllTickets);
+app.get('/maintenance', maintenance.findTicketByUser);
+app.get('/maintenance', maintenance.getAllCategories);
+app.get('/maintenance', maintenance.getAllApartments);
+app.post('/maintenance', maintenance.submitNewTicket);
+app.post('/maintenance', maintenance.updateTicket)
 
 app.listen(3030);
 console.log('Listening on port 3030...');

@@ -1,4 +1,6 @@
-app.controller('maintenanceAdminCtrl', function($scope, ticketFactory){
+var maintenance = angular.module('maintenanceLab', []);
+
+maintenance.controller('maintenanceAdminCtrl', function($scope, ticketFactory){
 	ticketFactory.getAllTickets().then(function(data){
 		$scope.tickets = data;
 	},
