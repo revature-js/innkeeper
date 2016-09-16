@@ -6,25 +6,29 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.5/angular.min.js"></script>
+  <script src="../ctrls/maintenanceAdminCtrl.js"></script>
   
 </head>
 <body>
 
 <br>
 
-
-<div class= "container" id='app' >
+<div ng-app ='maintananceApp' ng-controller='maintenanceAdminCtrl'>
+<div class= "container"  >
 
 <div class='well'>
-  <form class='form-inline'>
+  <form class='form-inline' ng-submit='submitNewTicket()'>
     <div class='row'>
       <div class='col-md-4'>
          <div class='form-group'>
 
           <h2><label for='category'><span class="glyphicon glyphicon-menu-hamburger"></span> Category</label></h2><!-- dynamic populate -->
-            <select class= 'form-control' id='category'>
+            <select class= 'form-control' ng-model='category' >
 
-              <option>---Choose---</option>
+              
               <option>Broken item</option>
               <option>Missing item</option>
               <option>Request item</option>
@@ -33,8 +37,8 @@
         </div>
       </div>
       <div class='col-md-4'> <!-- dynamic populate -->
-      <h2><label for='category'><span class="glyphicon glyphicon-bed"></span> Apartment</label></h2>
-            <select class= 'form-control' id='category'>
+      <h2><label for='apartment'><span class="glyphicon glyphicon-bed"></span> Apartment</label></h2>
+            <select class= 'form-control' ng-model='apartment'>
   
               <option>Apt1</option>
               <option>Apt2</option>
@@ -44,9 +48,13 @@
       </div>
 
       <div class='col-md-4'>
-        
-          <h2><label for='descript'><span class="glyphicon glyphicon-comment"></span> Description </label></h2>
-          <textarea class='form-control' rows='3' cols='30' id='descript'></textarea>
+          
+            <h2><label for='descript'><span class="glyphicon glyphicon-comment"></span>     Description 
+            </label></h2>
+
+            <textarea class='form-control' rows='3' cols='30' ng-model='descript' placeholder="Enter details here.">
+              
+            </textarea>
         
       </div>
 
@@ -60,15 +68,16 @@
   <br>
     <div class='row'>
 
-    <div class='col-sm-11'></div>
-    <div class='col-m-1'> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Submit</button>  </div>
+      <div class='col-sm-11'></div>
+      <div class='col-m-1'> <input type="submit" class="btn btn-primary"> 
     </div>
-</div>
+    </div>
+  </div>
     
   </form> 
 
 
-    </div>
+</div>
     </div>
     <br>
  
@@ -101,7 +110,7 @@
 
     <div class="row">
       <div class="col-sm-3">
-          <select name="multipleSelect" id="multipleSelect"  multiple>
+          <select name="multipleSelect" id="multipleSelectCategory"  multiple>
             <option value="option-1">Broken Item</option>
             <option value="option-2">Missing Item</option>
             <option value="option-3">Another One</option>
@@ -116,7 +125,7 @@
 
         <div class="col-sm-3">
 
-        <select name="multipleSelect" id="multipleSelect"  multiple>
+        <select name="multipleSelect" id="multipleSelectStatus"  multiple>
       <option value="option-1">Submitted</option>
       <option value="option-2">In-Progress</option>
       <option value="option-3">Complete</option>
@@ -124,7 +133,7 @@
 </div>
         <div class="col-sm-3">
 
-        <input type='date'>
+          <input type='date'>
 
 
         </div>
@@ -137,7 +146,7 @@
   <div class='row'>
    <div class='col-sm-2'><h4><span class="glyphicon glyphicon-th-list"></span> Results:</h4></div>
    
-    <div class='col-m-1 col-sm-offset-10' >  <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Save Changes</button> 
+    <div class='col-m-1 col-sm-offset-10' >  <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-save"  ></span> Save Changes</button> 
     </div>
  
 
@@ -171,10 +180,22 @@
         </div>
     </div>
 
-    <div class="row">
+    <div ng-model = 'ticketsPulled' >
+      <div ng-repeat='ones in ticketSubmission'>
 
+      <span class='ticketsPulled'>
+        
+        <!-- <label for='Category'>Category</label> -->
+        {{ones.ticketSubmission.category}}
+     
+       
+       
+        
+
+      </span>
         <!-- dynamic data -->
 
+      </div>
     </div>
 
 
@@ -186,14 +207,7 @@
 
 
 </div>
-
-
-
-
-
-
-
-
+</div>
 
 
 
