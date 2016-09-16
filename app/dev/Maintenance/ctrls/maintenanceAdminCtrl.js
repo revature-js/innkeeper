@@ -1,4 +1,4 @@
-var maintenance = angular.module('maintenanceApp', []);
+var maintenance = angular.module('maintananceApp', []);
 
 maintenance.controller('maintenanceAdminCtrl', function($scope, ticketFactory){
 	$scope.ticketSubmission = [];
@@ -17,11 +17,11 @@ maintenance.controller('maintenanceAdminCtrl', function($scope, ticketFactory){
 	);
 
 	};
-	getAllTickets();
+	//getAllTickets();
 
 	$scope.submitNewTicket  = function(){
-		$scope.ticketSubmission.push({category:$scope.category,description:'',startDate:'',
-		completeDate:'',status:'Submitted',aptID:'',usr:''});
+		$scope.ticketSubmission.push({category:$scope.category,description:$scope.description
+			,startDate:'',completeDate:'',status:'Submitted',aptID:'',usr:''});
 
 		console.log(ticketSubmission.category);
 		alert(ticketSubmission.category);
