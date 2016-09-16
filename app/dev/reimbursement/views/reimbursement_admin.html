@@ -1,4 +1,4 @@
-<div ng-app="burseManager">
+<div ng-app="reimbursementApp">
 	<div class="container">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
@@ -45,28 +45,16 @@
 							</div>
 						</div>
 						<div class="form-group" ng-hide="completed">
-							<label class="col-md-2">Comments: </label>
-							<div class="col-md-9">
-								<span>{{displayBurse.comment}}</span>
-							</div>
-						</div>
-						<div class="form-group" ng-hide="completed">
 							<label class="col-md-2">Status: </label>
 							<div class="col-md-9">
 								<span>{{displayBurse.status}}</span>
 							</div>
 						</div>
-						<div class="form-group" ng-show="completed">
-							<label class="col-md-2">Comments: </label>
-							<div class="col-md-9">
-								<textarea class="form-control" ng-model="displayBurse.comment" rows="4"></textarea>
-							</div>
-						</div>
-						<div class="btn-group  col-md-offset-9">
-							<button class="btn btn-success" ng-show="completed" ng-click="makeDecision('Approved')">
+						<div class="btn-group" ng-show="completed">
+							<button class="btn btn-success" ng-click="makeDecision('Approved')">
 								Approve
 							</button>
-							<button class="btn btn-danger" ng-show="completed" ng-click="makeDecision('Denied')">
+							<button class="btn btn-danger" ng-click="makeDecision('Denied')">
 								Deny
 							</button>
 						</div>
