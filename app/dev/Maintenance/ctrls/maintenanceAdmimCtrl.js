@@ -1,8 +1,11 @@
-dalDemo.controller('dataCtrl', function($scope, dataFactory){
-	dataFactory.getAllTickets().then(function(data){
+app.controller('maintenanceAdminCtrl', function($scope, ticketFactory){
+	ticketFactory.getAllTickets().then(function(data){
 		$scope.tickets = data;
 	},
-	function(){
-		$scope.error = 'cannot find them tickets';
-	});
+	 $http.get('')
+        .success(function (data) {
+			$scope.storyList = data;
+			
+			
+        });
 });
