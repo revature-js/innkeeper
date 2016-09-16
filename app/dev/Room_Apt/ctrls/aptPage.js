@@ -1,7 +1,7 @@
 /*app.controller('apt_list_user', function($scope, myserv) {
      $scope.apt=myserv.func();
 });*/
-app.controller('apt_list_admin', function($scope, myfact) {
+ApartmentApp.controller('apt_list_admin', function($scope, myfact) {
      var successFunction = function(data){
         var data=data.data;
             $scope.search = function(username) {
@@ -38,7 +38,7 @@ app.controller('apt_list_admin', function($scope, myfact) {
         }
     };
 });
-app.controller('apt_list_user',function($scope,myfact)
+ApartmentApp.controller('apt_list_user',function($scope,myfact)
 {
     var successFunction = function(data){
         $scope.data=data.data;
