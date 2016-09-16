@@ -47,4 +47,17 @@ exports.submitNewTicket = function(ticket)
  });
  	db.close();
 	
+};
+
+
+exports.getAllCategories = function(req,res){//fix to find only categories
+	MongoClient.connect(url, function(err,db){
+		var collection = db.collection('maintenanceIK');
+		collection.find().toArray(function(err,tickets){
+			if(!err){
+				res.send(tickets);
+			}
+		});
+		db.close();
+	});
 }
