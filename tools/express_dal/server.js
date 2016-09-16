@@ -6,6 +6,8 @@ var app = express();
 
 var reimbursement = require('./reimbursement');
 
+var maintenance = require('./maintenance');
+
 app.use(function(req, res, next) {
   var allowedOrigins = ['http://127.0.0.1:3000', 'http://localhost:3000'];
   var origin = req.headers.origin;
@@ -24,7 +26,13 @@ app.use(bodyParser.json());
 app.get('/reimbursements', reimbursement.findAllReimbursements);
 app.get('/reimbursements/:id', reimbursement.findReimbursementById);
 app.post('/reimbursements', reimbursement.addReimbursement);
-app.post('/reimbursements/:id',reimbursement.updateReimbursement)
+app.post('/reimbursements/:id',reimbursement.updateReimbursement);
+
+app.get('/reimbursements', reimbursement.findAllTickets);
+app.get('/reimbursements', reimbursement.findTicketByUser);
+app.get('/reimbursements', reimbursement.getAllCategories);
+app.post('/reimbursements', reimbursement.submitNewTicket);
+app.post('/reimbursements', reimbursement.updateTicket);
 
 app.listen(3030);
 console.log('Listening on port 3030...');
