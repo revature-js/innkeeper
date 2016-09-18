@@ -4,7 +4,7 @@
  */
  
 // main module.
-var app = angular.module("mainApp",['ngRoute']);
+var app = angular.module("mainApp",['ngRoute','reimbursementApp']);
 
 //'reimbursementApp','loginModule','registerModule','maintenanceApp','apartmentApp'
 
@@ -21,7 +21,7 @@ app.controller('NavbarCtrl',function($scope, $location){
 	$scope.admin = true;
 
 	$scope.isActive = function (viewLocation) { 
-        return viewLocation === $location.path();
+        return $location.path().includes(viewLocation);
     };
 });
 

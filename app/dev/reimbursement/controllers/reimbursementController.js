@@ -1,4 +1,4 @@
-var reimbursement = angular.module("burseManager", []);
+var reimbursement = angular.module("reimbursementApp", []);
 
 reimbursement.controller("BurseCtrl", function($scope, burseService) {
 
@@ -36,7 +36,6 @@ reimbursement.controller("BurseCtrl", function($scope, burseService) {
 			alert("Must complete all rows before submitting");
 		}
 		else {
-			
 			burseService.addReimbursement($scope.burseSubmit).then(
 				function(){
 					$scope.burseSubmit = [{date:"",type:"Select a Type",desc:"",amount:"",status:"In Progress"}];
