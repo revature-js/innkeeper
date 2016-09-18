@@ -4,7 +4,7 @@
  */
  
 // main module.
-var app = angular.module("mainApp",['ngRoute']);
+var app = angular.module("mainApp",['ngRoute',"ApartmentApp"]);
 
 //'reimbursementApp','loginModule','registerModule','maintenanceApp','apartmentApp'
 
