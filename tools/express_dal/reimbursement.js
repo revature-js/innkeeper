@@ -48,5 +48,20 @@ exports.addReimbursement = function(req,res){
 };
 
 exports.updateReimbursement = function (req,res){
-
+	client.connect(url, function(err,db){
+		var id = req.params.id;
+		var decision = req.params.decision;
+		console.log(id);
+		console.log(decision);
+		var collection = db.collection('reimbursementsIK');
+		collection.updateOne({'_id': ObjectID(id)},{$set:{'status': decision}}, function(err, result){
+			if(err){
+				res.send({'error':'An error has occured'});
+			}
+			else {
+				res.send(result);
+			}
+		});
+		db.close();
+	});
 };
