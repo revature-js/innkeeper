@@ -3,6 +3,11 @@ maintenanceAdmin.factory('dataFactory', function($http){
 
 	var fatory = {};
 
+	factory.getAllTickest = function(){
+		$http.get('mongodb://innkeeper:inn123@ds017636.mlab.com:17636/rlms',
+			data);
+	}
+
 	factory.getCategories = function(){
 		return['Request Item','Missing Item','Broken Item'];
 	};
@@ -16,13 +21,15 @@ maintenanceAdmin.factory('dataFactory', function($http){
 
 	};
 
-	factory.updateTicket = function(data){
+	factory.updateTicket = function(data,update){
+		return $http.post('mongodb://innkeeper:inn123@ds017636.mlab.com:17636/rlms',
+			data._id);
 
 	};
 
 
 	factory.sumbmitTicket = function(data){
-		$http.post('mongodb://innkeeper:inn123@ds017636.mlab.com:17636/rlms',
+		return $http.post('mongodb://innkeeper:inn123@ds017636.mlab.com:17636/rlms',
 			data);
 		
 	}
