@@ -39,8 +39,20 @@ maintenance.controller('maintenanceAdminCtrl', function($scope){
 			aptID:$scope.apartment,
 			usr:''});
 
-		console.log($scope.ticketSubmission.category);
-		alert($scope.ticketSubmission.category);
+		// console.log($scope.ticketSubmission.category);
+		// alert($scope.ticketSubmission.category);
+	}
+
+	$scope.dateFilter = function(property, beginDate){
+		return function(item){
+			if(item[property] === null) return false;
+
+			var itemDate = moment(item[property]);
+			var start = moment(beginDate,"DD-MM-YYYY");
+
+			if (itemDate >= start) return true;
+			return false
+		}
 	}
 
 

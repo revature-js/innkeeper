@@ -107,30 +107,30 @@
 
     <div class="row">
       <div class="col-sm-3">
-          <select name="multipleSelect" ng-model="multipleSelectCategory"  multiple>
-            <option value="option-1">Broken Item</option>
-            <option value="option-2">Missing Item</option>
-            <option value="option-3">Another One</option>
+          <select name="multipleSelect" ng-model="search.category"  multiple>
+            <option value="Broken Item">Broken Item</option>
+            <option value="Missing Item">Missing Item</option>
+            <option value="Request Item">Request Item</option>
           </select>
 
       </div>
        
       <div class="col-sm-3">
-        <input type="text" ng-model='selectApartment'>
+        <input type="text" ng-model='search.aptID'>
       </div>
 
 
         <div class="col-sm-3">
 
-        <select name="multipleSelect" ng-model="multipleSelectStatus"  multiple>
-      <option value="option-1">Submitted</option>
-      <option value="option-2">In-Progress</option>
-      <option value="option-3">Complete</option>
+        <select name="multipleSelect" ng-model="search.status"  multiple>
+      <option value="Submitted">Submitted</option>
+      <option value="In-Progress">In-Progress</option>
+      <option value="Complete">Complete</option>
     </select>
 </div>
         <div class="col-sm-3">
 
-          <input type='date' ng-model='selectDate'>
+          <input type='date' ng-model='search.startDate'>
 
 
         </div>
@@ -183,7 +183,7 @@
         </div>
     </div>
 
-    <div ng-repeat='ones in ticketSubmission | filter:selectApartment'>
+    <div ng-repeat='ones in ticketSubmission | filter:search  '>
       <div class="row">
       
          <div class="col-sm-2">
@@ -199,7 +199,7 @@
         </div>
 
         <div class="col-sm-2">
-       {{ ones.startDate | date }}
+       {{ ones.startDate | date:'MM-dd-yyyy' }}
         </div>
 
         <div class="col-sm-2">
