@@ -8,6 +8,8 @@ var reimbursement = require('./reimbursement');
 
 var maintenance = require('./maintenance');
 
+var projections = require('./projections')
+
 app.use(function(req, res, next) {
   var allowedOrigins = ['http://127.0.0.1:3000', 'http://localhost:3000'];
   var origin = req.headers.origin;
@@ -38,6 +40,9 @@ app.post('/reimbursements/:id/:decision',reimbursement.updateReimbursement);
 //app.get('/maintenance', maintenance.getAllApartments);
 //app.post('/maintenance', maintenance.submitNewTicket);
 //app.post('/maintenance/:id', maintenance.updateTicket)
+
+app.get('/projections', projections.getAllBatches);
+app.get('/projections', projections.getAllApartments);
 
 app.listen(3030);
 console.log('Listening on port 3030...');
