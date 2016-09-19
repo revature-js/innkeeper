@@ -1,10 +1,10 @@
 maintenanceAdmin.factory('dataFactory', function($http){
 	
 
-	var fatory = {};
+	var factory = {};
 
 	factory.getAllTickest = function(){
-		$http.get('mongodb://innkeeper:inn123@ds017636.mlab.com:17636/rlms',
+		$http.get('http://localhost:3030/maintenanceTickets',
 			data);
 	}
 
@@ -17,19 +17,17 @@ maintenanceAdmin.factory('dataFactory', function($http){
 	};
 
 
-	factory.getTicketsByUser = function(){
-
-	};
+	
 
 	factory.updateTicket = function(data,update){
-		return $http.post('mongodb://innkeeper:inn123@ds017636.mlab.com:17636/rlms',
-			data._id);
+		return $http.post('http://localhost:3030/maintenanceTickets'+
+			data._id+'/'+update);
 
 	};
 
 
 	factory.sumbmitTicket = function(data){
-		return $http.post('mongodb://innkeeper:inn123@ds017636.mlab.com:17636/rlms',
+		return $http.post('http://localhost:3030/maintenanceTickets',
 			data);
 		
 	}

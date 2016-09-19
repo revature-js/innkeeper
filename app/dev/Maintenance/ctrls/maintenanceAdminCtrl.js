@@ -31,7 +31,7 @@ maintenance.controller('maintenanceAdminCtrl', function($scope){
 			completeDate:$scope.completeDate,
 			status:$scope.status,
 			aptID:$scope.apartment,
-			usr:''});
+			usr:$scope.usr});
 
 		$scope.ticketHistory.push({
 			category:$scope.category,
@@ -40,7 +40,7 @@ maintenance.controller('maintenanceAdminCtrl', function($scope){
 			completeDate:$scope.completeDate,
 			status:$scope.status,
 			aptID:$scope.apartment,
-			usr:''});
+			usr:$scope.usr});
 
 		// console.log($scope.ticketSubmission.category);
 		// alert($scope.ticketSubmission.category);
