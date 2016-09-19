@@ -1,4 +1,4 @@
-var projectionApp = angular.module('test', []);
+var projectionApp = angular.module('projectionApp', []);
 projectionApp.controller('projectionCtrl',
 	function($scope, batchfactory,apartmentFactory){
 		
