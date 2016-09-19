@@ -1,12 +1,34 @@
-dalDemo.factory('dataFactory', function($http){
-	var getAllTickets = function(){
-		var defer = $q.defer();
-		$http.get('mongodb://innkeeper:inn123@ds017636.mlab.com:17636/rlms').then(function(response){
-			defer.resolve(response.data);
-		}, function(response) {
-			defer.reject(response);
-		
-		});
+maintenanceAdmin.factory('dataFactory', function($http){
+	
 
-		return defer.promise;
+	var factory = {};
+
+	factory.getAllTickest = function(){
+		$http.get('http://localhost:3030/maintenanceTickets',
+			data);
+	}
+
+	factory.getCategories = function(){
+		return['Request Item','Missing Item','Broken Item'];
 	};
+
+	factory.getStatus = function(){
+		return['Submitted','In-Progress','Complete'];
+	};
+
+
+	
+
+	factory.updateTicket = function(data,update){
+		return $http.post('http://localhost:3030/maintenanceTickets'+
+			data._id+'/'+update);
+
+	};
+
+
+	factory.sumbmitTicket = function(data){
+		return $http.post('http://localhost:3030/maintenanceTickets',
+			data);
+		
+	}
+};

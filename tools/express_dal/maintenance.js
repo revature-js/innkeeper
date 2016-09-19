@@ -5,7 +5,7 @@ var MongoClient = require('mongodb').MongoClient
 var url = 'mongodb://innkeeper:inn123@ds017636.mlab.com:17636/rlms';
 
 
-exports.findAllTickets = function(req,res){
+exports.getAllTickets = function(req,res){
 	 MongoClient.connect(url, function(err,db){
 		var collection = db.collection('maintenanceIK');
 		collection.find().toArray(function(err,tickets){
@@ -16,6 +16,17 @@ exports.findAllTickets = function(req,res){
 		db.close();
 	});
 	
+};
+
+exports.getTicketsByUser = function(req, res){
+	MongoClient.connect(url, function(err,db){
+		var user = req.param.usr;
+		var collection = db.collection('maintenanceIK');
+		collection.find({usr:user}, function(err,item){
+			res.send(item);
+		});
+		db.close();
+	});
 };
 
 exports.submitNewTicket = function($scope)
@@ -50,14 +61,3 @@ exports.submitNewTicket = function($scope)
 };
 
 
-exports.getAllCategories = function(req,res){//fix to find only categories
-	MongoClient.connect(url, function(err,db){
-		var collection = db.collection('maintenanceIK');
-		collection.find().toArray(function(err,tickets){
-			if(!err){
-				res.send(tickets);
-			}
-		});
-		db.close();
-	});
-}
