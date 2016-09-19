@@ -1,7 +1,8 @@
 var maintenance = angular.module('maintenanceApp', []);
 
-maintenance.controller('maintenanceLab', function($scope, dataFactory){
-	maintenanceLab.findAllTickets().then(function(data){
+maintenance.controller('maintenanceCtrl', function($scope, dataFactory){
+	maintenanceCtrl.findAllTickets()
+	.then(function(data){
 		$scope.tickets = data;
 	},
 	function(){
