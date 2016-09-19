@@ -4,6 +4,7 @@
  */
  
 // main module.
+<<<<<<< HEAD
 var app = angular.module("mainApp",['ngRoute','reimbursementApp']);
 
 //'reimbursementApp','loginModule','registerModule','maintenanceApp','apartmentApp'
@@ -24,6 +25,15 @@ app.controller('NavbarCtrl',function($scope, $location){
         return $location.path().includes(viewLocation);
     };
 });
+=======
+var app = angular.module("mainApp",['ngRoute',
+									'reimbursementApp',
+									'loginModule',
+									'registerModule',
+									'maintenanceApp',
+									'apartmentApp',
+									'projectionApp']);
+>>>>>>> refs/remotes/origin/alex2
 
 /**
 *	Configure routing paths. Responsible for
@@ -55,6 +65,13 @@ app.config(function($routeProvider) {
 		templateUrl: "reimbursement/views/reimbursement_admin.html",
 		controller: "BurseAdminCtrl"
 	})
+<<<<<<< HEAD
+=======
+	.when("/projections", {
+		templateUrl: "projections/views/projections.html",
+		controller: "projectionCtrl"
+	})
+>>>>>>> refs/remotes/origin/alex2
 	.when("/login", {
 		templateUrl: "loginRegistration/views/login.html",
 		controller: "loginCtrl"
