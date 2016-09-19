@@ -4,26 +4,52 @@
  */
  
 // main module.
-var app = angular.module("mainApp",['ngRoute']);
+var app = angular.module("mainApp",['ngRoute','loginModule','registerModule']);
 
 //'reimbursementApp','loginModule','registerModule','maintenanceApp','apartmentApp'
 
-app.constant('seshkey',{
+app.constant('seshkeys',{
 	fname: "fname",
 	lname: "lname",
 	username: "username",
 	aptid: "aptId",
-	isAdmin: "isAdmin"
-})
+	isadmin: "isAdmin"
+});
 
-app.controller('NavbarCtrl',function($scope, $location){
+app.controller('NavbarCtrl',function($scope, $location,$window,seshkeys){
 
 	$scope.admin = true;
 
 	$scope.isActive = function (viewLocation) { 
         return viewLocation === $location.path();
     };
+
+    $scope.online = isOnline($window, seshkeys);
+    $scope.greetingMessage = $window.sessionStorage.getItem(seshkeys.fname) + " " + $window.sessionStorage.getItem(seshkeys.lname);
+
+
+$scope.logout=function()
+{
+	$window.sessionStorage.clear();
+	console.log(sessionStorage);
+	alert("Successful Logout");
+
+	$timeout(function(){
+		$location.path('/login');
+	});
+};
+
 });
+
+function isOnline(window,seshkeys){
+if(window.sessionStorage.getItem(seshkeys.username)===null)
+{
+	return true;
+}
+else{
+	return false;
+}
+};
 
 /**
 *	Configure routing paths. Responsible for
