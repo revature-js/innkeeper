@@ -21,21 +21,24 @@ maintenance.controller('maintenanceAdminCtrl', function($scope){
 	//getAllTickets();
 
 	$scope.submitNewTicket  = function(){
+		$scope.startDate = new Date();
+		$scope.status = 'Submitted';
+
 		$scope.ticketSubmission.push({
 			category:$scope.category,
 			description:$scope.description,
-			startDate:new Date(),
-			completeDate:'',
-			status:'Submitted',
+			startDate:$scope.startDate,
+			completeDate:$scope.completeDate,
+			status:$scope.status,
 			aptID:$scope.apartment,
 			usr:''});
 
 		$scope.ticketHistory.push({
 			category:$scope.category,
 			description:$scope.description,
-			startDate:'',
-			completeDate:'',
-			status:'Submitted',
+			startDate:$scope.startDate,
+			completeDate:$scope.completeDate,
+			status:$scope.status,
 			aptID:$scope.apartment,
 			usr:''});
 
@@ -43,17 +46,7 @@ maintenance.controller('maintenanceAdminCtrl', function($scope){
 		// alert($scope.ticketSubmission.category);
 	}
 
-	$scope.dateFilter = function(property, beginDate){
-		return function(item){
-			if(item[property] === null) return false;
-
-			var itemDate = moment(item[property]);
-			var start = moment(beginDate,"DD-MM-YYYY");
-
-			if (itemDate >= start) return true;
-			return false
-		}
-	}
+	
 
 
 
