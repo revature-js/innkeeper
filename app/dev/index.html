@@ -7,31 +7,6 @@
 </head>
 <body ng-app="mainApp">
 	<div ng-controller="NavbarCtrl">
-	<!-- SAVE FOR LATER -->
-	<!--<nav class="navbar navbar-inverse">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand">InnKeeper</a>
-				</div>
-				<ul class="nav navbar-nav">
-					<li ng-class="{active: isActive('/apartments')}">
-						<a href="#/apartments">Rooms and Apartments</a>
-					</li>
-					<li ng-class="{active: isActive('/reimbursement')}">
-						<a href="#/reimbursement">Reimbursements</a>
-					</li>
-					<li ng-class="{active: isActive('/maintenance')}">
-						<a href="#/maintenance">Maintenance</a>
-					</li>
-					<li ng-class="{active: isActive('/projection')}">
-						<a href="#/projection">Projection</a>
-					</li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-				</ul>
-			</div>
-		</nav> -->
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -40,6 +15,14 @@
 				<ul class="nav navbar-nav">
 					<li ng-class="{active: isActive('apartments')}">
 						<a href="">Rooms and Apartments</a>
+					</li>
+					<li class="dropdown" ng-class="{active: isActive('apartments')}" >
+						<a class="dropdown-toggle" data-toggle="dropdown" href="">Rooms and Apartments
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#/apartments">View</a></li>
+							<li><a href="#/apartments/manage">Manage</a></li>
+						</ul>
 					</li>
 					<li class="dropdown" ng-class="{active: isActive('reimbursement')}" >
 						<a class="dropdown-toggle" data-toggle="dropdown" href="">Reimbursement
@@ -56,9 +39,6 @@
 							<li><a href="">View</a></li>
 							<li><a href="">Manage</a></li>
 						</ul>
-					</li>
-					<li ng-class="{active: isActive('projection')}">
-						<a href="">Projection</a>
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
