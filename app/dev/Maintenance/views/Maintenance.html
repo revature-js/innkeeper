@@ -6,54 +6,42 @@
 	</title>
 	<meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  
-	
-	
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">		
 </head>
 <body>
 
+
 <div ng-app='maintenanceApp' ng-controller='maintenanceCtrl'>
-
-<div class= "container"  >
+	<div class= "container">
 <br>
 <br>
-<div class="well" >
-	<form class='form-inline' ng-submit='submitNewTicket()'>
-		<div class='row'>
-			<div class='col-md-6'>
-				<div class='form-group'>
-
-					<h2><label for='category'><span class="glyphicon glyphicon-menu-hamburger"></span> Category</label></h2>
-					<select class= 'form-control' ng-model='category' >
-   						<option>Broken item</option>
-    					<option>Missing item</option>
-    					<option>Request item</option>
-   					</select>
-				</div>
-   			</div>
-  
-   		
-
-
-		<div class='col-md-6'>
-   <h2><label for='description'><span class="glyphicon glyphicon-comment"></span> Description: </label></h2>
-		<textarea class='form-control' rows='4' cols='50' ng-model='description' placeholder="Enter details here."></textarea>
-</div>
-
+		<div class="well" >
+			<form class='form-inline' ng-submit='submitNewTicket()'>
+				<div class='row'>
+					<div class='col-md-4'>
+						<div class='form-group'>
+							<h2><label for='category'><span class="glyphicon glyphicon-menu-hamburger"></span> Category</label></h2>
+							<select class= 'form-control' ng-model='category' >
+   								<option>Broken item</option>
+    							<option>Missing item</option>
+    							<option>Request item</option>
+   							</select>
+						</div>
+   					</div>
+  					<div class='col-md-6'>
+   						<h2><label for='description'><span class="glyphicon glyphicon-comment"></span> Description: </label></h2>
+							<textarea class='form-control' rows='4' cols='50' ng-model='description' placeholder="Enter details here."></textarea>
+					</div>
 
 <br>
-<div class='container-fluid'>
-	<div class='row'>
-
+		<div class='container-fluid'>
+			<div class='row'>
+				<div class='col-sm-1 col-sm-offset-11'>	<input type="submit" class="btn btn-primary" ></div>
 		
-<div class='col-sm-1 col-sm-offset-11'>	<input type="submit" class="btn btn-primary" >
-</div>
+			</div>
+		</div>
 		
-	</div>
-</div>
-		
-	</form>	
+			</form>	
 
 
 		</div>

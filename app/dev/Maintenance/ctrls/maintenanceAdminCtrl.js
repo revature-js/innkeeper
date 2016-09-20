@@ -3,7 +3,7 @@ var maintenance = angular.module('maintananceApp', []);
 maintenance.controller('maintenanceAdminCtrl', function($scope){
 	$scope.ticketSubmission = [];
 	$scope.ticketHistory = [];
-	
+	// $scope.categories = dataFactory.getCategories();
 	
 
 	// var getAllTickets = function(){
