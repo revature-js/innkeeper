@@ -1,6 +1,6 @@
 var app = angular.module("mainApp",['ngRoute','reimbursementApp']);
 
-app.constant('seshkey',{
+app.constant('seshkeys',{
 	fname: "fname",
 	lname: "lname",
 	username: "username",
@@ -13,8 +13,6 @@ app.controller('NavbarCtrl',function($scope, $location){
         return $location.path().includes(viewLocation);
     };
 });
-
-var app = angular.module("mainApp",['ngRoute','reimbursementApp']);
 
 app.config(function($routeProvider) {
 	$routeProvider
