@@ -3,7 +3,7 @@ maintenanceAdmin.factory('dataFactory', function($http){
 
 	var factory = {};
 
-	factory.getAllTickest = function(){
+	factory.getAllTickets = function(){
 		$http.get('http://localhost:3030/maintenanceTickets',
 			data);
 	}
@@ -30,5 +30,5 @@ maintenanceAdmin.factory('dataFactory', function($http){
 		return $http.post('http://localhost:3030/maintenanceTickets',
 			data);
 		
-	}
+	};
 };

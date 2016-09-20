@@ -183,7 +183,7 @@
         </div>
     </div>
 
-    <div ng-repeat='ones in ticketSubmission | filter:search'>
+    <div ng-repeat='ones in ticketSubmission | filter:search  '>
       <div class="row">
       
          <div class="col-sm-2">
@@ -207,10 +207,16 @@
         </div>
 
         <div class="col-sm-2">
-        {{ones.status}}
+        <!-- {{ones.status}} -->
+
+        <select name="statusUpdate" ng-model="update" >
+      <option value="Submitted">Submitted</option>
+      <option value="In-Progress">In-Progress</option>
+      <option value="Complete">Complete</option>
+    </select>
         </div>
       
-         <!-- dynamic data -->
+        
         </div>
 
        </div>

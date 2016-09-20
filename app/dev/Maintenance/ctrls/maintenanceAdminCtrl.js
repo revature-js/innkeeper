@@ -7,7 +7,7 @@ maintenance.controller('maintenanceAdminCtrl', function($scope){
 	
 
 	// var getAllTickets = function(){
-	// 	ticketFactory.getAllTickets()
+	// 	dataFactory.getAllTickets()
 	// 	.then(
 	// 		function(data){
 	// 		$scope.ticketHistory = data.data;
@@ -18,7 +18,7 @@ maintenance.controller('maintenanceAdminCtrl', function($scope){
 	// );
 
 	// };
-	//getAllTickets();
+	// getAllTickets();
 
 	$scope.submitNewTicket  = function(){
 		$scope.startDate = new Date();
