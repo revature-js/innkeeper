@@ -1,4 +1,6 @@
-dalDemo.factory('dataFactory', function($http){
+var maintenance = angular.module('maintenanceApp', []);
+
+maintenance.factory('dataFactory', function($http){
 	var getAllTickets = function(){
 		var defer = $q.defer();
 		$http.get('mongodb://innkeeper:inn123@ds017636.mlab.com:17636/rlms').then(function(response){

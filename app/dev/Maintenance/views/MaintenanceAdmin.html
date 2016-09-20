@@ -13,7 +13,7 @@
 
 <br>
 
-<div ng-app ='maintananceApp' ng-controller='maintenanceAdminCtrl'>
+<div ng-app ='maintenanceApp' ng-controller='maintenanceAdminCtrl'>
 <div class= "container"  >
 
 <div class='well'>
@@ -174,7 +174,8 @@
         </div>
     </div>
 <br>
-    <div ng-repeat='ones in ticketSubmission | filter:search  '>
+    <!-- <div ng-repeat='ones in ticketHistory | filter:search  '> -->
+    <div ng-repeat='ones in ticketHistory  '>
       <div class="row">
       
          <div class="col-sm-2">
@@ -198,7 +199,7 @@
         </div>
 
         <div class="col-sm-2">
-        <!-- {{ones.status}} -->
+        
 
         <select name="statusUpdate" ng-model="update" >
       <option value="Submitted">Submitted</option>
@@ -232,9 +233,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.5/angular.min.js"></script>
+
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.5/angular.js"></script>
   <script src="../ctrls/maintenanceAdminCtrl.js"></script>
   
 </body>

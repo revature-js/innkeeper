@@ -34,12 +34,12 @@ app.post('/reimbursements/:id/:decision',reimbursement.updateReimbursement);
 //app.post('/apartments', apartment.addApartment);
 //app.post('/apartments/:userName',apartment.updateApartment);
 
-//app.get('/maintenance', maintenance.findAllTickets);
-//app.get('/maintenance/:userName', maintenance.findTicketByUser);
-//app.get('/maintenance', maintenance.getAllCategories);
+app.get('/maintenanceCheck', maintenance.getAllTickets);
+//app.get('/maintenanceCheck/:usr', maintenance.getTicketByUser);
+//app.get('/maintenanceCheck', maintenance.getAllCategories);
 //app.get('/maintenance', maintenance.getAllApartments);
-//app.post('/maintenance', maintenance.submitNewTicket);
-//app.post('/maintenance/:id', maintenance.updateTicket)
+//app.post('/maintenanceCheck', maintenance.submitNewTicket);
+//app.post('/maintenanceCheck/:id', maintenance.updateTicket)
 
 app.get('/projections', projections.getAllBatches);
 app.get('/projections', projections.getAllApartments);
