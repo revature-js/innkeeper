@@ -1,7 +1,7 @@
 var maintenance = angular.module('maintenanceApp', []);
 
 maintenance.controller('maintenanceCtrl', function($scope){
-	$scope.ticketSubmission = [];
+	$scope.newTicket = [];
 	$scope.ticketHistory = [];
 	
 	
@@ -24,7 +24,7 @@ maintenance.controller('maintenanceCtrl', function($scope){
 		$scope.startDate = new Date();
 		$scope.status = 'Submitted';
 
-		$scope.ticketSubmission.push({
+		$scope.newTicket.push({
 			category:$scope.category,
 			description:$scope.description,
 			startDate:$scope.startDate,
@@ -42,8 +42,8 @@ maintenance.controller('maintenanceCtrl', function($scope){
 			aptID:$scope.apartment,
 			usr:$scope.usr});
 
-		console.log($scope.ticketSubmission[0]);
-		alert($scope.ticketSubmission[0].category);
+		console.log($scope.newTicket[0]);
+		alert($scope.newTicket[0].category);
 	}
 
 });
