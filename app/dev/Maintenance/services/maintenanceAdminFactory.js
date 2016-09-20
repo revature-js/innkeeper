@@ -1,6 +1,6 @@
 
 
-maintenance.factory('dataFactory', function($http){
+maintenance.factory('dataAdminFactory', function($http){
 
 
 
@@ -8,13 +8,13 @@ maintenance.factory('dataFactory', function($http){
 
 	factory.getAllTickets = function(){
 		$http.get('http://localhost:3030/maintenanceCheck/');
-	}
+	};
 
 	factory.getCategories = function(){
 		return["Request Item","Missing Item","Broken Item"];
 	};
 
-	service.getStatus = function(){
+	factory.getStatus = function(){
 		return['Submitted','In-Progress','Complete'];
 	};
 

@@ -1,21 +1,24 @@
-var maintenance = angular.module('maintenanceApp', []);
 
-maintenance.controller("maintenanceAdminCtrl", function($scope,dataFactory){
+
+maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory){
 	// $scope.ticketSubmission = [];
 	$scope.ticketHistory = [];
 	// $scope.categories = dataFactory.getCategories();
 	
 
-	var getAllTickets = function(){
-		dataFactory.getAllTickets()
+	var getAllTickets = function()
+	{
+		dataAdminFactory.getAllTickets()
 		.then(
-			function(data){
+			function(data)
+			{
 			$scope.ticketHistory = data.data;
-		},
-			function(){
+			},
+			function()
+			{
 				alert('nope');
-		}
-	);
+			}
+			);
 
 	};
 	getAllTickets();
