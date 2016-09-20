@@ -1,5 +1,8 @@
-dalDemo.controller('dataCtrl', function($scope, dataFactory){
-	dataFactory.getAllTickets().then(function(data){
+var maintenance = angular.module('maintenanceApp', []);
+
+maintenance.controller('maintenanceCtrl', function($scope, dataFactory){
+	maintenanceCtrl.findAllTickets()
+	.then(function(data){
 		$scope.tickets = data;
 	},
 	function(){

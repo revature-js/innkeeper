@@ -1,32 +1,26 @@
-/*
- *	app.js
- *		- Main app routing for navigation.
- */
- 
-// main module.
-var app = angular.module("mainApp",['ngRoute',
-									'reimbursementApp',
-									'loginModule',
-									'registerModule',
-									'maintenanceApp',
-									'apartmentApp',
-									'projectionApp']);
+var app = angular.module("mainApp",['ngRoute','reimbursementApp']);
 
-/**
-*	Configure routing paths. Responsible for
-*	mapping views into the main page.
-*/
+app.constant('seshkeys',{
+	fname: "fname",
+	lname: "lname",
+	username: "username",
+	aptId: "aptId",
+	isAdmin: "isAdmin"
+})
+
+app.controller('NavbarCtrl',function($scope, $location){
+	$scope.isActive = function (viewLocation) { 
+        return $location.path().includes(viewLocation);
+    };
+});
+
 app.config(function($routeProvider) {
-
 	$routeProvider
-	.when("/", {
-		templateUrl: ""
-	})
 	.when("/apartments", {
 		templateUrl: "Room_Apt/views/aptPage.html",
 		controller: "apt_list_user"
 	})
-	when("/apartments/manage",{
+	.when("/apartments/manage",{
 		templateUrl: "Room_Apt/views/apt_admin.html",
 		controller: "apt_list_admin"
 	})
@@ -46,10 +40,6 @@ app.config(function($routeProvider) {
 		templateUrl: "reimbursement/views/reimbursement_admin.html",
 		controller: "BurseAdminCtrl"
 	})
-	.when("/projections", {
-		templateUrl: "projections/views/projections.html",
-		controller: "projectionCtrl"
-	})
 	.when("/login", {
 		templateUrl: "loginRegistration/views/login.html",
 		controller: "loginCtrl"
@@ -58,7 +48,4 @@ app.config(function($routeProvider) {
 		templateUrl: "loginRegistration/views/register.html",
 		controller: "registerCtrl"
 	})
-	.otherwise({
-		redirectTo: "/"
-	});
 });
