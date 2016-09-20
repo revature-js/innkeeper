@@ -13,19 +13,19 @@
 </head>
 <body>
 
-<div ng-app='maintenanceApp'>
+<div ng-app='maintenanceApp' ng-controller='maintenanceCtrl'>
 
-<div class= "container" id='maintenance' >
+<div class= "container"  >
 <br>
 <br>
-<div class="well" tag='newRequest'>
-	<form class='form-inline'>
+<div class="well" >
+	<form class='form-inline' ng-submit='submitNewTicket()'>
 		<div class='row'>
 			<div class='col-md-6'>
 				<div class='form-group'>
 
-					<h2><label for='category'>Category</label></h2>
-					<select class= 'form-control' ng-model='category' value=''>
+					<h2><label for='category'><span class="glyphicon glyphicon-menu-hamburger"></span> Category</label></h2>
+					<select class= 'form-control' ng-model='category' >
    						<option>Broken item</option>
     					<option>Missing item</option>
     					<option>Request item</option>
@@ -33,22 +33,23 @@
 				</div>
    			</div>
   
-   		<div class='form-group'>
+   		
 
 
 		<div class='col-md-6'>
-   <h2><label for='descript'>Description: </label></h2>
-		<textarea class='form-control' rows='3' id='descript' value=''></textarea>
+   <h2><label for='description'><span class="glyphicon glyphicon-comment"></span> Description: </label></h2>
+		<textarea class='form-control' rows='4' cols='50' ng-model='description' placeholder="Enter details here."></textarea>
 </div>
-</div>
+
 
 <br>
 <div class='container-fluid'>
 	<div class='row'>
 
 		
-<div class='col-sm-1 col-sm-offset-11'>	<button type="button" class="btn btn-primary" ng-click="">Submit</button>	</div>
-		<!-- <div class='col-sm-1'>	<button type="button" class="btn btn-success" id="submitBtn">Submit</button></div> -->
+<div class='col-sm-1 col-sm-offset-11'>	<input type="submit" class="btn btn-primary" >
+</div>
+		
 	</div>
 </div>
 		
@@ -61,8 +62,9 @@
 
 
 <!-- dynamic naming -->
-<h2>Active Maintance Requests:</h2>
-<div class='containter' id='requestList'>
+
+<h2><span class="glyphicon glyphicon-list-alt"></span> Active Maintance Requests:</h2>
+<div class='containter' >
 	<div class='well' >
 		<div class='container-fluid'>
 			<div class="row">
@@ -83,9 +85,14 @@
 
 </div>
 
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.5/angular.min.js"></script>
+  <script src="../ctrls/maintenanceCtrl.js"></script>
 
 </body>
 </html>

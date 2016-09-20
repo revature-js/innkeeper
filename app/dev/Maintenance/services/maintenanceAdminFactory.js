@@ -4,7 +4,7 @@ maintenanceAdmin.factory('dataFactory', function($http){
 	var factory = {};
 
 	factory.getAllTickets = function(){
-		$http.get('http://localhost:3030/maintenanceTickets',
+		$http.get('http://localhost:3000/maintenanceTickets',
 			data);
 	}
 
@@ -20,7 +20,7 @@ maintenanceAdmin.factory('dataFactory', function($http){
 	
 
 	factory.updateTicket = function(data,update){
-		return $http.post('http://localhost:3030/maintenanceTickets'+
+		return $http.post('http://localhost:3000/maintenanceTickets'+
 			data._id+'/'+update);
 
 	};
