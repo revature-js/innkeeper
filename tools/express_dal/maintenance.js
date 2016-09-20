@@ -61,3 +61,21 @@ exports.submitNewTicket = function($scope)
 };
 
 
+exports.updateTicket = function(req,res){
+	MongoClient.connect(url, function (err, db){
+		var id = req.param.id;
+		var update = req.param.status;
+		var collection = db.collection('maintenanceIK');
+		collection.updateOne({'_id':ObjectID(id),{$set:{'status':update}}, function(err, result){
+			if(err){
+				res.send('error');
+			}
+			else{
+				res.send(result);
+
+			}
+		});
+		db.close();
+	});
+	};
+};
