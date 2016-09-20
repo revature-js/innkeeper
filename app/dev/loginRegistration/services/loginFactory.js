@@ -1,9 +1,9 @@
-login.factory('loginFactory', function($http,$window){
+login.factory('loginFactory', function($http,$window,$timeout){
 
 	var factory = {};
 
-		factory.getLoginInfo = function(username){
-			return $http.get('http://localhost:3030/login/' + username);
+		factory.tryLogin = function(username, password){
+			return $http.post('http://localhost:3030/login', {username: username, password: password});
 		};
-		return factory;
+	return factory;
 });

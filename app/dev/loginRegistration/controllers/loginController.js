@@ -3,25 +3,21 @@ var login = angular.module('loginModule', []);
 login.controller('loginCtrl', function($scope,$window,loginFactory,seshkeys,$location,$timeout){
 
 $scope.login = function(){
-	loginFactory.getLoginInfo($scope.loginUsername).then(
+	var promise = loginFactory.tryLogin($scope.loginUsername, $scope.loginPassword);
+	promise.then(
 		function(userData){
-			if((userData.data.username === $scope.loginUsername) && (userData.data.password === $scope.loginPassword))
-			{
-				alert("successful login");
-				storeSession($window,userData.data,seshkeys);
-				console.log(sessionStorage);
-				$timeout(function(){
-					$location.path('/');
-				});
-			}
-		},
-		function(){
-			alert("Error logging in...");
-			$scope.loginUsername = "";
-			$scope.loginPassword = "";
+			storeSession($window,userData.data.user,seshkeys);
+			$location.path('/apartments');
+
+		}, function(err)
+		{
+			$timeout(function(){
+				alert("Invalid username/password");
+				$location.path('/login');
+			});
 		}
-		);
-	};
+	);
+};
 });
 
 function storeSession(window,data,seshkeys){

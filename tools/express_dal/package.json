@@ -16,6 +16,8 @@
     "passport-http": "*",
     "passport-local": "*",
     "express-validator": "*",
-    "bcryptjs": "*"
+    "bcryptjs": "*",
+    "cookie-parser": "^1.4.1",
+    "express-session": "^1.10.1"
   }
 }

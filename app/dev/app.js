@@ -16,41 +16,45 @@ app.constant('seshkeys',{
 	isadmin: "isAdmin"
 });
 
-app.controller('NavbarCtrl',function($scope, $location,$window,seshkeys){
-
-	$scope.admin = true;
+app.controller('NavbarCtrl',function($scope, $location,$window,seshkeys,$timeout){
 
 	$scope.isActive = function (viewLocation) { 
         return viewLocation === $location.path();
     };
 
     $scope.online = isOnline($window, seshkeys);
-    $scope.greetingMessage = $window.sessionStorage.getItem(seshkeys.fname) + " " + $window.sessionStorage.getItem(seshkeys.lname);
 
+    $scope.$on('$locationChangeStart', function(){
+    	$scope.online = isOnline($window, seshkeys);
+    	$scope.greetingMessage = $window.sessionStorage.getItem(seshkeys.fname) + " " + $window.sessionStorage.getItem(seshkeys.lname);
+    });
 
-$scope.logout=function()
-{
-	$window.sessionStorage.clear();
-	console.log(sessionStorage);
-	alert("Successful Logout");
-
-	$timeout(function(){
-		$location.path('/login');
+    $scope.$on('$locationChangeStart', function(){
+		if($scope.online === true && !$location.path().includes('register')){
+			$location.path('/login');
+		}
 	});
-};
+
+	$scope.logout=function()
+	{
+		$window.sessionStorage.clear();
+		$scope.online = isOnline($window, seshkeys);
+		$timeout(function(){
+			$location.path('/login');
+		},2000);
+	};
 
 });
 
 function isOnline(window,seshkeys){
-if(window.sessionStorage.getItem(seshkeys.username)===null)
-{
-	return true;
-}
-else{
-	return false;
-}
+	if(window.sessionStorage.getItem(seshkeys.username)===null)
+	{
+		return true;
+	}
+	else{
+		return false;
+	}
 };
-
 /**
 *	Configure routing paths. Responsible for
 *	mapping views into the main page.

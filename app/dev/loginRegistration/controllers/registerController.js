@@ -35,7 +35,6 @@ register.controller('registerCtrl', function($scope,$window,registerFactory,$htt
 			//post to databse here
 			registerFactory.createUser(userObj).then(
 				function(result){
-					console.log(result);
 					$location.path('/login');
 				},
 				function(){
