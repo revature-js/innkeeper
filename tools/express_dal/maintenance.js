@@ -48,7 +48,7 @@ exports.submitNewTicket = function(req,res)
 	 MongoClient.connect(url, function (err, db) 
 	 {
 	 	if (err) {
-	    	console.log('Unable to connect to the mongoDB server. Error:', err);
+	    	res.send('Unable to connect to the mongoDB server. Error:', err);
 	  			} 
 	  	else {
 	    	var collection =  db.collection('maintenanceIK');
