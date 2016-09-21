@@ -23,7 +23,7 @@ maintenance.factory('dataAdminFactory', function($http){
 	
 
 	// factory.updateTicket = function(data,update){
-	// 	return $http.post('http://localhost:3000/maintenanceTickets'+
+	// 	return $http.post('http://localhost:3000/maintenanceCheck/'+
 	// 		data._id+'/'+update);
 
 	// };

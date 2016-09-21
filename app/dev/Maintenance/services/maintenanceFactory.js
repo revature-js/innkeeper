@@ -1,10 +1,10 @@
 
 
-maintenance.factory('dataFactory', function($http){
+maintenance.factory('dataFactory', function($http,dataFactory){
 
 	var factory = {};
 
-	factory.getAllTickets = function(){
+	factory.getTicketsByUser = function(){
 		$http.get('http://localhost:3030/maintenanceCheck/');
 	};
 
