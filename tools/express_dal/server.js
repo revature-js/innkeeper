@@ -22,7 +22,7 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-passport.use(new LocalStrategy(
+passport.use(new LocalStrategy( 
   function(username,password,done) {
     client.connect(url, function(err,db){
       var collection = db.collection('usersIK');
@@ -44,7 +44,7 @@ var client = mongo.MongoClient;
 var url = 'mongodb://innkeeper:inn123@ds017636.mlab.com:17636/rlms';
 var ObjectID = mongo.ObjectID;
 
-var userObj = {
+var userObj = { //A model of our users
   username: {
             type: String,
             index: true
@@ -68,6 +68,7 @@ app.use(require('express-session')({
     saveUninitialized: false
 }));
 
+//initialize passport and start session
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -104,21 +105,24 @@ app.get('/reimbursement/:username', reimbursement.findReimbursementsByUsername);
 app.post('/reimbursements', reimbursement.addReimbursement);
 app.post('/reimbursements/:id/:decision',reimbursement.updateReimbursement);
 
-app.get('/login/:userName' , loginRegister.getUserByUsername);
-app.get('/comparePassword/:password' , loginRegister.comparePassword);
-app.post('/createUser' , loginRegister.createUser);
-app.get('/login', loginRegister.allUsernames);
+app.get('/login/:userName' , loginRegister.getUserByUsername); //finds a single user based on username
+app.get('/comparePassword/:password' , loginRegister.comparePassword); //compares user password to password typed in for login
+app.post('/createUser' , loginRegister.createUser); //create a new user
+app.get('/login', loginRegister.allUsernames); // find all usernames
 
-app.get('/logout', function(req, res){
+app.get('/logout', function(req, res){ //passports logout function
   req.logout();
   res.redirect('/');
 });
-
-function ensureAuthenticated(req, res, next) {
+//checks to see if the user is currently logged in
+//stops from going to pages without access too
+function ensureAuthenticated(req, res, next) { 
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/login');
 };
 
+//passports login function, if an err, return the error, if no user returns you to login page
+//if user found then return status 200 and the user.
 app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) { return next(err); }
