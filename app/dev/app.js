@@ -1,4 +1,4 @@
-var app = angular.module("mainApp",['ngRoute','reimbursementApp']);
+var app = angular.module("mainApp",['ngRoute','reimbursementApp','maintenanceApp']);
 
 app.constant('seshkeys',{
 	fname: "fname",
@@ -29,7 +29,7 @@ app.config(function($routeProvider) {
 		controller: "maintenanceCtrl"
 	})
 	.when("/maintenance/manage", {
-		templateUrl: "Maintenance/views/MaintenaceAdmin.html",
+		templateUrl: "Maintenance/views/MaintenanceAdmin.html",
 		controller: "maintenanceAdminCtrl"
 	})
 	.when("/reimbursement", {

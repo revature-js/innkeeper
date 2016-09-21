@@ -3,25 +3,31 @@
 maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory){
 	// $scope.ticketSubmission = [];
 	$scope.ticketHistory = [];
-	// $scope.categories = dataFactory.getCategories();
+	$scope.categories = dataAdminFactory.getCategories();
 	
 
 	var getAllTickets = function()
 	{
+		var result = [];
+		console.log(dataAdminFactory);
+		console.log(dataAdminFactory.hasOwnProperty('getAllTickets'));
 		dataAdminFactory.getAllTickets()
 		.then(
 			function(data)
 			{
-			$scope.ticketHistory = data.data;
+				result = data.data;
+				//$scope.ticketHistory = data.data;
 			},
-			function()
+			function(err)
 			{
-				alert('nope');
+				alert(err);
 			}
 			);
+		return result;
 
 	};
-	getAllTickets();
+	
+	$scope.ticketHistory = getAllTickets();
 
 	// $scope.submitNewTicket  = function(){
 	// 	$scope.startDate = new Date();

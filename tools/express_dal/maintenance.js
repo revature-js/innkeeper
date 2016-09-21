@@ -9,8 +9,11 @@ exports.getAllTickets = function(req,res){
 	 MongoClient.connect(url, function(err,db){
 		var collection = db.collection('maintenanceIK');
 		collection.find().toArray(function(err,tickets){
-			if(!err){
+			if(tickets){
 				res.send(tickets);
+			}
+			if(err){
+				res.send(err);
 			}
 		});
 		db.close();
@@ -65,7 +68,7 @@ exports.updateTicket = function(req,res){
 		MongoClient.connect(url, function (err, db){
 		
 			var collection = db.collection('maintenanceIK');
-			collection.updateOne({'_id':ObjectID(id),{$set:{'status':update}}, function(err, result){
+			collection.updateOne({'_id':ObjectID(id)},{$set:{'status':update}}, function(err, result){
 			if(err){
 				res.send('error');
 			}
@@ -77,10 +80,10 @@ exports.updateTicket = function(req,res){
 		db.close();
 	});
 	};
-};
+
 
 exports.getTicketById = function(req,res){
-	
+
 	MongoClient.connect(url, function(err,db) {
         var objectId = req.query.ticket_id;
         var c = db.collection('maintenanceIK');
