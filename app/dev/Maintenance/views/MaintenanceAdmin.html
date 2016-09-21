@@ -10,7 +10,7 @@
       <div class='col-md-4'>
          <div class='form-group'>
             <h2><label for='category'><span class="glyphicon glyphicon-menu-hamburger"></span> Category</label></h2><!-- dynamic populate -->
-              <select class= 'form-control' ng-model='category' >
+              <select class= 'form-control' ng-model='ticket.category' >
                 <option>Broken item</option>
                 <option>Missing item</option>
                 <option>Request item</option>
@@ -21,7 +21,7 @@
 
       <div class='col-md-4'> <!-- dynamic populate -->
           <h2><label for='apartment'><span class="glyphicon glyphicon-bed"></span> Apartment</label></h2>
-            <select class= 'form-control' ng-model='apartment'>
+            <select class= 'form-control' ng-model='ticket.apartment'>
               <option>Apt1</option>
               <option>Apt2</option>
               <option>Apt3</option>
@@ -31,7 +31,7 @@
 
       <div class='col-md-4'>
         <h2><label for='descript'><span class="glyphicon glyphicon-comment"></span> Description </label></h2>
-          <textarea class='form-control' rows='3' cols='30' ng-model='description' placeholder="Enter details here."></textarea> 
+          <textarea class='form-control' rows='3' cols='30' ng-model='ticket.description' placeholder="Enter details here."></textarea> 
       </div>
 
 
@@ -87,6 +87,7 @@
     <div class="row">
       <div class="col-sm-3">
           <select class= 'form-control' name="multipleSelect" ng-model="search.category" >
+          <option value="">All</option>
             <option value="Broken Item">Broken Item</option>
             <option value="Missing Item">Missing Item</option>
             <option value="Request Item">Request Item</option>
@@ -102,6 +103,7 @@
         <div class="col-sm-3">
 
         <select class= 'form-control' name="multipleSelect" ng-model="search.status"  >
+        <option value="">All</option>
       <option value="Submitted">Submitted</option>
       <option value="In-Progress">In-Progress</option>
       <option value="Complete">Complete</option>

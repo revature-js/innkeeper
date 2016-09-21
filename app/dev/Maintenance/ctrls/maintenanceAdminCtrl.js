@@ -1,9 +1,17 @@
 
 
 maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory){
-	$scope.ticketSubmission = {};
+	$scope.ticketSubmission = [];
 	$scope.ticketHistory = [];
 	$scope.categories = dataAdminFactory.getCategories();
+
+
+
+	function generalError(err){}
+
+	function viewSuccess(data){
+		$scope.ticket = data.data;
+	}
 	
 
 	var getAllTickets = function()
@@ -37,26 +45,34 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory)
 	// console.log($scope.ticketHistory);
 
 	 $scope.submitNewTicket  = function(){
-	 	$scope.startDate = new Date();
-		$scope.status = 'Submitted';
+	 	console.log($scope.ticket);
+	 	
+	 	$scope.ticketSubmission.push({
+			category:$scope.ticket.category,
+			description:$scope.ticket.description,
+			startDate:new Date(),
+			completeDate:'',
+			status:'Submitted',
+			aptID:$scope.apartment,
+			usr:''
+	 		});
+	 	
+	 	console.log($scope.ticketSubmission);
 
-	 	dataAdminFactory.submitNewTicket($scope.ticketSubmission)
-	 	.then(
-	 		function()
-	 		{
-	 			
-			
+	 		dataAdminFactory.submitNewTicket($scope.ticketSubmission)
+	 		.then(
+	 			function(){
+	 				
+	 				console.log('success')
+	 			},
+	 			function(){
+	 				alert('failed ticket submission');
+	 			}
+	 			);
 
-	 		},
-	 		function(err)
-	 		{
-	 			alert(err);
-
-	 		}
-
-
-	 		);
-	 	};
+	 	
+	 	
+	 };
 	// 	$scope.startDate = new Date();
 	// 	$scope.status = 'Submitted';
 

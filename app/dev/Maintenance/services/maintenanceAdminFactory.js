@@ -29,8 +29,8 @@ maintenance.factory('dataAdminFactory', function($http){
 	// };
 
 
-	factory.sumbmitNewTicket = function(ticket){
-		return $http.post('http://localhost:3030/maintenanceCheck/', ticket);
+	factory.submitNewTicket = function(data){
+		return $http.post('http://localhost:3030/maintenanceCheck/', data);
 		
 	};
 

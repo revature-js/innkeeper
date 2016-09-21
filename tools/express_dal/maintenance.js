@@ -34,29 +34,32 @@ exports.getTicketsByUser = function(req, res){
 
 exports.submitNewTicket = function(req,res)
 {
-	var object = req.body;
+	// var object = req.body;
 
-	if (object.usr == undefined || object.aptID == undefined)
-        throw "addTicket: Usr and aptID cannot be undefined";
+	// if (object.usr == undefined || object.aptID == undefined)
+ //        throw "addTicket: Usr and aptID cannot be undefined";
 
-    if (object.status == undefined)
-        object.status = "Submitted";
-    if (object.startDate == undefined)
-        object.startDate = new Date();
+ //    if (object.status == undefined)
+ //        object.status = "Submitted";
+ //    if (object.startDate == undefined)
+ //        object.startDate = new Date();
 
 
 	 MongoClient.connect(url, function (err, db) 
 	 {
+	 	var ticket = req.body;
+	 	var collection =  db.collection('maintenanceIK');
+	    	collection.insert(ticket, function(err,result ){
 	 	if (err) {
 	    	res.send('Unable to connect to the mongoDB server. Error:', err);
 	  			} 
 	  	else {
-	    	var collection =  db.collection('maintenanceIK');
-	    	collection.save(object);
+	    		res.send(result[0]);
 			}
 
  	});
  	db.close();
+ });
 	
 };
 
@@ -68,16 +71,9 @@ exports.updateTicket = function(req,res){
 		MongoClient.connect(url, function (err, db){
 		
 			var collection = db.collection('maintenanceIK');
-			collection.updateOne({'_id':ObjectID(id)},{$set:{'status':update}}, function(err, result){
-			if(err){
-				res.send('error');
-			}
-			else{
-				res.send(result);
-
-			}
-		});
-		db.close();
+			object._id = new ObjectId(id);
+			collection.save(object);
+			db.close();
 	});
 	};
 
