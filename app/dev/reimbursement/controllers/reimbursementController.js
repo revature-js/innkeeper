@@ -53,7 +53,6 @@ reimbursement.controller("BurseCtrl", function($scope, burseService, $window, se
 					alert("Failed to submit reimbursements...");
 				}
 			);
-			
 		}
 	};
 
@@ -61,7 +60,7 @@ reimbursement.controller("BurseCtrl", function($scope, burseService, $window, se
 		$scope.burseSubmit.splice(index,1);
 	};
 
-	var username = 'kfg';//$window.sessionStorage.getItem(seshkeys.username);
+	var username = $window.sessionStorage.getItem(seshkeys.username);
 	$scope.types = burseService.getTypesOfBurse();
 	$scope.burseSubmit = [{date:"",type:"Select a Type",desc:"",amount:"",status:"In Progress",usrname:username}];
 	$scope.burseHistory = [];
