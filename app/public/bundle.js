@@ -51,15 +51,17 @@
 	__webpack_require__(5);
 	__webpack_require__(6);
 	__webpack_require__(7);
-	__webpack_require__(8);
-	module.exports = __webpack_require__(9);
+	module.exports = __webpack_require__(8);
 
 
 /***/ },
 /* 1 */
 /***/ function(module, exports) {
 
-	var app = angular.module("mainApp",['ngRoute','reimbursementApp','loginModule','registerModule']);
+	var app = angular.module("mainApp",['ngRoute','loginModule','registerModule','reimbursementApp']);
+	var reimbursement = angular.module('reimbursementApp', []);
+	var register = angular.module('registerModule', []);
+	var login = angular.module('loginModule', []);
 
 	app.constant('seshkeys',{
 		fname: "fname",
@@ -150,7 +152,7 @@
 /* 2 */
 /***/ function(module, exports) {
 
-	var login = angular.module('loginModule', []);
+	var login = angular.module('loginModule');
 
 	login.controller('loginCtrl', function($scope,$window,loginFactory,seshkeys,$location,$timeout){
 
@@ -160,7 +162,7 @@
 		promise.then(
 			function(userData){
 				storeSession($window,userData.data.user,seshkeys);
-				$location.path('/apartments');
+				$location.path('/reimbursement');
 
 			}, function(err)
 			{
@@ -185,7 +187,7 @@
 /* 3 */
 /***/ function(module, exports) {
 
-	var register = angular.module('registerModule', []);
+	var register = angular.module('registerModule');
 
 	register.controller('registerCtrl', function($scope,$window,registerFactory,$http,$location,$timeout){
 
@@ -284,6 +286,8 @@
 /* 4 */
 /***/ function(module, exports) {
 
+	var login = angular.module('loginModule');
+
 	login.factory('loginFactory', function($http,$window,$timeout){
 
 		var factory = {};
@@ -297,6 +301,8 @@
 /***/ },
 /* 5 */
 /***/ function(module, exports) {
+
+	var login = angular.module('loginModule');
 
 	login.factory('registerFactory', function($http,$window){
 
@@ -317,18 +323,7 @@
 /* 6 */
 /***/ function(module, exports) {
 
-	function emptyHistory(history){
-		if(history.length === 0){
-			return true;
-		}
-		else {
-			return false;
-		}
-	};
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
+	var reimbursement = angular.module('reimbursementApp');
 
 	reimbursement.controller("BurseAdminCtrl", function($scope, burseService, $timeout){
 
@@ -418,11 +413,20 @@
 		}
 	};
 
+	function emptyHistory(history){
+		if(history.length === 0){
+			return true;
+		}
+		else {
+			return false;
+		}
+	};
+
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports) {
 
-	var reimbursement = angular.module("reimbursementApp", []);
+	var reimbursement = angular.module('reimbursementApp');
 
 	reimbursement.controller("BurseCtrl", function($scope, burseService, $window, seshkeys) {
 
@@ -475,7 +479,6 @@
 		$scope.burseHistory = [];
 		getReimbursementsByUsername();
 		$scope.emptyHistory = emptyHistory($scope.burseHistory);
-
 	});
 
 	function checkEmptyBurse(data){
@@ -491,9 +494,20 @@
 		return empty;
 	};
 
+	function emptyHistory(history){
+		if(history.length === 0){
+			return true;
+		}
+		else {
+			return false;
+		}
+	};
+
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports) {
+
+	var reimbursement = angular.module('reimbursementApp');
 
 	reimbursement.factory("burseService", function($http){
 
