@@ -77,17 +77,32 @@ app.use(function(req, res, next) {
   if(allowedOrigins.indexOf(origin) > -1){
        res.setHeader('Access-Control-Allow-Origin', origin);
   }
-  //res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:8020');
   res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.header('Access-Control-Allow-Credentials', true);
   return next();
 });
 
+//app.get('/maintenance', maintenance.findAllTickets);
+//app.get('/maintenance/:userName', maintenance.findTicketByUser);
+//app.get('/maintenance', maintenance.getAllCategories);
+//app.get('/maintenance', maintenance.getAllApartments);
+//app.post('/maintenance', maintenance.submitNewTicket);
+//app.post('/maintenance/:id', maintenance.updateTicket);
+
+//app.get('/apartments', apartments.findAllApartments);
+//app.get('/apartments/:userName', apartments.findApartmentsByUsername);
+//app.post('/apartments', apartment.addApartment);
+//app.post('/apartments/:userName',apartment.updateApartment);
+
+//app.get('/projections', projections.getAllBatches);
+//app.get('/projections', projections.getAllApartments);
+
 app.get('/reimbursements', reimbursement.findAllReimbursements);
 app.get('/reimbursements/:id', reimbursement.findReimbursementById);
+app.get('/reimbursement/:username', reimbursement.findReimbursementsByUsername);
 app.post('/reimbursements', reimbursement.addReimbursement);
-app.post('/reimbursements/:id',reimbursement.updateReimbursement);
+app.post('/reimbursements/:id/:decision',reimbursement.updateReimbursement);
 
 app.get('/login/:userName' , loginRegister.getUserByUsername);
 app.get('/comparePassword/:password' , loginRegister.comparePassword);
@@ -102,7 +117,7 @@ app.get('/logout', function(req, res){
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/login');
-}
+};
 
 app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
@@ -122,4 +137,5 @@ app.post('/login', function(req, res, next) {
 module.exports = app;
 
 app.listen(3030);
-console.log('running...');
+
+console.log('Listening on port 3030...');

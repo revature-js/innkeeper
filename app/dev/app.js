@@ -1,12 +1,4 @@
-/*
- *	app.js
- *		- Main app routing for navigation.
- */
- 
-// main module.
-var app = angular.module("mainApp",['ngRoute','loginModule','registerModule']);
-
-//'reimbursementApp','loginModule','registerModule','maintenanceApp','apartmentApp'
+var app = angular.module("mainApp",['ngRoute','reimbursementApp','loginModule','registerModule']);
 
 app.constant('seshkeys',{
 	fname: "fname",
@@ -56,10 +48,7 @@ function isOnline(window,seshkeys){
 		return false;
 	}
 };
-/**
-*	Configure routing paths. Responsible for
-*	mapping views into the main page.
-*/
+
 app.config(function($routeProvider) {
 	$routeProvider
 	.when("/apartments", {
@@ -94,7 +83,4 @@ app.config(function($routeProvider) {
 		templateUrl: "loginRegistration/views/register.html",
 		controller: "registerCtrl"
 	})
-	.otherwise({
-		redirectTo: "/"
-	});
 });
