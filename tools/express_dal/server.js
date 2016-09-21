@@ -95,9 +95,6 @@ app.use(function(req, res, next) {
 //app.post('/apartments', apartment.addApartment);
 //app.post('/apartments/:userName',apartment.updateApartment);
 
-//app.get('/projections', projections.getAllBatches);
-//app.get('/projections', projections.getAllApartments);
-
 app.get('/reimbursements', reimbursement.findAllReimbursements);
 app.get('/reimbursements/:id', reimbursement.findReimbursementById);
 app.get('/reimbursement/:username', reimbursement.findReimbursementsByUsername);
