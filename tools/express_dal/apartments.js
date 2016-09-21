@@ -1,0 +1,65 @@
+var mongo = require('mongodb');
+
+var client = mongo.MongoClient;
+var url = 'mongodb://innkeeper:inn123@ds017636.mlab.com:17636/rlms';
+var ObjectID = mongo.ObjectID;
+
+exports.findAllApartments = function(req,res){
+	client.connect(url, function(err,db){
+		var collection = db.collection('apartmentsIK');
+		collection.find().toArray(function(err,items){
+			if(!err){
+				res.send(items);
+			}
+		});
+		db.close();
+	});
+	
+};
+exports.findApartmentsByAptId = function(req,res){
+	client.connect(url, function(err,db){
+		var id = req.params.aptId;
+		var collection = db.collection('apartmentsIK');
+		collection.findOne({'aptId':id}, function(err, item){
+			if(!err){
+				console.log(err);
+			res.send(item);
+		}
+		});
+
+		db.close();
+	});
+};
+exports.addApartment = function(req,res){
+	client.connect(url, function(err,db){
+		var apt = req.body;
+		var collection = db.collection('apartmentsIK');
+		collection.insert(apt, function(err,result){
+			if(err){
+				res.send({'error':'An error has occured'});
+			}
+			else {
+				res.send(result[0]);
+			}
+		});
+		db.close();
+	});
+	
+};
+exports.updateApartment = function (req,res){
+	client.connect(url, function(err,db){
+		var id = req.params.aptId;
+		var id = req.params.username;
+		console.log(id);
+		var collection = db.collection('apartmentsIK');
+		collection.updateOne({'aptId': ObjectID(aptId)},{$set:{'occupants': username}}, function(err, result){
+			if(err){
+				res.send({'error':'An error has occured'});
+			}
+			else {
+				res.send(result);
+			}
+		});
+		db.close();
+	});
+};

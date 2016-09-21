@@ -4,7 +4,7 @@ var client = mongo.MongoClient;
 var url = 'mongodb://innkeeper:inn123@ds017636/rlms';
 var ObjectID = mongo.ObjectID;
 
-exports.getAllBatches= function(req, res){
+/*exports.getAllBatches= function(req, res){
 	client.connect(url, function(err,db){
 		var collection =db.collection('BatchIK');
 		collection.find({'startdate'< }).toArray(function(err,items)){
@@ -15,7 +15,7 @@ exports.getAllBatches= function(req, res){
 	});
 	db.close();
 });
-};
+};*/
 
 exports.getAllApartments = function(req,res){
 

@@ -4,11 +4,8 @@
  */
  
 // main module.
-<<<<<<< HEAD
-var app = angular.module("mainApp",['ngRoute',"ApartmentApp"]);
-=======
-var app = angular.module("mainApp",['ngRoute','reimbursementApp']);
->>>>>>> d12ad3e9ec31b3bdd73be24ed6200c70b3292ea1
+
+var app = angular.module("mainApp",['ngRoute','reimbursementApp',"ApartmentApp"]);
 
 //'reimbursementApp','loginModule','registerModule','maintenanceApp','apartmentApp'
 

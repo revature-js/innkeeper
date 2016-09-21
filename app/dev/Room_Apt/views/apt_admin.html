@@ -1,18 +1,98 @@
-    <div class="container">
+<div ng-app="ApartmentApp">
+   <div class="container">
       <div align="center">
-         <h2>Apartment list</h2>
+         <h2>Apartment lookup</h2>
       </div>
       <div class = "row well" >
-        <div class="col-md-3">
+         <div class="col-md-12">
             <br>
-             User Name:<input type="text" ng-model="username" ng-keypress="dosomething($event,username)">
-             <button type='button' ng-click="search(username)">Search</button>
-             <div>
-            <p>{{data.addr.num}} {{data.addr.street}}</p>
-            <p>{{data.addr.state}}</p>
-            <p>{{data.addr.city}}</p>
-            <p>{{data.addr.zip}}</p>
+            User Name:<input type="text" ng-model="username" ng-keypress="dosomething($event,username)">
+            <button type='button' ng-click="search(username)">Search</button>
+            <div>
+               <p>{{data.addr.num}} {{data.addr.street}}</p>
+               <p>{{data.addr.state}}</p>
+               <p>{{data.addr.city}}</p>
+               <p>{{data.addr.zip}}</p>
+              <button type='button' ng-show="show" ng-click="changeApt()">Change their Apartment </button><input type="text" ng-hide="hidden" ng-model="NewAptID" placeholder="New AptID"><button type='button' ng-hide="hidden" ng-click="editApt()">Submit</button>
             </div>
          </div>
-    </div>
-  
+      </div>
+      <div align="center">
+         <h2>New Apartment</h2>
+      </div>
+      <div class = "row well" >
+         <table class="table">
+            <tbody>
+               <tr>
+                  <td><input type="text" ng-model="aptNum" placeholder="Apartment Number"></td>
+                  <td><input type="text" ng-model="Street" placeholder="Street"></td>
+               </tr>
+               <tr>
+                  <td><input type="text" ng-model="State" placeholder="State"></td>
+                  <td><input type="text" ng-model="City" placeholder="City"></td>
+               </tr>
+               <tr>
+                  <td><input type="text" ng-model="Zip" placeholder="Zip"></td>
+                  <td><input type="text" ng-model="AptId" placeholder="AptId"></td>
+               </tr>
+               <tr>
+                  <td>
+                     <input type="text" ng-model="SuiteNo" placeholder="SuiteNo">
+                  </td>
+                  <td>
+                     <button type='button' ng-click="anotherApt()">Add Apartment
+                     </button>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+      <div align="center" ng-show="hide">
+         <h2>Apartment Info</h2>
+      </div>
+      <div class = "row well" ng-show="hide" >
+         <table class="table">
+            <tbody>
+               <tr>
+                  <td>chairs
+                  <select ng-model="chairs">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option selected="selected" value="6">6</option>
+                  </select>
+                  </td>
+                  <td>beds
+                  <select ng-model="beds">
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                    <option selected="selected" value=6>6</option>
+                  </select>
+                  </td>
+                  <td>
+                     assign occupants to room:
+                     <select ng-model="room_number">
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                    <option value=6>6</option>
+                  </select>
+                  <input type="text" ng-model="UserName" placeholder="UserName">
+                  </td>
+               </tr>
+               <tr>
+                  <td><button type='button' ng-click="updateApt()">Submit
+                     </button></td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+</div>

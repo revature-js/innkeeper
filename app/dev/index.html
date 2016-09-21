@@ -38,8 +38,13 @@
 					<a class="navbar-brand">InnKeeper</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li ng-class="{active: isActive('apartments')}">
-						<a href="">Rooms and Apartments</a>
+					<li class="dropdown" ng-class="{active: isActive('reimbursement')}" >
+						<a class="dropdown-toggle" data-toggle="dropdown" href="">Rooms and Apartments
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#/apartments">View</a></li>
+							<li><a href="#/apartments/manage">Manage</a></li>
+						</ul>
 					</li>
 					<li class="dropdown" ng-class="{active: isActive('reimbursement')}" >
 						<a class="dropdown-toggle" data-toggle="dropdown" href="">Reimbursement
@@ -81,10 +86,10 @@
 	<script src="reimbursement/controllers/reimbursementAdminController.js"></script>
 	<script src="reimbursement/services/reimbursementService.js"></script>
 	<script src="reimbursement/assets/common.js"></script>
-
 	<script type="text/javascript" src="app.js"></script>
 
 	<script type="text/javascript" src="Room_Apt/ctrls/aptPage.js"</script>
-
+	<script src="Room_Apt/ctrls/aptPage.js"></script>
+	<script src="Room_Apt/services/factory.js"></script>
 </body>
 </html>
