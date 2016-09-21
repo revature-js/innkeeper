@@ -14,7 +14,6 @@ exports.findAllReimbursements = function(req,res){
 		});
 		db.close();
 	});
-	
 };
 
 exports.findReimbursementById = function(req,res){

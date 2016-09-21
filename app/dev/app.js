@@ -16,7 +16,7 @@ app.constant('seshkeys',{
 	isadmin: "isAdmin"
 });
 
-app.controller('NavbarCtrl',function($scope, $location,$window,seshkeys,$timeout){
+app.controller('NavbarCtrl',function($scope,$http, $location,$window,seshkeys,$timeout){
 
 	$scope.isActive = function (viewLocation) { 
         return viewLocation === $location.path();
@@ -38,6 +38,7 @@ app.controller('NavbarCtrl',function($scope, $location,$window,seshkeys,$timeout
 	$scope.logout=function()
 	{
 		$window.sessionStorage.clear();
+		$http.get('http://localhost:3030/logout');
 		$scope.online = isOnline($window, seshkeys);
 		$timeout(function(){
 			$location.path('/login');

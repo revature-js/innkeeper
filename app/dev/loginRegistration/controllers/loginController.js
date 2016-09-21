@@ -3,6 +3,7 @@ var login = angular.module('loginModule', []);
 login.controller('loginCtrl', function($scope,$window,loginFactory,seshkeys,$location,$timeout){
 
 $scope.login = function(){
+
 	var promise = loginFactory.tryLogin($scope.loginUsername, $scope.loginPassword);
 	promise.then(
 		function(userData){
@@ -26,5 +27,4 @@ function storeSession(window,data,seshkeys){
  	window.sessionStorage.setItem(seshkeys.lname, data.lname);
  	window.sessionStorage.setItem(seshkeys.aptid, data.aptId);
  	window.sessionStorage.setItem(seshkeys.isadmin, data.isAdmin);
- 	console.log(window.sessionStorage);
 };

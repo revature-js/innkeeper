@@ -5,6 +5,7 @@ var passport = require('passport');
 var cookieParser = require('cookie-parser');
 var LocalStrategy = require('passport-local').Strategy;
 var expressValidator = require('express-validator');
+var bcrypt = require('bcryptjs');
 
 var reimbursement = require('./reimbursement');
 var maintenance = require('./maintenance');
@@ -12,7 +13,6 @@ var reimbursement = require('./reimbursement');
 var loginRegister = require('./loginRegister.js');
 
 passport.serializeUser(function(user, done) {
-  console.log("user serialized." + user._id)
   done(null, user._id);
 });
 
@@ -27,7 +27,7 @@ passport.use(new LocalStrategy(
     client.connect(url, function(err,db){
       var collection = db.collection('usersIK');
       collection.findOne({username:username}, function(err, user){
-        if (err){console.log("err: " + err); return done(err);}
+        if (err){return done(err);}
         if (!user){
           return done(null, false, {message: 'Incorrect username.'});
         }
@@ -92,6 +92,7 @@ app.post('/reimbursements/:id',reimbursement.updateReimbursement);
 app.get('/login/:userName' , loginRegister.getUserByUsername);
 app.get('/comparePassword/:password' , loginRegister.comparePassword);
 app.post('/createUser' , loginRegister.createUser);
+app.get('/login', loginRegister.allUsernames);
 
 app.get('/logout', function(req, res){
   req.logout();
@@ -105,8 +106,6 @@ function ensureAuthenticated(req, res, next) {
 
 app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
-    console.log("Inside post");
-    console.log(user);
     if (err) { return next(err); }
     if (!user) { 
       return res.redirect('/login'); 
