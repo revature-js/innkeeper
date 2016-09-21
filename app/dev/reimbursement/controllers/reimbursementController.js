@@ -15,21 +15,6 @@ reimbursement.controller("BurseCtrl", function($scope, burseService, $window, se
 		);
 	};
 
-	var getAllReimbursements = function(){
-		burseService.getAllReimbursements()
-		.then(
-			function(data){
-				$scope.burseHistory = data.data;
-				$scope.emptyHistory = emptyHistory($scope.burseHistory);
-			},
-			function(){
-				alert("Failed to retreive reimbursements...");
-			}
-		);
-	};
-
-	getAllReimbursements();
-
 	$scope.addReimbursement = function() {
 		if (checkEmptyBurse($scope.burseSubmit)){
 			alert("Must complete previous rows before adding another");
