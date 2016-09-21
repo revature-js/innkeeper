@@ -1,24 +1,37 @@
 var maintenance = angular.module('maintenanceApp', []);
 
-maintenance.controller('maintenanceCtrl', function($scope){
+maintenance.controller('maintenanceCtrl', function($scope,dataFactory){
 	$scope.newTicket = [];
 	$scope.ticketHistory = [];
 	
+	var getTicketsByUser = function()
+	{
+		var result = [];
+		//console.log(dataAdminFactory);
+		//console.log(dataAdminFactory.hasOwnProperty('getTicketsByUser'));
+		dataFactory.getTicketsByUser()
+		.then(
+			function(data)
+			{
+				result = data.data;
+				$scope.ticketHistory = result;
+				//console.log($scope.ticketHistory);
+
+				// console.log(result);
+				//$scope.ticketHistory = data.data;
+			},
+			function(err)
+			{
+				alert(err);
+			}
+			);
+		return result;
+
+	};
 	
+	getTicketsByUser();
 
-	// var getAllTickets = function(){
-	// 	dataFactory.getAllTickets()
-	// 	.then(
-	// 		function(data){
-	// 		$scope.ticketHistory = data.data;
-	// 	},
-	// 		function(){
-	// 			alert('nope');
-	// 	}
-	// );
-
-	// };
-	// getAllTickets();
+	//
 
 	$scope.submitNewTicket  = function(){
 		$scope.startDate = new Date();

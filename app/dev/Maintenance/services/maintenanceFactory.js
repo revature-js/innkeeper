@@ -1,6 +1,6 @@
 
 
-maintenance.factory('dataFactory', function($http,dataFactory){
+maintenance.factory('dataFactory', function($http){
 
 	var factory = {};
 
