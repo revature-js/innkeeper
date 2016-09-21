@@ -1,5 +1,5 @@
 # Innkeeper
-This Angular application is an online system for managing accomodation and reimbursement logistics that incorporates various service features.  It allows admins and associates to interact within a facilities portal.  The environment is complete with Angular, Webpack, Mongo Driver, Express, and Node.
+This Angular application is an online system for managing accommodation and reimbursement logistics that incorporates various service features.  It allows admins and associates to interact within a facilities portal.  The environment is complete with Angular, Webpack, Mongo Driver, Express, and Node.
 
 ###### menu
 - [Description](#innkeeper)
