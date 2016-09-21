@@ -2,7 +2,6 @@ var projectionApp = angular.module('projectionApp', []);
 projectionApp.controller('projectionCtrl',
 	function($scope, batchfactory,apartmentFactory){
 		
-	
 		apartmentFactory.gettApartments("tApartments",function(totalOfApartments){
 			$scope.totalOfApartments = totalOfApartments.data.tApartments;
 		},function(err){
@@ -32,10 +31,8 @@ projectionApp.controller('projectionCtrl',
 			$scope.currentTraines = err;
 		});
 
-
 		$scope.batchlist = [];
-
-			
+	
 		batchfactory.getbatch("name","currentsize","startdate",function(batch){
 			$scope.batch = {
 				bName: "",
@@ -83,7 +80,6 @@ projectionApp.controller('projectionCtrl',
 			else{
 				return Math.ceil($scope.potentialNeed) + $scope.totalOfApartments;
 			}
-
 		};
 
 		$scope.getAvailableSeats=function(){
@@ -93,7 +89,6 @@ projectionApp.controller('projectionCtrl',
 			}
 			$scope.totalUnfilledSeats = $scope.batchlist.length * 25;
 			return $scope.totalUnfilledSeats - totalCount;
-
 		};
 
 		$scope.getFilledBatch = function(){
@@ -111,4 +106,3 @@ projectionApp.controller('projectionCtrl',
 			 $scope.magic =false;
 		};
 	});
-

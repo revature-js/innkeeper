@@ -1,6 +1,5 @@
 maintenanceAdmin.factory('dataFactory', function($http){
 	
-
 	var factory = {};
 
 	factory.getAllTickest = function(){
@@ -16,15 +15,11 @@ maintenanceAdmin.factory('dataFactory', function($http){
 		return['Submitted','In-Progress','Complete'];
 	};
 
-
-	
-
 	factory.updateTicket = function(data,update){
 		return $http.post('http://localhost:3030/maintenanceTickets'+
 			data._id+'/'+update);
 
 	};
-
 
 	factory.sumbmitTicket = function(data){
 		return $http.post('http://localhost:3030/maintenanceTickets',

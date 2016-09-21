@@ -75,7 +75,6 @@ reimbursement.controller("BurseAdminCtrl", function($scope, burseService, $timeo
 	$scope.selected = false;
 	$scope.completed = false;
 	getAllReimbursements();
-	
 });
 
 function checkCompleted(burse){

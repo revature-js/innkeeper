@@ -3,8 +3,6 @@ var maintenance = angular.module('maintananceApp', []);
 maintenance.controller('maintenanceAdminCtrl', function($scope){
 	$scope.ticketSubmission = [];
 	$scope.ticketHistory = [];
-	
-	
 
 	// var getAllTickets = function(){
 	// 	ticketFactory.getAllTickets()
@@ -36,6 +34,7 @@ maintenance.controller('maintenanceAdminCtrl', function($scope){
 		$scope.ticketHistory.push({
 			category:$scope.category,
 			description:$scope.description,
+
 			startDate:$scope.startDate,
 			completeDate:$scope.completeDate,
 			status:$scope.status,
@@ -45,9 +44,4 @@ maintenance.controller('maintenanceAdminCtrl', function($scope){
 		// console.log($scope.ticketSubmission.category);
 		// alert($scope.ticketSubmission.category);
 	}
-
-	
-
-
-
 });

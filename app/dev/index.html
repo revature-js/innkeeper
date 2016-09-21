@@ -39,8 +39,15 @@
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li>
-						<a href=""><span class="glyphicon glyphicon-log-in"></span> Login</a>
+					<li ng-if="online"><a href="#/login"><span class="glyphicon glyphicon-log-in">
+					</span> Login</a></li>
+
+					<li class="dropdown" ng-if="!online">
+						<a class="dropdown-toggle" data-toggle="dropdown">Welcome, {{greetingMessage}}
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li ng-click="logout()"><a href="#/login">Logout</a></li>
+						</ul>
 					</li>
 				</ul>
 			</div>
@@ -53,12 +60,14 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://code.angularjs.org/1.5.8/angular.js"></script>
 	<script src="https://code.angularjs.org/1.5.8/angular-route.js"></script>
-
+	<script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript" src="loginRegistration/controllers/loginController.js"></script>
+	<script type="text/javascript" src="loginRegistration/controllers/registerController.js"></script>
+	<script type="text/javascript" src="loginRegistration/services/loginFactory.js"></script>
+	<script type="text/javascript" src="loginRegistration/services/registerFactory.js"></script>
 	<script src="reimbursement/controllers/reimbursementController.js"></script>
 	<script src="reimbursement/controllers/reimbursementAdminController.js"></script>
 	<script src="reimbursement/services/reimbursementService.js"></script>
 	<script src="reimbursement/assets/common.js"></script>
-
-	<script type="text/javascript" src="app.js"></script>
 </body>
 </html>
