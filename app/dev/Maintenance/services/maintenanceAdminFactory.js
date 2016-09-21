@@ -29,11 +29,10 @@ maintenance.factory('dataAdminFactory', function($http){
 	// };
 
 
-	// factory.sumbmitTicket = function(data){
-	// 	return $http.post('http://localhost:3030/maintenanceTickets',
-	// 		data);
+	factory.sumbmitNewTicket = function(ticket){
+		return $http.post('http://localhost:3030/maintenanceCheck/', ticket);
 		
-	// };
+	};
 
 	return factory;
 });

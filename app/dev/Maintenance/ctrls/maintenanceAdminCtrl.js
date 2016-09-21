@@ -1,7 +1,7 @@
 
 
 maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory){
-	// $scope.ticketSubmission = [];
+	$scope.ticketSubmission = {};
 	$scope.ticketHistory = [];
 	$scope.categories = dataAdminFactory.getCategories();
 	
@@ -9,13 +9,17 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory)
 	var getAllTickets = function()
 	{
 		var result = [];
-		console.log(dataAdminFactory);
-		console.log(dataAdminFactory.hasOwnProperty('getAllTickets'));
+		//console.log(dataAdminFactory);
+		//console.log(dataAdminFactory.hasOwnProperty('getAllTickets'));
 		dataAdminFactory.getAllTickets()
 		.then(
 			function(data)
 			{
 				result = data.data;
+				$scope.ticketHistory = result;
+				//console.log($scope.ticketHistory);
+
+				// console.log(result);
 				//$scope.ticketHistory = data.data;
 			},
 			function(err)
@@ -27,9 +31,32 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory)
 
 	};
 	
-	$scope.ticketHistory = getAllTickets();
+	getAllTickets();
 
-	// $scope.submitNewTicket  = function(){
+
+	// console.log($scope.ticketHistory);
+
+	 $scope.submitNewTicket  = function(){
+	 	$scope.startDate = new Date();
+		$scope.status = 'Submitted';
+
+	 	dataAdminFactory.submitNewTicket($scope.ticketSubmission)
+	 	.then(
+	 		function()
+	 		{
+	 			
+			
+
+	 		},
+	 		function(err)
+	 		{
+	 			alert(err);
+
+	 		}
+
+
+	 		);
+	 	};
 	// 	$scope.startDate = new Date();
 	// 	$scope.status = 'Submitted';
 
@@ -53,7 +80,7 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory)
 
 		// console.log($scope.ticketSubmission.category);
 		// alert($scope.ticketSubmission.category);
-	// }
+	 
 
 	
 
