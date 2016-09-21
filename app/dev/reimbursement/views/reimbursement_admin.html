@@ -8,18 +8,32 @@
 				<h4 class="text-center">No Pending Reimbursements</h4>
 			</div>
 			<div ng-hide="emptyHistory" class="panel-body">
-				<nav class="col-md-4 well">
-					<ul class="nav nav-pills nav-stacked" ng-click="setSidebarActive($event)">
-					    <li class="navButton nav-link" ng-repeat="line in burseHistory" ng-click="display(line)">
-					    	<a href="">
-					    		{{line.date | date : 'M/d/yyyy'}} - {{line.type}}: {{line.desc}} - {{line.amount | currency}}
-					    	</a>
-					    </li>
-					</ul>
-				</nav>
-			
-				<div class="col-md-8" ng-show="selected">
+				<div class="col-md-4">
+					<div class="checkbox">
+						<input type="checkbox" ng-model="pending" ng-click="reset()"> Filter for Pending Reimbursements
+					</div>
+					<nav class="well">
+						<div ng-hide="filteredReimbursements.length">
+							<h5 class="text-center">No Pending Reimbursements</h5>
+						</div>
+						<ul class="nav nav-pills nav-stacked" ng-click="setSidebarActive($event)">
+						    <li class="navButton" ng-repeat="line in (burseHistory | filter:filterForPending) as filteredReimbursements" ng-click="display(line._id)">
+						    	<a href="">
+						    		{{line.date | date : 'M/d/yyyy'}} - {{line.type}}: {{line.desc}} - {{line.amount | currency}}
+						    	</a>
+						    </li>
+						</ul>
+					</nav>
+				</div>
+				
+				<div class="col-md-7 col-md-offset-1" ng-show="selected">
 					<div class="form-horizontal">
+						<div class="form-group">
+							<label class="col-md-2">Username: </label>
+							<div class="col-md-9">
+								<span>{{displayBurse.usrname}}</span>
+							</div>
+						</div>
 						<div class="form-group">
 							<label class="col-md-2">Date: </label>
 							<div class="col-md-9">
@@ -50,13 +64,16 @@
 								<span>{{displayBurse.status}}</span>
 							</div>
 						</div>
-						<div class="btn-group" ng-show="completed">
-							<button class="btn btn-success" ng-click="makeDecision('Approved')">
-								Approve
-							</button>
-							<button class="btn btn-danger" ng-click="makeDecision('Denied')">
-								Deny
-							</button>
+						<div class="form-group" ng-show="completed">
+						<label class="col-md-2">Status: </label>
+							<div class="btn-group col-md-9">
+								<button class="btn btn-success" ng-click="makeDecision('Approved')">
+									Approve
+								</button>
+								<button class="btn btn-danger" ng-click="makeDecision('Denied')">
+									Deny
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>

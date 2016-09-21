@@ -1,10 +1,4 @@
-reimbursement.controller("BurseAdminCtrl", function($scope, burseService){
-
-	$scope.burseHistory = [];
-	$scope.emptyHistory = emptyHistory($scope.burseHistory);
-	$scope.displayBurse = {};
-	$scope.selected = false;
-	$scope.completed = false;
+reimbursement.controller("BurseAdminCtrl", function($scope, burseService, $timeout){
 
 	var getAllReimbursements = function(){
 		burseService.getAllReimbursements()
@@ -12,14 +6,13 @@ reimbursement.controller("BurseAdminCtrl", function($scope, burseService){
 			function(data){
 				$scope.burseHistory = data.data;
 				$scope.emptyHistory = emptyHistory($scope.burseHistory);
+				$scope.selected = false;
 			},
 			function(){
 				alert("Failed to retreive reimbursements...");
 			}
 		);
 	};
-
-	getAllReimbursements();
 
 	$scope.setSidebarActive = function(event){
 		var buttons = document.getElementsByClassName("navButton");
@@ -30,28 +23,58 @@ reimbursement.controller("BurseAdminCtrl", function($scope, burseService){
 		angular.element(event.target).parent().addClass("active");
 	};
 
-	$scope.display = function(data){
-		$scope.displayBurse = data;
-		$scope.selected = true;
-		$scope.completed = checkCompleted($scope.displayBurse);
+	$scope.display = function(id){
+		burseService.getReimbursementById(id).then(
+			function(result){
+				$scope.displayBurse = result.data;
+				$scope.selected = true;
+				$scope.completed = checkCompleted($scope.displayBurse);
+			},
+			function(){
+				alert("Error retreiving reimbursement...");
+			}
+		);
 	};
 
 	$scope.makeDecision = function(decision){
-		if($scope.displayBurse.comment===""||$scope.displayBurse.comment===undefined){
-			$scope.displayBurse.comment="No comment";
-		}
 		burseService.updateReimbursement($scope.displayBurse, decision)
 		.then(
 			function(data){
-				$scope.selected = false;
-				getAllReimbursements();
+				if($scope.pending){
+					getAllReimbursements();
+				}else{
+					$scope.display($scope.displayBurse._id);
+				}
+				
 			},
 			function(){
 				alert("Update failed...")
 			}
 		);
-		
-	}
+	};
+
+	$scope.reset = function(){
+		getAllReimbursements();
+	};
+
+	$scope.filterForPending = function(item){
+		if($scope.pending && item.status==="In Progress"){
+			return true;
+		}
+		else if($scope.pending === false || $scope.pending === undefined){
+			return true;
+		}
+		else {
+			return false
+		}
+	};
+
+	$scope.burseHistory = [];
+	$scope.emptyHistory = true;
+	$scope.displayBurse = {};
+	$scope.selected = false;
+	$scope.completed = false;
+	getAllReimbursements();
 });
 
 function checkCompleted(burse){

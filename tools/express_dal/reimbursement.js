@@ -14,7 +14,6 @@ exports.findAllReimbursements = function(req,res){
 		});
 		db.close();
 	});
-	
 };
 
 exports.findReimbursementById = function(req,res){
@@ -24,7 +23,20 @@ exports.findReimbursementById = function(req,res){
 		collection.findOne({'_id': ObjectID(id)}, function(err, item){
 			res.send(item);
 		});
+		
+		db.close();
+	});
+};
 
+exports.findReimbursementsByUsername = function(req,res){
+	client.connect(url, function(err,db){
+		var username = req.params.username;
+		var collection = db.collection('reimbursementsIK');
+		collection.find({usrname: username}).toArray(function (err, items){
+			if(!err){
+				res.send(items);
+			}
+		});
 		db.close();
 	});
 };
@@ -44,7 +56,6 @@ exports.addReimbursement = function(req,res){
 		});
 		db.close();
 	});
-	
 };
 
 exports.updateReimbursement = function (req,res){
