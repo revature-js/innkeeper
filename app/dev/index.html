@@ -7,38 +7,17 @@
 </head>
 <body ng-app="mainApp">
 	<div ng-controller="NavbarCtrl">
-	<!-- SAVE FOR LATER -->
-	<!--<nav class="navbar navbar-inverse">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand">InnKeeper</a>
-				</div>
-				<ul class="nav navbar-nav">
-					<li ng-class="{active: isActive('/apartments')}">
-						<a href="#/apartments">Rooms and Apartments</a>
-					</li>
-					<li ng-class="{active: isActive('/reimbursement')}">
-						<a href="#/reimbursement">Reimbursements</a>
-					</li>
-					<li ng-class="{active: isActive('/maintenance')}">
-						<a href="#/maintenance">Maintenance</a>
-					</li>
-					<li ng-class="{active: isActive('/projection')}">
-						<a href="#/projection">Projection</a>
-					</li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-				</ul>
-			</div>
-		</nav> -->
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<a class="navbar-brand">InnKeeper</a>
 				</div>
 				<ul class="nav navbar-nav">
+<<<<<<< HEAD
 					<li class="dropdown" ng-class="{active: isActive('reimbursement')}" >
+=======
+					<li class="dropdown" ng-class="{active: isActive('apartments')}" >
+>>>>>>> 39c3fdbe814cd89aa050697ff0c977416fdaf6db
 						<a class="dropdown-toggle" data-toggle="dropdown" href="">Rooms and Apartments
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
@@ -55,20 +34,24 @@
 						</ul>
 					</li>
 					<li class="dropdown" ng-class="{active: isActive('maintenance')}">
-						<a class="dropdown-toggle" data-toggle="dropdown">Maintenance
+						<a class="dropdown-toggle" data-toggle="dropdown" href="">Maintenance
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="">View</a></li>
 							<li><a href="">Manage</a></li>
 						</ul>
 					</li>
-					<li ng-class="{active: isActive('projection')}">
-						<a href="">Projection</a>
-					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li>
-						<a href=""><span class="glyphicon glyphicon-log-in"></span> Login</a>
+					<li ng-if="online"><a href="#/login"><span class="glyphicon glyphicon-log-in">
+					</span> Login</a></li>
+
+					<li class="dropdown" ng-if="!online">
+						<a class="dropdown-toggle" data-toggle="dropdown">Welcome, {{greetingMessage}}
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li ng-click="logout()"><a href="#/login">Logout</a></li>
+						</ul>
 					</li>
 				</ul>
 			</div>
@@ -81,15 +64,22 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://code.angularjs.org/1.5.8/angular.js"></script>
 	<script src="https://code.angularjs.org/1.5.8/angular-route.js"></script>
-
+	<script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript" src="loginRegistration/controllers/loginController.js"></script>
+	<script type="text/javascript" src="loginRegistration/controllers/registerController.js"></script>
+	<script type="text/javascript" src="loginRegistration/services/loginFactory.js"></script>
+	<script type="text/javascript" src="loginRegistration/services/registerFactory.js"></script>
 	<script src="reimbursement/controllers/reimbursementController.js"></script>
 	<script src="reimbursement/controllers/reimbursementAdminController.js"></script>
 	<script src="reimbursement/services/reimbursementService.js"></script>
 	<script src="reimbursement/assets/common.js"></script>
+<<<<<<< HEAD
 	<script type="text/javascript" src="app.js"></script>
 
 	<script type="text/javascript" src="Room_Apt/ctrls/aptPage.js"</script>
 	<script src="Room_Apt/ctrls/aptPage.js"></script>
 	<script src="Room_Apt/services/factory.js"></script>
+=======
+>>>>>>> 39c3fdbe814cd89aa050697ff0c977416fdaf6db
 </body>
 </html>
