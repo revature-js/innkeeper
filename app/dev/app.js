@@ -6,7 +6,7 @@ app.constant('seshkeys',{
 	username: "username",
 	aptId: "aptId",
 	isAdmin: "isAdmin"
-})
+});
 
 app.controller('NavbarCtrl',function($scope, $location){
 	$scope.isActive = function (viewLocation) { 
