@@ -13,9 +13,6 @@
 					<a class="navbar-brand">InnKeeper</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li ng-class="{active: isActive('apartments')}">
-						<a href="">Rooms and Apartments</a>
-					</li>
 					<li class="dropdown" ng-class="{active: isActive('apartments')}" >
 						<a class="dropdown-toggle" data-toggle="dropdown" href="">Rooms and Apartments
 						<span class="caret"></span></a>
@@ -33,7 +30,7 @@
 						</ul>
 					</li>
 					<li class="dropdown" ng-class="{active: isActive('maintenance')}">
-						<a class="dropdown-toggle" data-toggle="dropdown">Maintenance
+						<a class="dropdown-toggle" data-toggle="dropdown" href="">Maintenance
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="">View</a></li>
@@ -42,8 +39,15 @@
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li>
-						<a href=""><span class="glyphicon glyphicon-log-in"></span> Login</a>
+					<li ng-if="online"><a href="#/login"><span class="glyphicon glyphicon-log-in">
+					</span> Login</a></li>
+
+					<li class="dropdown" ng-if="!online">
+						<a class="dropdown-toggle" data-toggle="dropdown">Welcome, {{greetingMessage}}
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li ng-click="logout()"><a href="#/login">Logout</a></li>
+						</ul>
 					</li>
 				</ul>
 			</div>
