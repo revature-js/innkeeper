@@ -12,14 +12,14 @@
 						<div class='form-group'>
 							<h2><label for='category'><span class="glyphicon glyphicon-menu-hamburger"></span> Category</label></h2>
 							<select class= 'form-control' ng-model='category' >
-   								<option>Broken item</option>
-    							<option>Missing item</option>
-    							<option>Request item</option>
-   							</select>
+								<option>Broken item</option>
+								<option>Missing item</option>
+								<option>Request item</option>
+							</select>
 						</div>
-   					</div>
-  					<div class='col-md-8'>
-   						<h2><label for='description'><span class="glyphicon glyphicon-comment"></span> Description: </label></h2>
+					</div>
+					<div class='col-md-8'>
+						<h2><label for='description'><span class="glyphicon glyphicon-comment"></span> Description: </label></h2>
 							<textarea class='form-control' rows='4' cols='50' ng-model='description' placeholder="Enter details here."></textarea>
 					</div>
 
@@ -56,31 +56,31 @@
 
   <div class='container-fluid'>
 <br>
-    
-    <div ng-repeat='ones in newTicket  '>
-      <div class="row">
-      
-         <div class="col-sm-4">
-        {{ones.category}}
-        </div>
+	
+	<div ng-repeat='ones in newTicket  '>
+	  <div class="row">
+	  
+		 <div class="col-sm-4">
+		{{ones.category}}
+		</div>
 
-        <div class="col-sm-4">
-        {{ones.description}}
-        </div>
+		<div class="col-sm-4">
+		{{ones.description}}
+		</div>
 
-        
+		
 
-        <div class="col-sm-4">
-        {{ones.status}}
+		<div class="col-sm-4">
+		{{ones.status}}
 
-        
-        </div>
-      
-        
-        </div>
+		
+		</div>
+	  
+		
+		</div>
 <br>
-       </div>
-    
+	   </div>
+	
 
 
   </div>
