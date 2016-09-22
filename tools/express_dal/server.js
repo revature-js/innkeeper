@@ -93,11 +93,6 @@ app.use(function(req, res, next) {
 //app.post('/maintenance', maintenance.submitNewTicket);
 //app.post('/maintenance/:id', maintenance.updateTicket);
 
-app.get('/reimbursements', reimbursement.findAllReimbursements);
-app.get('/reimbursements/:id', reimbursement.findReimbursementById);
-app.post('/reimbursements', reimbursement.addReimbursement);
-app.post('/reimbursements/:id/:decision',reimbursement.updateReimbursement);
-
 app.get('/apartments', apartments.findAllApartments);
 app.get('/apartments/:aptId', apartments.findApartmentsByAptId);
 app.post('/apartments', apartments.addApartment);
