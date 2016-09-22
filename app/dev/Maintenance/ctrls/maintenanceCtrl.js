@@ -35,7 +35,7 @@ maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory,seshk
 	
 
 	$scope.submitNewTicket  = function(){
-	 	console.log($scope.ticket);
+	 	// console.log($scope.ticket);
 
 	 	$scope.ticketSubmission.push({
 			category:$scope.ticket.category,
