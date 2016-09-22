@@ -9,16 +9,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "*",
     "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.1",
     "express": "^4.14.0",
+    "express-session": "^1.10.1",
+    "express-validator": "*",
+    "jsonwebtoken": "^7.1.9",
     "mongodb": "^2.2.10",
     "passport": "*",
     "passport-http": "*",
-    "passport-local": "*",
-    "express-validator": "*",
-    "bcryptjs": "*",
-    "cookie-parser": "^1.4.1",
-    "express-session": "^1.10.1",
-    "bcryptjs": "*"
+    "passport-local": "*"
   }
 }

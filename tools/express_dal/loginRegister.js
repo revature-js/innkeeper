@@ -48,13 +48,10 @@ exports.createUser = function (req, res){
                         existingUser = true;
                     }
                 }
-            });
-
-
-           
-            var collection = db.collection('usersIK');
-
-            //Hashes the new users passwords and adds salt to the begenning.
+            
+            if(existingUser===false)
+            {   
+                //Hashes the new users passwords and adds salt to the begenning.
                 bcrypt.genSalt(10, function(err, salt) {
                     bcrypt.hash(newUser.password, salt, function(err, hash) {
                         newUser.password=hash;
@@ -66,13 +63,18 @@ exports.createUser = function (req, res){
                                 res.send(result);
                             }
                         });
-                    db.close();
+                    });
                 });
-            });
+                res.status(200).send("username was not in databse");
+            }else{
+                res.status(500).send('Username is not avaliable.');
+            }
+        });
+            db.close();
     });
 };
 
-//compares the typed 
+//compares the typed
 exports.comparePassword = function(candidatePassword, hash, callback){
     bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
         if(err) throw err;
