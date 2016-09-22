@@ -1,4 +1,4 @@
-
+var maintenance = angular.module('maintenanceApp');
 
 maintenance.factory('dataFactory', function($http){
 

@@ -57,19 +57,19 @@
 	__webpack_require__(11);
 	__webpack_require__(12);
 	__webpack_require__(13);
-	__webpack_require__(14);
-	module.exports = __webpack_require__(15);
+	module.exports = __webpack_require__(14);
 
 
 /***/ },
 /* 1 */
 /***/ function(module, exports) {
 
-	var app = angular.module("mainApp",['ngRoute','loginModule','registerModule','reimbursementApp']);
+	var app = angular.module("mainApp",['ngRoute','loginModule','registerModule','reimbursementApp','ApartmentApp','maintenanceApp']);
 	var reimbursement = angular.module('reimbursementApp', []);
 	var register = angular.module('registerModule', []);
 	var login = angular.module('loginModule', []);
 	var Apartment = angular.module('ApartmentApp', []);
+	var maintenance = angular.module('maintenanceApp', []);
 
 	app.constant('seshkeys',{
 		fname: "fname",
@@ -350,13 +350,7 @@
 /* 6 */
 /***/ function(module, exports) {
 
-	var maintenance = angular.module('maintenanceApp', []);
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-	
+	var maintenance = angular.module('maintenanceApp');
 
 	maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory){
 		$scope.ticketSubmission = [];
@@ -487,10 +481,10 @@
 
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports) {
 
-	var maintenance = angular.module('maintenanceApp', []);
+	var maintenance = angular.module('maintenanceApp');
 
 	maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory){
 		$scope.newTicket = [];
@@ -584,10 +578,10 @@
 	});
 
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports) {
 
-	
+	var maintenance = angular.module('maintenanceApp');
 
 	maintenance.factory('dataAdminFactory', function($http){
 
@@ -634,10 +628,10 @@
 
 
 /***/ },
-/* 10 */
+/* 9 */
 /***/ function(module, exports) {
 
-	
+	var maintenance = angular.module('maintenanceApp');
 
 	maintenance.factory('dataFactory', function($http){
 
@@ -653,7 +647,7 @@
 
 
 /***/ },
-/* 11 */
+/* 10 */
 /***/ function(module, exports) {
 
 	var reimbursement = angular.module('reimbursementApp');
@@ -756,7 +750,7 @@
 	};
 
 /***/ },
-/* 12 */
+/* 11 */
 /***/ function(module, exports) {
 
 	var reimbursement = angular.module('reimbursementApp');
@@ -838,7 +832,7 @@
 	};
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports) {
 
 	var reimbursement = angular.module('reimbursementApp');
@@ -875,7 +869,7 @@
 	});
 
 /***/ },
-/* 14 */
+/* 13 */
 /***/ function(module, exports) {
 
 	/*app.controller('apt_list_user', function($scope, myserv) {
@@ -1071,7 +1065,7 @@
 	});
 
 /***/ },
-/* 15 */
+/* 14 */
 /***/ function(module, exports) {
 
 	var Apartment = angular.module('ApartmentApp');

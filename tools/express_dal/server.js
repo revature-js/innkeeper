@@ -85,12 +85,11 @@ app.use(function(req, res, next) {
   return next();
 });
 
-//app.get('/maintenance', maintenance.findAllTickets);
-//app.get('/maintenance/:userName', maintenance.findTicketByUser);
-//app.get('/maintenance', maintenance.getAllCategories);
-//app.get('/maintenance', maintenance.getAllApartments);
-//app.post('/maintenance', maintenance.submitNewTicket);
-//app.post('/maintenance/:id', maintenance.updateTicket);
+app.get('/maintenanceCheck', maintenance.getAllTickets);
+app.get('/maintenanceCheck/:usr', maintenance.getTicketsByUser); 
+app.get('/maintenanceTicket/:ticket_id', maintenance.getTicketById);
+app.post('/maintenanceCheck', maintenance.submitNewTicket);
+app.post('/maintenanceUpdate', maintenance.updateTicket);
 
 app.get('/apartments', apartments.findAllApartments);
 app.get('/apartments/:aptId', apartments.findApartmentsByAptId);
