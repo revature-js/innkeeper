@@ -11,7 +11,8 @@ app.constant('seshkeys',{
 	username: "username",
 	aptid: "aptId",
 	isadmin: "isAdmin",
-	serviceurl: "serviceUrl"
+	serviceurl: "serviceUrl",
+	securedurl: "securedUrl"
 });
 
 // set the service url based on dev localhost or prod domain url	
@@ -23,6 +24,8 @@ app.run(function($window,$location,seshkeys){
 	}
 
 	$window.sessionStorage.setItem(seshkeys.serviceurl, 'http://' + domain + ':3030');
+	$window.sessionStorage.setItem(seshkeys.securedurl, 'https://' + domain + ':3030');
+	
 });
 
 app.controller('NavbarCtrl',function($scope,$http, $location,$window,seshkeys,$timeout){
