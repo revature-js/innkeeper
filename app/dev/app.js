@@ -5,13 +5,24 @@ app.constant('seshkeys',{
 	lname: "lname",
 	username: "username",
 	aptId: "aptId",
-	isAdmin: "isAdmin"
-})
+	isAdmin: "isAdmin",
+	serviceurl:"serviceUrl"
+});
 
 app.controller('NavbarCtrl',function($scope, $location){
 	$scope.isActive = function (viewLocation) { 
         return $location.path().includes(viewLocation);
     };
+});
+
+app.run(function($window,$location,seshkeys){
+	var domain = $location.host();
+
+	if (domain && domain !== 'localhost') {
+		domain = $location.host();
+	}
+
+	$window.sessionStorage.setItem(seshkeys.serviceurl, 'http://' + domain + ':3030');
 });
 
 app.config(function($routeProvider) {

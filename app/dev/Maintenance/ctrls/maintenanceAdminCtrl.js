@@ -1,39 +1,30 @@
 
 
-maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory){
+maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,seshkeys){
 	$scope.ticketSubmission = [];
 	$scope.ticketHistory = [];
 	$scope.categories = dataAdminFactory.getCategories();
 	$scope.changedTicket = {};
-
-
-
-	// function generalError(err){}
-
-	// function viewSuccess(data){
-	// 	$scope.ticket = data.data;
-	// }
+	
 	
 
 	var getAllTickets = function()
 	{
 		var result = [];
-		//console.log(dataAdminFactory);
-		//console.log(dataAdminFactory.hasOwnProperty('getAllTickets'));
+		
 		dataAdminFactory.getAllTickets()
 		.then(
 			function(data)
 			{
 				result = data.data;
 				$scope.ticketHistory = result;
-				console.log($scope.ticketHistory);
+				// console.log($scope.ticketHistory);
 
-				// console.log(result);
-				//$scope.ticketHistory = data.data;
+				
 			},
 			function(err)
 			{
-				alert(err);
+				alert('getAllTickets'+err);
 			}
 			);
 		return result;
@@ -82,7 +73,7 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory)
 	 			callback(result);
 	 		},
 	 		function(err){
-	 			console.log(err);
+	 			
 	 			alert('failed to get ticket');
 	 		}
 	 		);
@@ -106,7 +97,9 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory)
 
 					$scope.changedTicket = $scope.ticketHistory[i];
 
-					// alert( JSON.stringify($scope.changedTicket));
+					console.log($scope.changedTicket);
+
+					
 
 					dataAdminFactory.updateTicket($scope.changedTicket)//change
 					 .then(

@@ -8,6 +8,7 @@ maintenance.factory('dataAdminFactory', function($http,seshkeys, $window){
 	var factory = {};
 
 	factory.getAllTickets = function(){
+
 		return $http.get(url+'/maintenanceCheck/');
 
 	};
@@ -22,8 +23,8 @@ maintenance.factory('dataAdminFactory', function($http,seshkeys, $window){
 
 
 	factory.getTicketById = function(id){
-		console.log(id);
-		return $http.get(url+'maintenanceTicket/' + id);
+		
+		return $http.get(url+'/maintenanceTicket/' + id);
 	};
 
 	factory.updateTicket = function(data){

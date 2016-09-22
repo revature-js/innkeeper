@@ -30,35 +30,9 @@ maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory){
 
 	};
 	
-	getTicketsByUser('jack');
+	getTicketsByUser();//pass key
 
-	//
-
-	// $scope.submitNewTicket  = function(){
-	// 	$scope.startDate = new Date();
-	// 	$scope.status = 'Submitted';
-
-	// 	$scope.newTicket.push({
-	// 		category:$scope.category,
-	// 		description:$scope.description,
-	// 		startDate:$scope.startDate,
-	// 		completeDate:$scope.completeDate,
-	// 		status:$scope.status,
-	// 		aptID:$scope.apartment,
-	// 		usr:$scope.usr});
-
-	// 	$scope.ticketHistory.push({
-	// 		category:$scope.category,
-	// 		description:$scope.description,
-	// 		startDate:$scope.startDate,
-	// 		completeDate:$scope.completeDate,
-	// 		status:$scope.status,
-	// 		aptID:$scope.apartment,
-	// 		usr:$scope.usr});
-
-	// 	console.log($scope.newTicket[0]);
-	// 	alert($scope.newTicket[0].category);
-	// }
+	
 
 	$scope.submitNewTicket  = function(){
 	 	console.log($scope.ticket);
