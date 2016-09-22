@@ -46,7 +46,7 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 			completeDate:'',
 			status:'Submitted',
 			aptID:$scope.ticket.apartment,
-			usr:'jack' // for testing
+			usr:seshkeys.username // for testing
 	 		});
 	 	
 	 	console.log($scope.ticketSubmission);
@@ -79,12 +79,7 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 	 		);
 	 };
 
-	 // $scope.updateTicket = function(index,update,id){
-	 // 	console.log(index);
-	 // 	console.log(update);
-	 // 	console.log(id);
-
-	 // }
+	 
 	
 	$scope.updateTicket = function(id){
 		

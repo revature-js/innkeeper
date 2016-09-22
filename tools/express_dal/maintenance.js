@@ -64,17 +64,10 @@ exports.updateTicket = function(req,res){
 			var object = req.body;
 			var id = req.body._id;
 		
-			console.log("*** update ticket: " + JSON.stringify(object));
+			// console.log("*** update ticket: " + JSON.stringify(object));
 
 			var collection = db.collection('maintenanceIK');
-			// collection.updateOne({'_id':ObjectId(id)},{$set:{'status':update}}, function(err,result){
-			// 	if(err){
-			// 		res.send(err);
-			// 	}
-			// 	else{
-			// 		res.send(result);
-			// 	}
-			// });
+			
 			object._id = new ObjectId(id);
 			if (object.status == "Complete") {
 				object.completeDate = new Date();
@@ -92,7 +85,7 @@ exports.updateTicket = function(req,res){
 
 
 exports.getTicketById = function(req,res){
-	console.log('right here');
+	// console.log('right here');
 
 	MongoClient.connect(url, function(err,db) {
         var id = req.params.ticket_id;

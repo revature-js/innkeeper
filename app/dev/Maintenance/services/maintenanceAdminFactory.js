@@ -7,22 +7,22 @@ maintenance.factory('dataAdminFactory', function($http,seshkeys, $window){
 
 	var factory = {};
 
-	factory.getAllTickets = function(){
+	factory.getAllTickets = function(){// returns all the tickets
 
 		return $http.get(url+'/maintenanceCheck/');
 
 	};
 
-	factory.getCategories = function(){
+	factory.getCategories = function(){ // incomplete returns all the distinct categories from db
 		return["Request Item","Missing Item","Broken Item"];
 	};
 
-	factory.getStatus = function(){
+	factory.getStatus = function(){//incomplte returns all the distinct status from db
 		return['Submitted','In-Progress','Complete'];
 	};
 
 
-	factory.getTicketById = function(id){
+	factory.getTicketById = function(id){//returns id of 
 		
 		return $http.get(url+'/maintenanceTicket/' + id);
 	};
