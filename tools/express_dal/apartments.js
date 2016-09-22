@@ -63,3 +63,19 @@ exports.updateApartment = function (req,res){
 		db.close();
 	});
 };
+exports.updateAptID = function (req,res){
+	client.connect(url, function(err,db){
+		var username = req.params.username;
+		var aptId = req.params.aptId;
+		var collection = db.collection('usersIK');
+		collection.updateOne({'username': username},{$set:{'aptId': aptId}}, function(err, result){
+			if(err){
+				res.send({'error':'An error has occured'});
+			}
+			else {
+				res.send(result);
+			}
+		});
+		db.close();
+	});
+};

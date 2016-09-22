@@ -4,16 +4,24 @@
          <h2>Apartment lookup</h2>
       </div>
       <div class = "row well" >
-         <div class="col-md-12">
+         <div class="col-md-5">
             <br>
             User Name:<input type="text" ng-model="username" ng-keypress="dosomething($event,username)">
-            <button type='button' ng-click="search(username)">Search</button>
+            <button type='button' ng-click="search()">Search</button>
             <div>
                <p>{{data.addr.num}} {{data.addr.street}}</p>
                <p>{{data.addr.state}}</p>
                <p>{{data.addr.city}}</p>
                <p>{{data.addr.zip}}</p>
-              <button type='button' ng-show="show" ng-click="changeApt()">Change their Apartment </button><input type="text" ng-hide="hidden" ng-model="NewAptID" placeholder="New AptID"><button type='button' ng-hide="hidden" ng-click="editApt()">Submit</button>
+              <button type='button' ng-show="show" ng-click="changeApt()">Change their Apartment </button><input type="text" ng-hide="hidden" ng-model="NewAptID" placeholder="New AptID"><button type='button' ng-hide="hidden" ng-click="assign2()">Submit</button>
+            </div>
+         </div>
+        <div class="col-md-5">
+            <br>
+            Apartment Id:<input type="text" ng-model="Apartment">
+            <button type='button' ng-click="searchApt()">Search</button>
+            <div>
+              <p ng-repeat="x in list">{{x}}<p>
             </div>
          </div>
       </div>
@@ -33,11 +41,12 @@
                </tr>
                <tr>
                   <td><input type="text" ng-model="Zip" placeholder="Zip"></td>
-                  <td><input type="text" ng-model="AptId" placeholder="AptId"></td>
+                  <td> <input type="text" ng-model="SuiteNo" placeholder="SuiteNo"></td>
                </tr>
                <tr>
                   <td>
-                     <input type="text" ng-model="SuiteNo" placeholder="SuiteNo">
+                  Apartment Id:<span>{{SuiteNo+"-"+aptNum}}</span>
+                    
                   </td>
                   <td>
                      <button type='button' ng-click="anotherApt()">Add Apartment
@@ -74,18 +83,6 @@
                     <option selected="selected" value=6>6</option>
                   </select>
                   </td>
-                  <td>
-                     assign occupants to room:
-                     <select ng-model="room_number">
-                    <option value=1>1</option>
-                    <option value=2>2</option>
-                    <option value=3>3</option>
-                    <option value=4>4</option>
-                    <option value=5>5</option>
-                    <option value=6>6</option>
-                  </select>
-                  <input type="text" ng-model="UserName" placeholder="UserName">
-                  </td>
                </tr>
                <tr>
                   <td><button type='button' ng-click="updateApt()">Submit
@@ -93,6 +90,10 @@
                </tr>
             </tbody>
          </table>
+      </div>
+       <div class = "row well">
+       <button ng-click="trigger()" ng-hide="sheath">Assign New Users </button>
+        <p ng-repeat="x in newUser track by $index">{{x}}<button ng-click="assign(x, newUser, $index)">Assign to apartment</button><p>
       </div>
    </div>
 </div>

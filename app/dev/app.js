@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
  *	app.js
  *		- Main app routing for navigation.
@@ -6,10 +5,7 @@
  
 // main module.
 
-var app = angular.module("mainApp",['ngRoute','reimbursementApp',"ApartmentApp"]);
-=======
-var app = angular.module("mainApp",['ngRoute','reimbursementApp','loginModule','registerModule']);
->>>>>>> 39c3fdbe814cd89aa050697ff0c977416fdaf6db
+var app = angular.module("mainApp",['ngRoute','reimbursementApp','loginModule','registerModule',"ApartmentApp"]);
 
 app.constant('seshkeys',{
 	fname: "fname",

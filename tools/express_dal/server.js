@@ -11,7 +11,9 @@ var reimbursement = require('./reimbursement');
 var maintenance = require('./maintenance');
 var reimbursement = require('./reimbursement');
 var loginRegister = require('./loginRegister.js');
+var projections = require('./projections');
 
+var apartments = require('./apartments');
 passport.serializeUser(function(user, done) {
   done(null, user._id);
 });
@@ -68,14 +70,9 @@ app.use(require('express-session')({
     saveUninitialized: false
 }));
 
-<<<<<<< HEAD
-var projections = require('./projections');
 
-var apartments = require('./apartments');
-=======
 app.use(passport.initialize());
 app.use(passport.session());
->>>>>>> 39c3fdbe814cd89aa050697ff0c977416fdaf6db
 
 app.use(function(req, res, next) {
   var allowedOrigins = ['http://127.0.0.1:3000', 'http://localhost:3000'];
@@ -96,7 +93,6 @@ app.use(function(req, res, next) {
 //app.post('/maintenance', maintenance.submitNewTicket);
 //app.post('/maintenance/:id', maintenance.updateTicket);
 
-<<<<<<< HEAD
 app.get('/reimbursements', reimbursement.findAllReimbursements);
 app.get('/reimbursements/:id', reimbursement.findReimbursementById);
 app.post('/reimbursements', reimbursement.addReimbursement);
@@ -106,20 +102,7 @@ app.get('/apartments', apartments.findAllApartments);
 app.get('/apartments/:aptId', apartments.findApartmentsByAptId);
 app.post('/apartments', apartments.addApartment);
 app.post('/apartments/:aptId/:userName',apartments.updateApartment);
-=======
-//app.get('/apartments', apartments.findAllApartments);
-//app.get('/apartments/:userName', apartments.findApartmentsByUsername);
-//app.post('/apartments', apartment.addApartment);
-//app.post('/apartments/:userName',apartment.updateApartment);
->>>>>>> 39c3fdbe814cd89aa050697ff0c977416fdaf6db
 
-//app.get('/projections', projections.getAllBatches);
-//app.get('/projections', projections.getAllApartments);
-
-<<<<<<< HEAD
-//app.get('/projections', projections.getAllBatches);
-//app.get('/projections', projections.getAllApartments);
-=======
 app.get('/reimbursements', reimbursement.findAllReimbursements);
 app.get('/reimbursements/:id', reimbursement.findReimbursementById);
 app.get('/reimbursement/:username', reimbursement.findReimbursementsByUsername);
@@ -129,6 +112,7 @@ app.post('/reimbursements/:id/:decision',reimbursement.updateReimbursement);
 app.get('/login/:userName' , loginRegister.getUserByUsername);
 app.get('/comparePassword/:password' , loginRegister.comparePassword);
 app.post('/createUser' , loginRegister.createUser);
+app.post('/login/:username/:aptId',apartments.updateAptID);
 app.get('/login', loginRegister.allUsernames);
 
 app.get('/logout', function(req, res){
@@ -157,7 +141,6 @@ app.post('/login', function(req, res, next) {
 });
 
 module.exports = app;
->>>>>>> 39c3fdbe814cd89aa050697ff0c977416fdaf6db
 
 app.listen(3030);
 

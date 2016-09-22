@@ -1,154 +1,191 @@
 /*app.controller('apt_list_user', function($scope, myserv) {
      $scope.apt=myserv.func();
 });*/
-var Apartment= angular.module('ApartmentApp',[]);
+var Apartment = angular.module('ApartmentApp', []);
 Apartment.controller('apt_list_admin', function($scope, myfact) {
-    var apt={};
-    $scope.hide=false;
-    $scope.show=false;
-    $scope.hidden=true;
-     var successFunction = function(data){
-        var data=data.data;
-        $scope.add ={};
-        $scope.search = function(username) {
-        $scope.data="";
-        console.log(data.length);
-        for(var k = 0; k<data.length; k++){
-           for(var i = 0; i < data[k].rooms[0].bedrooms.length; i++)
-        {
-            for(var j=0; j < data[k].rooms[0].bedrooms[i].room.occupants.length; j++)
-                {
-                    if(data[k].rooms[0].bedrooms[i].room.occupants[j]===username){   
-                        $scope.data=data[k];
-                        x= true;
-                                $scope.show=true;
-                        break;
-                    }
-                    else{
-                        x=false;
-                    };
-                }; 
-                if(x){break;} 
+    var apt = {};
+    var usr = {};
+    var id;
+    $scope.hide = false;
+    $scope.show = false;
+    $scope.hidden = true;
+    $scope.sheath = false;
+    var list = [];
+    var newUser = [];
+    myfact.getUser()
+        .then(
+            function(data) {
+                usr = data.data;
+            }
+        );
+    myfact.getAllApartments()
+        .then(
+            function(data) {
+                apt = data.data;
+            });
+    $scope.trigger = function() {
+        for (x in usr) {
+            if (usr[x].aptId === "1") {
+                newUser.push(usr[x].username)
+            }
         };
-        if(x){break;} 
+        $scope.newUser = newUser;
+        $scope.sheath = true;
     };
-        if(x===false){
-            confirm("User not Found");
-            $scope.username="";
+    $scope.search = function() {
+        for (x in usr) {
+            if (usr[x].username === $scope.username) {
+                id = usr[x].aptId;
+                break;
+            }
         };
-    };};
-    var errorFunction = function(err){
-        $scope.data=err;
-    };
-    myfact.getAllApartments(successFunction,errorFunction);
-    var x= false;
-    $scope.dosomething = function(event,username){
-        if(event.which===13){
-                $scope.search(username);
+        for (x in apt) {
+            if (apt[x].aptId === id) {
+                $scope.data = apt[x];
+                $scope.show = true;
+            }
         }
     };
-    $scope.anotherApt = function(){
-        if($scope.aptNum===undefined || $scope.Street===undefined|| $scope.State===undefined  ||$scope.City===undefined || $scope.Zip===undefined ||$scope.SuiteNo===undefined||$scope.AptId===undefined){
-               confirm("Value was left blank");
-        }
-else{
-    apt.aptId=$scope.AptId;
-    apt.addr={
-        "num": $scope.aptNum,
-        "street": $scope.Street,
-        "state": $scope.State,
-        "city": $scope.City,
-        "zip": $scope.Zip,
-        "suite": $scope.SuiteNo,
+    $scope.searchApt = function() {
+        console.log('x');
+        for (x in usr) {
+            if (usr[x].aptId === $scope.Apartment) {
+                list.push(usr[x].username);
+            }
+        };
+        $scope.list = list;
     };
-    $scope.hide=true;
-        console.log(apt);
-        //myfact.addApartment(add);
-    };}
-        $scope.updateApt = function(){
- if($scope.chairs===undefined || $scope.beds===undefined){
-               confirm("Value was left blank");
+    var x = false;
+    $scope.dosomething = function(event, username) {
+        if (event.which === 13) {
+            $scope.search(username);
         }
-    apt.rooms=[{
-        "bedrooms": [{
-            "room": {
-                "number": 1,
-                "chair": $scope.chairs,
-                "bed": $scope.beds,
-                "occupants": []
-            }
-        }, {
-            "room": {
-                "number": 2,
-                "chair": $scope.chairs,
-                "bed": $scope.beds,
-                "occupants": []
-            }
-        }, {
-            "room": {
-                "number": 3,
-                "chair": $scope.chairs,
-                "bed": $scope.beds,
-                "occupants": []
-            }
-        }, {
-            "room": {
-                "number": 4,
-                "chair": $scope.chairs,
-                "bed": $scope.beds,
-                "occupants": []
-            }
-        }, {
-            "room": {
-                "number": 5,
-                "chair": $scope.chairs,
-                "bed": $scope.beds,
-                "occupants": []
-            }
-        }, {
-            "room": {
-                "number": 6,
-                "chair": $scope.chairs,
-                "bed": $scope.beds,
-                "occupants": []
-            }
-        }]
-    }];
-    $scope.hide=true;
-    console.log(apt.rooms);
-    if($scope.room_number!==undefined){
-        if(apt.rooms[0].bedrooms[$scope.room_number-1].room.occupants[0]===undefined){
-            apt.rooms[0].bedrooms[$scope.room_number-1].room.occupants[0]= $scope.UserName;
-        }
-       else if(apt.rooms[0].bedrooms[$scope.room_number-1].room.occupants[1]===undefined){
-            apt.rooms[0].bedrooms[$scope.room_number-1].room.occupants[1]= $scope.UserName;
-        }
-else{
-         confirm(apt.rooms[0].bedrooms[$scope.room_number-1].room.occupants[1]);
-};
-
+    };
+    $scope.anotherApt = function() {
+        if ($scope.aptNum === undefined || $scope.Street === undefined || $scope.State === undefined || $scope.City === undefined || $scope.Zip === undefined || $scope.SuiteNo === undefined) {
+            confirm("Value was left blank");
+        } else {
+            apt.aptId = $scope.SuiteNo + "-" + $scope.aptNum;
+            apt.addr = {
+                "num": $scope.aptNum,
+                "street": $scope.Street,
+                "state": $scope.State,
+                "city": $scope.City,
+                "zip": $scope.Zip,
+                "suite": $scope.SuiteNo,
+            };
+            $scope.hide = true;
+            console.log(apt);
+            //myfact.addApartment(add);
+        };
     }
+    $scope.updateApt = function() {
+        if ($scope.chairs === undefined || $scope.beds === undefined) {
+            confirm("Value was left blank");
+        }
+        apt.rooms = [{
+            "bedrooms": [{
+                "room": {
+                    "chair": $scope.chairs,
+                    "bed": $scope.beds
+                }
+            }, {
+                "room": {
+                    "chair": $scope.chairs,
+                    "bed": $scope.beds
+                }
+            }, {
+                "room": {
+                    "chair": $scope.chairs,
+                    "bed": $scope.beds
+                }
+            }, {
+                "room": {
+                    "chair": $scope.chairs,
+                    "bed": $scope.beds
+                }
+            }, {
+                "room": {
+                    "chair": $scope.chairs,
+                    "bed": $scope.beds
+                }
+            }, {
+                "room": {
+                    "chair": $scope.chairs,
+                    "bed": $scope.beds
+                }
+            }]
+        }];
+        $scope.hide = true;
+        console.log(apt.rooms);
         console.log(apt);
         myfact.addApartment(apt);
-        };
-    $scope.changeApt=function(){
-        $scope.hidden=false;
-        $scope.show=false;
     };
-    $scope.editApt=function(){
+    $scope.changeApt = function() {
+        $scope.hidden = false;
+        $scope.show = false;
+    };
+    $scope.editApt = function() {
         console.log($scope.username);
         console.log($scope.NewAptID);
-        myfact.updateApartment($scope.NewAptID,$scope.username);
+        myfact.updateUser($scope.username, $scope.NewAptID);
+    };
+    $scope.assign = function(username,names,index) {
+        var AptID = prompt('Please input new apartment ID');
+        myfact.updateUser(username, AptID);
+        names.splice(index, 1);
+    };
+    $scope.assign2 = function() {
+        myfact.updateUser($scope.username, $scope.NewAptID);
+        $scope.searchApt();
+         myfact.getUser()
+        .then(
+            function(data) {
+                usr = data.data;
+            }
+        );
+                for (x in usr) {
+            if (usr[x].aptId === "1") {
+                console.log(usr[x].username);
+            }
+        };
+
+    };
+    $scope.iDGen = function() {
+        $scope.AptId = $scope.aptNum;
     }
 });
-Apartment.controller('apt_list_user',function($scope,myfact)
-{
-    var successFunction = function(data){
-        $scope.data=data.data[1];
-        console.log(data);
+Apartment.controller('apt_list_user', function($scope,$window, seshkeys, myfact) {
+    var usr = {};
+    var apt = {};
+    var id;
+    $scope.data = {};
+    var getAllUsers = function(){
+        myfact.getAllApartments()
+        .then(
+            function(data) {
+                apt = data.data;
+               // console.log("succcess " +apt);
+                 display();
+            },
+                function(err){
+                    console.log(err);
+                    //console.log("hhhh");
+                }
+            );
+
     };
-    var errorFunction = function(err){
-        $scope.data=err;
-    };
-    myfact.getAllApartments(successFunction,errorFunction);
+
+var display=function(){
+  //console.log(apt);
+    for (x in apt) {
+        console.log($window.sessionStorage.getItem(seshkeys.aptid));
+       // console.log(apt[x].aptId);
+        if (apt[x].aptId === $window.sessionStorage.getItem(seshkeys.aptid)) {
+            //console.log(apt[x]);
+            $scope.data = apt[x];
+        }
+    }};
+     getAllUsers(); 
+   
 });
