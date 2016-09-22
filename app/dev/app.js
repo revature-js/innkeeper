@@ -10,7 +10,19 @@ app.constant('seshkeys',{
 	lname: "lname",
 	username: "username",
 	aptid: "aptId",
-	isadmin: "isAdmin"
+	isadmin: "isAdmin",
+	serviceurl: "serviceUrl"
+});
+
+// set the service url based on dev localhost or prod domain url	
+app.run(function($window,$location,seshkeys){
+	var domain = $location.host();
+
+	if (domain && domain !== 'localhost') {
+		domain = $location.host();
+	}
+
+	$window.sessionStorage.setItem(seshkeys.serviceurl, 'http://' + domain + ':3030');
 });
 
 app.controller('NavbarCtrl',function($scope,$http, $location,$window,seshkeys,$timeout){
