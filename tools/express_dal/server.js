@@ -11,7 +11,9 @@ var reimbursement = require('./reimbursement');
 var maintenance = require('./maintenance');
 var reimbursement = require('./reimbursement');
 var loginRegister = require('./loginRegister.js');
+var projections = require('./projections');
 
+var apartments = require('./apartments');
 passport.serializeUser(function(user, done) {
   done(null, user._id);
 });
@@ -68,11 +70,12 @@ app.use(require('express-session')({
     saveUninitialized: false
 }));
 
+
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(function(req, res, next) {
-  var allowedOrigins = ['http://127.0.0.1:3000', 'http://localhost:3000', , 'http://ec2-54-218-76-216.us-west-2.compute.amazonaws.com', 'http://ec2-54-218-76-216.us-west-2.compute.amazonaws.com:3030', 'http://ec2-54-218-76-216.us-west-2.compute.amazonaws.com:3000'];
+  var allowedOrigins = ['http://127.0.0.1:3000', 'http://localhost:3000'];
   var origin = req.headers.origin;
   if(allowedOrigins.indexOf(origin) > -1){
        res.setHeader('Access-Control-Allow-Origin', origin);
@@ -90,10 +93,10 @@ app.use(function(req, res, next) {
 //app.post('/maintenance', maintenance.submitNewTicket);
 //app.post('/maintenance/:id', maintenance.updateTicket);
 
-//app.get('/apartments', apartments.findAllApartments);
-//app.get('/apartments/:userName', apartments.findApartmentsByUsername);
-//app.post('/apartments', apartment.addApartment);
-//app.post('/apartments/:userName',apartment.updateApartment);
+app.get('/apartments', apartments.findAllApartments);
+app.get('/apartments/:aptId', apartments.findApartmentsByAptId);
+app.post('/apartments', apartments.addApartment);
+app.post('/apartments/:aptId/:userName',apartments.updateApartment);
 
 app.get('/reimbursements', reimbursement.findAllReimbursements);
 app.get('/reimbursements/:id', reimbursement.findReimbursementById);
@@ -104,6 +107,7 @@ app.post('/reimbursements/:id/:decision',reimbursement.updateReimbursement);
 app.get('/login/:userName' , loginRegister.getUserByUsername);
 app.get('/comparePassword/:password' , loginRegister.comparePassword);
 app.post('/createUser' , loginRegister.createUser);
+app.post('/login/:username/:aptId',apartments.updateAptID);
 app.get('/login', loginRegister.allUsernames);
 
 app.get('/logout', function(req, res){
