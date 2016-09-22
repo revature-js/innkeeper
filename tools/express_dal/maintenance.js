@@ -3,7 +3,7 @@ var MongoClient = require('mongodb').MongoClient
 
 // Connection URL
 var url = 'mongodb://innkeeper:inn123@ds017636.mlab.com:17636/rlms';
-
+var ObjectId = require('mongodb').ObjectID;
 
 exports.getAllTickets = function(req,res){
 	 MongoClient.connect(url, function(err,db){
@@ -34,27 +34,17 @@ exports.getTicketsByUser = function(req, res){
 
 exports.submitNewTicket = function(req,res)
 {
-	// var object = req.body;
-
-	// if (object.usr == undefined || object.aptID == undefined)
- //        throw "addTicket: Usr and aptID cannot be undefined";
-
- //    if (object.status == undefined)
- //        object.status = "Submitted";
- //    if (object.startDate == undefined)
- //        object.startDate = new Date();
-
-
 	 MongoClient.connect(url, function (err, db) 
 	 {
 	 	var ticket = req.body;
+
 	 	var collection =  db.collection('maintenanceIK');
 	    	collection.insert(ticket, function(err,result ){
 	 	if (err) {
 	    	res.send('Unable to connect to the mongoDB server. Error:', err);
 	  			} 
 	  	else {
-	    		res.send(result[0]);
+	    		res.send(result);
 			}
 
  	});
@@ -63,27 +53,49 @@ exports.submitNewTicket = function(req,res)
 	
 };
 
-
 exports.updateTicket = function(req,res){
-		var id = req.body.id;
-		var update = req.body;
 
 		MongoClient.connect(url, function (err, db){
+			// var id = req.params.id;
+			// var update = req.params.update;
+
+			var object = req.body;
+			var id = req.body._id;
 		
+			console.log("*** update ticket: " + JSON.stringify(object));
+
 			var collection = db.collection('maintenanceIK');
+			// collection.updateOne({'_id':ObjectId(id)},{$set:{'status':update}}, function(err,result){
+			// 	if(err){
+			// 		res.send(err);
+			// 	}
+			// 	else{
+			// 		res.send(result);
+			// 	}
+			// });
 			object._id = new ObjectId(id);
+			if (object.status == "Complete") {
+				object.completeDate = new Date();
+			}
+			else{
+				object.completeDate = "";
+			}
+
 			collection.save(object);
+
+
 			db.close();
 	});
 	};
 
 
 exports.getTicketById = function(req,res){
+	console.log('right here');
 
 	MongoClient.connect(url, function(err,db) {
-        var objectId = req.query.ticket_id;
-        var c = db.collection('maintenanceIK');
-        c.findOne ( {"_id": new ObjectId(objectId)}, function(err,ticket){
+        var id = req.params.ticket_id;
+        var collection = db.collection('maintenanceIK');
+        collection.findOne ( {'_id': new ObjectId(id)}, function(err,ticket){
             res.send(ticket);
         });
         db.close();

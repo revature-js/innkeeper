@@ -38,9 +38,9 @@ app.post('/reimbursements/:id/:decision',reimbursement.updateReimbursement);
 app.get('/maintenanceCheck', maintenance.getAllTickets);
 //app.get('/maintenanceCheck/:usr', maintenance.getTicketByUser);
 // app.get('/maintenanceCheckCategories', maintenance.getAllCategories);
-
+app.get('/maintenanceTicket/:ticket_id', maintenance.getTicketById);
 app.post('/maintenanceCheck', maintenance.submitNewTicket);
-//app.post('/maintenanceCheck/:id', maintenance.updateTicket)
+app.post('/maintenanceUpdate', maintenance.updateTicket);
 
 //app.get('/projections', projections.getAllBatches);
 //app.get('/projections', projections.getAllApartments);

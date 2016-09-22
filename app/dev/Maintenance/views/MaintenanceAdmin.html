@@ -189,13 +189,16 @@
         </div>
 
         <div class="col-sm-2">
+       
+
         
 
-        <select name="statusUpdate" ng-model="update" >
-      <option value="Submitted">Submitted</option>
-      <option value="In-Progress">In-Progress</option>
-      <option value="Complete">Complete</option>
-    </select>
+        <!-- <select ng-change='updateTicket(update,ones._id)' name="statusUpdate" ng-model="update" > -->
+        <select ng-change='updateTicket(ones._id)' name="statusUpdate" ng-model="ones.status" > <!-- changed -->
+          <option value="Submitted">Submitted</option>
+          <option value="In-Progress">In-Progress</option>
+          <option value="Complete">Complete</option>
+        </select>
         </div>
       
         

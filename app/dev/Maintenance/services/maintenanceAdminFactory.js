@@ -20,13 +20,15 @@ maintenance.factory('dataAdminFactory', function($http){
 	};
 
 
-	
+	factory.getTicketById = function(id){
+		console.log(id);
+		return $http.get('http://localhost:3030/maintenanceTicket/' + id);
+	};
 
-	// factory.updateTicket = function(data,update){
-	// 	return $http.post('http://localhost:3000/maintenanceCheck/'+
-	// 		data._id+'/'+update);
+	factory.updateTicket = function(data){
+		return $http.post('http://localhost:3030/maintenanceUpdate/',data);
 
-	// };
+	};
 
 
 	factory.submitNewTicket = function(data){
