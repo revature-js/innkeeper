@@ -1,13 +1,14 @@
+var maintenance = angular.module('maintenanceApp');
 
-
-maintenance.factory('dataAdminFactory', function($http){
+maintenance.factory('dataAdminFactory', function($http,seshkeys, $window){
+	var url = $window.sessionStorage.getItem(seshkeys.serviceurl);
 
 
 
 	var factory = {};
 
 	factory.getAllTickets = function(){
-		return $http.get('http://localhost:3030/maintenanceCheck/');
+		return $http.get(url+'/maintenanceCheck/');
 
 	};
 
@@ -22,21 +23,21 @@ maintenance.factory('dataAdminFactory', function($http){
 
 	factory.getTicketById = function(id){
 		console.log(id);
-		return $http.get('http://localhost:3030/maintenanceTicket/' + id);
+		return $http.get(url+'maintenanceTicket/' + id);
 	};
 
 	factory.updateTicket = function(data){
-		return $http.post('http://localhost:3030/maintenanceUpdate/',data);
+		return $http.post(url+'/maintenanceUpdate/',data);
 
 	};
 
 	factory.getTicketsByUser = function(username){
-		return $http.get('http://localhost:3030/maintenanceCheck/' + username);
+		return $http.get(url+'/maintenanceCheck/' + username);
 	};
 
 
 	factory.submitNewTicket = function(data){
-		return $http.post('http://localhost:3030/maintenanceCheck/', data);
+		return $http.post(url+'/maintenanceCheck/', data);
 		
 	};
 
