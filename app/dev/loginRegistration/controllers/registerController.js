@@ -1,25 +1,24 @@
 var register = angular.module('registerModule', []);
 
-register.controller('registerCtrl', function($scope,$window,registerFactory,$http,$location,$timeout){
+register.controller('registerCtrl', function($scope,registerFactory,$http,$location){
 
 	var errors = false;
 	var factory = {};
-	var flag = false;
 		
 	$scope.register = function(){
 
 		var checkPromise = registerFactory.checkUsername($scope.registerUsername);
 			checkPromise.then(				
 				function(result){
-					for(x in result.data)
-					{
-							if($scope.registerUsername===result.data[x].username){
-								alert("Username is taken");
-								flag = true;
-							}
-					}
-					if(flag===false)
-					{
+					// for(x in result.data)
+					// {
+					// 		if($scope.registerUsername===result.data[x].username){
+					// 			alert("Username is taken");
+					// 			flag = true;
+					// 		}
+					// }
+					// if(flag===false)
+					// {
 						var userObj = {
 							username: $scope.registerUsername,
 							password: $scope.registerPassword,

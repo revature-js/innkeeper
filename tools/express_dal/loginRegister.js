@@ -35,27 +35,40 @@ exports.allUsernames = function (req, res){
 
 //creates a new user
 exports.createUser = function (req, res){
+    var newUser = req.body;
+    var existingUser=false;
 
     client.connect(url, function(err,db){
-
-        var newUser = req.body;
         var collection = db.collection('usersIK');
-
-        //Hashes the new users passwords and adds salt to the begenning.
-            bcrypt.genSalt(10, function(err, salt) {
-                bcrypt.hash(newUser.password, salt, function(err, hash) {
-                    newUser.password=hash;
-                    collection.insert(newUser, function(err,result){
-                        if(err){
-                            res.send({'error':'An error has occured'});
-                        }
-                        else {
-                            res.send(result);
-                        }
-                    });
-                db.close();
+            collection.find().toArray(function(err,items){
+                for(x in items)
+                {
+                    if(newUser.username === items[x].username)
+                    {
+                        existingUser = true;
+                    }
+                }
             });
-        });
+
+
+           
+            var collection = db.collection('usersIK');
+
+            //Hashes the new users passwords and adds salt to the begenning.
+                bcrypt.genSalt(10, function(err, salt) {
+                    bcrypt.hash(newUser.password, salt, function(err, hash) {
+                        newUser.password=hash;
+                        collection.insert(newUser, function(err,result){
+                            if(err){
+                                res.send({'error':'An error has occured'});
+                            }
+                            else {
+                                res.send(result);
+                            }
+                        });
+                    db.close();
+                });
+            });
     });
 };
 

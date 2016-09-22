@@ -1,4 +1,4 @@
-login.factory('registerFactory', function($http,$window){
+register.factory('registerFactory', function($http,$window){
 
 	var factory = {};
 
