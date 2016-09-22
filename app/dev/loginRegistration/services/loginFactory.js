@@ -1,3 +1,5 @@
+var login = angular.module('loginModule');
+
 login.factory('loginFactory', function($http,$window,$timeout){
 
 	var factory = {};

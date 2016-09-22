@@ -1,3 +1,4 @@
+var register = angular.module('registerModule');
 register.factory('registerFactory', function($http,$window,seshkeys){
 
 	var factory = {};
@@ -7,6 +8,7 @@ register.factory('registerFactory', function($http,$window,seshkeys){
 	};
 	
 	factory.createUser = function(data){
+
 		return $http.post(seshkeys.securedurl + '/createUser', data);
 	};
 

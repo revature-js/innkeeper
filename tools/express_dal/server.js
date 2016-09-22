@@ -6,10 +6,37 @@ var cookieParser = require('cookie-parser');
 var LocalStrategy = require('passport-local').Strategy;
 var expressValidator = require('express-validator');
 var bcrypt = require('bcryptjs');
-//------------------------------ TOKENS ------------------------------
-// const fs = require('fs');
-// var jwt = require('jsonwebtoken');
-// var token = jwt.sign({ foo: 'bar' }, 'shhhhh');
+
+var reimbursement = require('./reimbursement');
+var maintenance = require('./maintenance');
+var reimbursement = require('./reimbursement');
+var loginRegister = require('./loginRegister.js');
+
+var apartments = require('./apartments');
+passport.serializeUser(function(user, done) {
+  done(null, user._id);
+});
+
+passport.deserializeUser(function(id, done) {
+  userObj.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+passport.use(new LocalStrategy(
+  function(username,password,done) {
+    client.connect(url, function(err,db){
+      var collection = db.collection('usersIK');
+      collection.findOne({username:username}, function(err, user){
+        if (err){return done(err);}
+        if (!user){
+          return done(null, false, {message: 'Incorrect username.'});
+        }
+        return done(null, user);
+      });
+    });
+  }
+));
 
 // //backdate a jwt 30 seconds
 // var older_token = jwt.sign({ foo: 'bar', iat: Math.floor(Date.now() / 1000) - 30 }, 'shhhhh');
@@ -85,12 +112,11 @@ app.use(require('express-session')({
     saveUninitialized: false
 }));
 
-//initialize passport and start session
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(function(req, res, next) {
-  var allowedOrigins = ['http://127.0.0.1:3000', 'http://localhost:3000'];
+  var allowedOrigins = ['http://127.0.0.1:3000', 'http://localhost:3000', 'http://ec2-54-218-76-216.us-west-2.compute.amazonaws.com', 'http://ec2-54-218-76-216.us-west-2.compute.amazonaws.com:3030', 'http://ec2-54-218-76-216.us-west-2.compute.amazonaws.com:3000'];
   var origin = req.headers.origin;
   if(allowedOrigins.indexOf(origin) > -1){
        res.setHeader('Access-Control-Allow-Origin', origin);
@@ -101,20 +127,16 @@ app.use(function(req, res, next) {
   return next();
 });
 
-//app.get('/maintenance', maintenance.findAllTickets);
-//app.get('/maintenance/:userName', maintenance.findTicketByUser);
-//app.get('/maintenance', maintenance.getAllCategories);
-//app.get('/maintenance', maintenance.getAllApartments);
-//app.post('/maintenance', maintenance.submitNewTicket);
-//app.post('/maintenance/:id', maintenance.updateTicket);
+app.get('/maintenanceCheck', maintenance.getAllTickets);
+app.get('/maintenanceCheck/:usr', maintenance.getTicketsByUser); 
+app.get('/maintenanceTicket/:ticket_id', maintenance.getTicketById);
+app.post('/maintenanceCheck', maintenance.submitNewTicket);
+app.post('/maintenanceUpdate', maintenance.updateTicket);
 
-//app.get('/apartments', apartments.findAllApartments);
-//app.get('/apartments/:userName', apartments.findApartmentsByUsername);
-//app.post('/apartments', apartment.addApartment);
-//app.post('/apartments/:userName',apartment.updateApartment);
-
-//app.get('/projections', projections.getAllBatches);
-//app.get('/projections', projections.getAllApartments);
+app.get('/apartments', apartments.findAllApartments);
+app.get('/apartments/:aptId', apartments.findApartmentsByAptId);
+app.post('/apartments', apartments.addApartment);
+app.post('/apartments/:aptId/:userName',apartments.updateApartment);
 
 app.get('/reimbursements', reimbursement.findAllReimbursements);
 app.get('/reimbursements/:id', reimbursement.findReimbursementById);
@@ -134,6 +156,7 @@ app.get('/logout', function(req, res){ //passports logout function
 //checks to see if the user is currently logged in
 //stops from going to pages without access too
 function ensureAuthenticated(req, res, next) { 
+
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/login');
 };

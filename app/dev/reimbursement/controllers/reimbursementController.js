@@ -1,4 +1,4 @@
-var reimbursement = angular.module("reimbursementApp", []);
+var reimbursement = angular.module('reimbursementApp');
 
 reimbursement.controller("BurseCtrl", function($scope, burseService, $window, seshkeys) {
 
@@ -35,7 +35,7 @@ reimbursement.controller("BurseCtrl", function($scope, burseService, $window, se
 			alert("Must complete previous rows before adding another");
 		}
 		else {
-			$scope.burseSubmit.push({date:"",type:"Select a Type",desc:"",amount:"",status:"In Progress",usrname:username});
+			$scope.burseSubmit.push({date:"",type:"Select a Type",desc:"",amount:"",status:"In Progress",usrname:username,name:name});
 		}
 	};
 
@@ -46,7 +46,7 @@ reimbursement.controller("BurseCtrl", function($scope, burseService, $window, se
 		else {
 			burseService.addReimbursement($scope.burseSubmit).then(
 				function(){
-					$scope.burseSubmit = [{date:"",type:"Select a Type",desc:"",amount:"",status:"In Progress",usrname:username}];
+					$scope.burseSubmit = [{date:"",type:"Select a Type",desc:"",amount:"",status:"In Progress",usrname:username,name:name}];
 					getReimbursementsByUsername();
 				},
 				function(){
@@ -60,13 +60,13 @@ reimbursement.controller("BurseCtrl", function($scope, burseService, $window, se
 		$scope.burseSubmit.splice(index,1);
 	};
 
+	var name = $window.sessionStorage.getItem(seshkeys.fname)+" "+$window.sessionStorage.getItem(seshkeys.lname);
 	var username = $window.sessionStorage.getItem(seshkeys.username);
 	$scope.types = burseService.getTypesOfBurse();
-	$scope.burseSubmit = [{date:"",type:"Select a Type",desc:"",amount:"",status:"In Progress",usrname:username}];
+	$scope.burseSubmit = [{date:"",type:"Select a Type",desc:"",amount:"",status:"In Progress",usrname:username,name:name}];
 	$scope.burseHistory = [];
 	getReimbursementsByUsername();
 	$scope.emptyHistory = emptyHistory($scope.burseHistory);
-
 });
 
 function checkEmptyBurse(data){
@@ -80,4 +80,13 @@ function checkEmptyBurse(data){
 		}
 	}
 	return empty;
+};
+
+function emptyHistory(history){
+	if(history.length === 0){
+		return true;
+	}
+	else {
+		return false;
+	}
 };

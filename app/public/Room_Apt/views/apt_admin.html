@@ -1,0 +1,109 @@
+<div ng-app="ApartmentApp">
+    <div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h2>Apartment lookup</h2>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-5">
+                    <br> User Name:<input type="text" ng-model="username" ng-keypress="dosomething($event,username)">
+                    <button class="btn btn-primary" type='button' ng-click="search()">Search</button>
+                    <div>
+                        <p>{{data.addr.num}} {{data.addr.street}}</p>
+                        <p>{{data.addr.state}}</p>
+                        <p>{{data.addr.city}}</p>
+                        <p>{{data.addr.zip}}</p>
+                        <button type='button' class="btn btn-primary" ng-show="show" ng-click="changeApt()">Change their Apartment </button><input type="text" ng-hide="hidden" ng-model="NewAptID" placeholder="New AptID"><button type='button' class="btn btn-primary" ng-hide="hidden" ng-click="assign2()">Submit</button>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <br> Apartment Id:<input type="text" ng-model="Apartment">
+                    <button type='button' class="btn btn-primary" ng-click="searchApt()">Search</button>
+                    <div>
+                        <p ng-repeat="x in list">{{x}}
+                            <p>
+                    </div>
+                </div>
+            </div>
+        </div>
+       <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2>New Apartment</h2>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><input type="text" ng-model="aptNum" placeholder="Apartment Number"></td>
+                        <td><input type="text" ng-model="Street" placeholder="Street"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" ng-model="State" placeholder="State"></td>
+                        <td><input type="text" ng-model="City" placeholder="City"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" ng-model="Zip" placeholder="Zip"></td>
+                        <td> <input type="text" ng-model="SuiteNo" placeholder="SuiteNo"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Apartment Id:<span>{{SuiteNo+"-"+aptNum}}</span>
+
+                        </td>
+                        <td>
+                            <button type='button' class="btn btn-primary" ng-click="anotherApt()">Add Apartment
+                     </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+    <div class="panel panel-primary" ng-show="hide">
+      <div class="panel-heading">
+            <h2>Apartment Info</h2>
+        </div>
+        <div class="panel-body" ng-show="hide">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>chairs
+                            <select ng-model="chairs">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option selected="selected" value="6">6</option>
+                  </select>
+                        </td>
+                        <td>beds
+                            <select ng-model="beds">
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                    <option selected="selected" value=6>6</option>
+                  </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><button type='button' class="btn btn-primary" ng-click="updateApt()">Submit
+                     </button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+      Assign New Users Apartments
+      </div>
+        <div class="panel-body">
+            <button class="btn btn-primary" ng-click="trigger()" ng-hide="sheath">Assign New Users </button>
+            <div ng-repeat="x in newUser track by $index"><div class="col-md-2">{{x}}</div><button class="btn btn-primary" ng-click="assign(x, newUser, $index)">Assign to apartment</button>
+                </div>
+        </div>
+    </div>
+</div>

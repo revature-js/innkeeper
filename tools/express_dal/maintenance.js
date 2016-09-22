@@ -16,6 +16,54 @@ exports.getAllTickets = function(req,res){
 	});
 };
 
+exports.updateTicket = function(req,res){
+
+		MongoClient.connect(url, function (err, db){
+			// var id = req.params.id;
+			// var update = req.params.update;
+
+			var object = req.body;
+			var id = req.body._id;
+		
+			console.log("*** update ticket: " + JSON.stringify(object));
+
+			var collection = db.collection('maintenanceIK');
+			// collection.updateOne({'_id':ObjectId(id)},{$set:{'status':update}}, function(err,result){
+			// 	if(err){
+			// 		res.send(err);
+			// 	}
+			// 	else{
+			// 		res.send(result);
+			// 	}
+			// });
+			object._id = new ObjectId(id);
+			if (object.status == "Complete") {
+				object.completeDate = new Date();
+			}
+			else{
+				object.completeDate = "";
+			}
+
+			collection.save(object);
+
+
+			db.close();
+	});
+};
+
+exports.getTicketById = function(req,res){
+	console.log('right here');
+
+	MongoClient.connect(url, function(err,db) {
+        var id = req.params.ticket_id;
+        var collection = db.collection('maintenanceIK');
+        collection.findOne ( {'_id': new ObjectId(id)}, function(err,ticket){
+            res.send(ticket);
+        });
+        db.close();
+    });
+};
+
 exports.getTicketsByUser = function(req, res){
 	MongoClient.connect(url, function(err,db){
 		var user = req.param.usr;

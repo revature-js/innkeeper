@@ -1,3 +1,5 @@
+var reimbursement = angular.module('reimbursementApp');
+
 reimbursement.factory("burseService", function($http){
 
 	var service = {};

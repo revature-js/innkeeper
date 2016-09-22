@@ -1,12 +1,14 @@
-dalDemo.factory('dataFactory', function($http){
-	var getAllTickets = function(){
-		var defer = $q.defer();
-		$http.get('mongodb://innkeeper:inn123@ds017636.mlab.com:17636/rlms').then(function(response){
-			defer.resolve(response.data);
-		}, function(response) {
-			defer.reject(response);
-		
-		});
+var maintenance = angular.module('maintenanceApp');
 
-		return defer.promise;
+maintenance.factory('dataFactory', function($http, seshkeys, $window){
+	var url = $window.sessionStorage.getItem(seshkeys.serviceurl);
+
+	var factory = {};
+
+	factory.getTicketsByUser = function(){
+		return $http.get(url+'/maintenanceCheck/');
 	};
+
+	return factory;
+
+	});

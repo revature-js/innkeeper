@@ -1,4 +1,4 @@
-var register = angular.module('registerModule', []);
+var register = angular.module('registerModule');
 
 register.controller('registerCtrl', function($scope,registerFactory,$http,$location){
 
