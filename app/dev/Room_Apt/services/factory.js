@@ -1,3 +1,4 @@
+var Apartment = angular.module('ApartmentApp');
 Apartment.factory('myfact',function($http){
     var fact={};
 fact.getAllApartments=function(){

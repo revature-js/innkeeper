@@ -1,4 +1,4 @@
-var login = angular.module('loginModule', []);
+var login = angular.module('loginModule');
 
 login.controller('loginCtrl', function($scope,$window,loginFactory,seshkeys,$location,$timeout){
 
@@ -8,8 +8,12 @@ $scope.login = function(){
 	promise.then(
 		function(userData){
 			storeSession($window,userData.data.user,seshkeys);
-			$location.path('/apartments');
-
+			if(userData.data.user.isAdmin===true){
+				$location.path('/reimbursement/manage');
+			}
+			else {
+				$location.path('/reimbursement');
+			}
 		}, function(err)
 		{
 			$timeout(function(){

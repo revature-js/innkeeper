@@ -1,7 +1,7 @@
 /*app.controller('apt_list_user', function($scope, myserv) {
      $scope.apt=myserv.func();
 });*/
-var Apartment = angular.module('ApartmentApp', []);
+var Apartment = angular.module('ApartmentApp');
 Apartment.controller('apt_list_admin', function($scope, myfact) {
     var apt = {};
     var usr = {};

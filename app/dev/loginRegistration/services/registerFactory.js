@@ -1,3 +1,5 @@
+var login = angular.module('loginModule');
+
 login.factory('registerFactory', function($http,$window){
 
 	var factory = {};

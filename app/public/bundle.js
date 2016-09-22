@@ -51,7 +51,14 @@
 	__webpack_require__(5);
 	__webpack_require__(6);
 	__webpack_require__(7);
-	module.exports = __webpack_require__(8);
+	__webpack_require__(8);
+	__webpack_require__(9);
+	__webpack_require__(10);
+	__webpack_require__(11);
+	__webpack_require__(12);
+	__webpack_require__(13);
+	__webpack_require__(14);
+	module.exports = __webpack_require__(15);
 
 
 /***/ },
@@ -62,6 +69,7 @@
 	var reimbursement = angular.module('reimbursementApp', []);
 	var register = angular.module('registerModule', []);
 	var login = angular.module('loginModule', []);
+	var Apartment = angular.module('ApartmentApp', []);
 
 	app.constant('seshkeys',{
 		fname: "fname",
@@ -342,6 +350,312 @@
 /* 6 */
 /***/ function(module, exports) {
 
+	var maintenance = angular.module('maintenanceApp', []);
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	
+
+	maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory){
+		$scope.ticketSubmission = [];
+		$scope.ticketHistory = [];
+		$scope.categories = dataAdminFactory.getCategories();
+		$scope.changedTicket = {};
+
+
+
+		// function generalError(err){}
+
+		// function viewSuccess(data){
+		// 	$scope.ticket = data.data;
+		// }
+		
+
+		var getAllTickets = function()
+		{
+			var result = [];
+			//console.log(dataAdminFactory);
+			//console.log(dataAdminFactory.hasOwnProperty('getAllTickets'));
+			dataAdminFactory.getAllTickets()
+			.then(
+				function(data)
+				{
+					result = data.data;
+					$scope.ticketHistory = result;
+					console.log($scope.ticketHistory);
+
+					// console.log(result);
+					//$scope.ticketHistory = data.data;
+				},
+				function(err)
+				{
+					alert(err);
+				}
+				);
+			return result;
+
+		};
+		
+		getAllTickets();
+
+
+		// console.log($scope.ticketHistory);
+
+		 $scope.submitNewTicket  = function(){
+		 	console.log($scope.ticket);
+
+		 	$scope.ticketSubmission.push({
+				category:$scope.ticket.category,
+				description:$scope.ticket.description,
+				startDate:new Date(),
+				completeDate:'',
+				status:'Submitted',
+				aptID:$scope.ticket.apartment,
+				usr:'jack' // for testing
+		 		});
+		 	
+		 	console.log($scope.ticketSubmission);
+
+		 		dataAdminFactory.submitNewTicket($scope.ticketSubmission[0])
+		 		.then(
+		 			function(){
+		 				$scope.ticketSubmission.pop();
+		 			},
+		 			function(){
+		 				alert('failed ticket submission');
+		 			}
+		 			);
+
+		 	
+		 	
+		 };
+
+		 $scope.getTicketById = function(id, callback){
+		 	dataAdminFactory.getTicketById(id)
+		 	.then(
+		 		function(result)
+		 		{
+		 			callback(result);
+		 		},
+		 		function(err){
+		 			console.log(err);
+		 			alert('failed to get ticket');
+		 		}
+		 		);
+		 };
+
+		 // $scope.updateTicket = function(index,update,id){
+		 // 	console.log(index);
+		 // 	console.log(update);
+		 // 	console.log(id);
+
+		 // }
+		
+		$scope.updateTicket = function(id){
+			
+			
+
+			$scope.getTicketById(id, function(result) {
+
+				for (var i = 0; i < $scope.ticketHistory.length; i++) {
+					if (id == $scope.ticketHistory[i]._id) {
+
+						$scope.changedTicket = $scope.ticketHistory[i];
+
+						// alert( JSON.stringify($scope.changedTicket));
+
+						dataAdminFactory.updateTicket($scope.changedTicket)//change
+						 .then(
+						 	function(data){	
+						 	},
+						 	function(){
+						 		alert('Failed Update')
+						 	}
+						 );
+
+
+					}
+				}
+
+
+			});
+
+		};
+	});
+
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	var maintenance = angular.module('maintenanceApp', []);
+
+	maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory){
+		$scope.newTicket = [];
+		$scope.ticketHistory = [];
+		$scope.ticketSubmission = [];
+		
+		var getTicketsByUser = function(username)
+		{
+			var result = [];
+			//console.log(dataAdminFactory);
+			//console.log(dataAdminFactory.hasOwnProperty('getTicketsByUser'));
+			dataAdminFactory.getTicketsByUser(username)
+			.then(
+				function(data)
+				{
+					result = data.data;
+					$scope.ticketHistory = result;
+					console.log($scope.ticketHistory);
+
+					// console.log(result);
+					//$scope.ticketHistory = data.data;
+				},
+				function(err)
+				{
+					alert(err);
+				}
+				);
+			return result;
+
+		};
+		
+		getTicketsByUser('jack');
+
+		//
+
+		// $scope.submitNewTicket  = function(){
+		// 	$scope.startDate = new Date();
+		// 	$scope.status = 'Submitted';
+
+		// 	$scope.newTicket.push({
+		// 		category:$scope.category,
+		// 		description:$scope.description,
+		// 		startDate:$scope.startDate,
+		// 		completeDate:$scope.completeDate,
+		// 		status:$scope.status,
+		// 		aptID:$scope.apartment,
+		// 		usr:$scope.usr});
+
+		// 	$scope.ticketHistory.push({
+		// 		category:$scope.category,
+		// 		description:$scope.description,
+		// 		startDate:$scope.startDate,
+		// 		completeDate:$scope.completeDate,
+		// 		status:$scope.status,
+		// 		aptID:$scope.apartment,
+		// 		usr:$scope.usr});
+
+		// 	console.log($scope.newTicket[0]);
+		// 	alert($scope.newTicket[0].category);
+		// }
+
+		$scope.submitNewTicket  = function(){
+		 	console.log($scope.ticket);
+
+		 	$scope.ticketSubmission.push({
+				category:$scope.ticket.category,
+				description:$scope.ticket.description,
+				startDate:new Date(),
+				completeDate:'',
+				status:'Submitted',
+				aptID:$scope.ticket.apartment,
+				usr:'jack' // for testing
+		 		});
+		 	
+		 	console.log($scope.ticketSubmission);
+
+		 		dataAdminFactory.submitNewTicket($scope.ticketSubmission[0])
+		 		.then(
+		 			function(){
+		 				$scope.ticketSubmission.pop();
+		 			},
+		 			function(){
+		 				alert('failed ticket submission');
+		 			}
+		 			);
+
+		 	
+		 	
+		 };
+
+	});
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	
+
+	maintenance.factory('dataAdminFactory', function($http){
+
+
+
+		var factory = {};
+
+		factory.getAllTickets = function(){
+			return $http.get('http://localhost:3030/maintenanceCheck/');
+
+		};
+
+		factory.getCategories = function(){
+			return["Request Item","Missing Item","Broken Item"];
+		};
+
+		factory.getStatus = function(){
+			return['Submitted','In-Progress','Complete'];
+		};
+
+
+		factory.getTicketById = function(id){
+			console.log(id);
+			return $http.get('http://localhost:3030/maintenanceTicket/' + id);
+		};
+
+		factory.updateTicket = function(data){
+			return $http.post('http://localhost:3030/maintenanceUpdate/',data);
+
+		};
+
+		factory.getTicketsByUser = function(username){
+			return $http.get('http://localhost:3030/maintenanceCheck/' + username);
+		};
+
+
+		factory.submitNewTicket = function(data){
+			return $http.post('http://localhost:3030/maintenanceCheck/', data);
+			
+		};
+
+		return factory;
+	});
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	
+
+	maintenance.factory('dataFactory', function($http){
+
+		var factory = {};
+
+		factory.getTicketsByUser = function(){
+			return $http.get('http://localhost:3030/maintenanceCheck/');
+		};
+
+		return factory;
+
+		});
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
 	var reimbursement = angular.module('reimbursementApp');
 
 	reimbursement.controller("BurseAdminCtrl", function($scope, burseService, $timeout){
@@ -442,7 +756,7 @@
 	};
 
 /***/ },
-/* 7 */
+/* 12 */
 /***/ function(module, exports) {
 
 	var reimbursement = angular.module('reimbursementApp');
@@ -524,7 +838,7 @@
 	};
 
 /***/ },
-/* 8 */
+/* 13 */
 /***/ function(module, exports) {
 
 	var reimbursement = angular.module('reimbursementApp');
@@ -559,6 +873,239 @@
 
 		return service;
 	});
+
+/***/ },
+/* 14 */
+/***/ function(module, exports) {
+
+	/*app.controller('apt_list_user', function($scope, myserv) {
+	     $scope.apt=myserv.func();
+	});*/
+	var Apartment = angular.module('ApartmentApp');
+	Apartment.controller('apt_list_admin', function($scope, myfact) {
+	    var apt = {};
+	    var usr = {};
+	    var id;
+	    $scope.hide = false;
+	    $scope.show = false;
+	    $scope.hidden = true;
+	    $scope.sheath = false;
+	    var list = [];
+	    var newUser = [];
+	    myfact.getUser()
+	        .then(
+	            function(data) {
+	                usr = data.data;
+	            }
+	        );
+	    myfact.getAllApartments()
+	        .then(
+	            function(data) {
+	                apt = data.data;
+	            });
+	    $scope.trigger = function() {
+	        for (x in usr) {
+	            if (usr[x].aptId === "1") {
+	                newUser.push(usr[x].username)
+	            }
+	        };
+	        $scope.newUser = newUser;
+	        $scope.sheath = true;
+	    };
+	    $scope.search = function() {
+	        for (x in usr) {
+	            if (usr[x].username === $scope.username) {
+	                id = usr[x].aptId;
+	                break;
+	            }
+	        };
+	        for (x in apt) {
+	            if (apt[x].aptId === id) {
+	                $scope.data = apt[x];
+	                $scope.show = true;
+	            }
+	        }
+	    };
+	    $scope.searchApt = function() {
+	        console.log('x');
+	        for (x in usr) {
+	            if (usr[x].aptId === $scope.Apartment) {
+	                list.push(usr[x].username);
+	            }
+	        };
+	        $scope.list = list;
+	    };
+	    var x = false;
+	    $scope.dosomething = function(event, username) {
+	        if (event.which === 13) {
+	            $scope.search(username);
+	        }
+	    };
+	    $scope.anotherApt = function() {
+	        if ($scope.aptNum === undefined || $scope.Street === undefined || $scope.State === undefined || $scope.City === undefined || $scope.Zip === undefined || $scope.SuiteNo === undefined) {
+	            confirm("Value was left blank");
+	        } else {
+	            apt.aptId = $scope.SuiteNo + "-" + $scope.aptNum;
+	            apt.addr = {
+	                "num": $scope.aptNum,
+	                "street": $scope.Street,
+	                "state": $scope.State,
+	                "city": $scope.City,
+	                "zip": $scope.Zip,
+	                "suite": $scope.SuiteNo,
+	            };
+	            $scope.hide = true;
+	            console.log(apt);
+	            //myfact.addApartment(add);
+	        };
+	    }
+	    $scope.updateApt = function() {
+	        if ($scope.chairs === undefined || $scope.beds === undefined) {
+	            confirm("Value was left blank");
+	        }
+	        apt.rooms = [{
+	            "bedrooms": [{
+	                "room": {
+	                    "chair": $scope.chairs,
+	                    "bed": $scope.beds
+	                }
+	            }, {
+	                "room": {
+	                    "chair": $scope.chairs,
+	                    "bed": $scope.beds
+	                }
+	            }, {
+	                "room": {
+	                    "chair": $scope.chairs,
+	                    "bed": $scope.beds
+	                }
+	            }, {
+	                "room": {
+	                    "chair": $scope.chairs,
+	                    "bed": $scope.beds
+	                }
+	            }, {
+	                "room": {
+	                    "chair": $scope.chairs,
+	                    "bed": $scope.beds
+	                }
+	            }, {
+	                "room": {
+	                    "chair": $scope.chairs,
+	                    "bed": $scope.beds
+	                }
+	            }]
+	        }];
+	        $scope.hide = true;
+	        console.log(apt.rooms);
+	        console.log(apt);
+	        myfact.addApartment(apt);
+	    };
+	    $scope.changeApt = function() {
+	        $scope.hidden = false;
+	        $scope.show = false;
+	    };
+	    $scope.editApt = function() {
+	        console.log($scope.username);
+	        console.log($scope.NewAptID);
+	        myfact.updateUser($scope.username, $scope.NewAptID);
+	    };
+	    $scope.assign = function(username,names,index) {
+	        var AptID = prompt('Please input new apartment ID');
+	        myfact.updateUser(username, AptID);
+	        names.splice(index, 1);
+	    };
+	    $scope.assign2 = function() {
+	        myfact.updateUser($scope.username, $scope.NewAptID);
+	        $scope.searchApt();
+	         myfact.getUser()
+	        .then(
+	            function(data) {
+	                usr = data.data;
+	            }
+	        );
+	                for (x in usr) {
+	            if (usr[x].aptId === "1") {
+	                console.log(usr[x].username);
+	            }
+	        };
+
+	    };
+	    $scope.iDGen = function() {
+	        $scope.AptId = $scope.aptNum;
+	    }
+	});
+	Apartment.controller('apt_list_user', function($scope,$window, seshkeys, myfact) {
+	    var usr = {};
+	    var apt = {};
+	    var id;
+	    $scope.data = {};
+	    var getAllUsers = function(){
+	        myfact.getAllApartments()
+	        .then(
+	            function(data) {
+	                apt = data.data;
+	               // console.log("succcess " +apt);
+	                 display();
+	            },
+	                function(err){
+	                    console.log(err);
+	                    //console.log("hhhh");
+	                }
+	            );
+
+	    };
+
+	var display=function(){
+	  //console.log(apt);
+	    for (x in apt) {
+	        console.log($window.sessionStorage.getItem(seshkeys.aptid));
+	       // console.log(apt[x].aptId);
+	        if (apt[x].aptId === $window.sessionStorage.getItem(seshkeys.aptid)) {
+	            //console.log(apt[x]);
+	            $scope.data = apt[x];
+	        }
+	    }};
+	     getAllUsers(); 
+	   
+	});
+
+/***/ },
+/* 15 */
+/***/ function(module, exports) {
+
+	var Apartment = angular.module('ApartmentApp');
+	Apartment.factory('myfact',function($http){
+	    var fact={};
+	fact.getAllApartments=function(){
+	    return $http.get('http://localhost:3030/apartments')
+	};
+	    fact.getUser = function(username){
+	        return $http.get('http://localhost:3030/login');
+	    };
+
+	fact.getApartmentsByAptId=function(successCallback,errorCallback){
+	    $http.get('http://localhost:3030/apartments/2202-107')
+	    .then(function(data){
+	        successCallback(data);
+	    },
+	        function(err){
+	            errorCallback(err);
+	        }
+	    );
+	};
+	fact.updateUser = function(username,aptId){
+	    console.log("x");
+	        return $http.post('http://localhost:3030/login/'+username+"/"+aptId);
+	    };
+
+	fact.addApartment = function(data){
+	        console.log("data");
+	        return $http.post('http://localhost:3030/apartments', data);
+	    };
+	    return fact;
+	});
+
 
 /***/ }
 /******/ ]);

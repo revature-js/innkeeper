@@ -1,3 +1,5 @@
+var reimbursement = angular.module('reimbursementApp');
+
 reimbursement.controller("BurseAdminCtrl", function($scope, burseService, $timeout){
 
 	var getAllReimbursements = function(){
@@ -79,6 +81,15 @@ reimbursement.controller("BurseAdminCtrl", function($scope, burseService, $timeo
 
 function checkCompleted(burse){
 	if (burse.status === "In Progress"){
+		return true;
+	}
+	else {
+		return false;
+	}
+};
+
+function emptyHistory(history){
+	if(history.length === 0){
 		return true;
 	}
 	else {

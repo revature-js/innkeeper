@@ -1,4 +1,8 @@
-var app = angular.module("mainApp",['ngRoute','reimbursementApp','loginModule','registerModule']);
+var app = angular.module("mainApp",['ngRoute','loginModule','registerModule','reimbursementApp']);
+var reimbursement = angular.module('reimbursementApp', []);
+var register = angular.module('registerModule', []);
+var login = angular.module('loginModule', []);
+var Apartment = angular.module('ApartmentApp', []);
 
 app.constant('seshkeys',{
 	fname: "fname",
@@ -10,14 +14,10 @@ app.constant('seshkeys',{
 
 app.controller('NavbarCtrl',function($scope,$http, $location,$window,seshkeys,$timeout){
 
-	$scope.isActive = function (viewLocation) { 
-        return viewLocation === $location.path();
-    };
-
-    $scope.online = isOnline($window, seshkeys);
-
-    $scope.$on('$locationChangeStart', function(){
+	$scope.$on('$locationChangeStart', function(){
     	$scope.online = isOnline($window, seshkeys);
+    	$scope.admin = isAdmin($window, seshkeys);
+    	console.log($scope.admin);
     	$scope.greetingMessage = $window.sessionStorage.getItem(seshkeys.fname) + " " + $window.sessionStorage.getItem(seshkeys.lname);
     });
 
@@ -26,6 +26,10 @@ app.controller('NavbarCtrl',function($scope,$http, $location,$window,seshkeys,$t
 			$location.path('/login');
 		}
 	});
+
+	$scope.isActive = function (viewLocation) { 
+        return $location.path().includes(viewLocation);
+    };
 
 	$scope.logout=function()
 	{
@@ -37,10 +41,25 @@ app.controller('NavbarCtrl',function($scope,$http, $location,$window,seshkeys,$t
 		},2000);
 	};
 
+	$scope.online = isOnline($window, seshkeys);
+
+	$scope.admin = false;
+
 });
 
 function isOnline(window,seshkeys){
 	if(window.sessionStorage.getItem(seshkeys.username)===null)
+	{
+		return true;
+	}
+	else{
+		return false;
+	}
+};
+
+function isAdmin(window, seshkeys){
+	console.log(window.sessionStorage.getItem(seshkeys.isadmin));
+	if(window.sessionStorage.getItem(seshkeys.isadmin)==="true")
 	{
 		return true;
 	}
