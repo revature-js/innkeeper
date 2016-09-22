@@ -11,7 +11,6 @@ var reimbursement = require('./reimbursement');
 var maintenance = require('./maintenance');
 var reimbursement = require('./reimbursement');
 var loginRegister = require('./loginRegister.js');
-var projections = require('./projections');
 
 var apartments = require('./apartments');
 passport.serializeUser(function(user, done) {
