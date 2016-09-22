@@ -1,29 +1,44 @@
-maintenanceAdmin.factory('dataFactory', function($http){
-	
+
+
+maintenance.factory('dataAdminFactory', function($http){
+
+
+
 	var factory = {};
 
-	factory.getAllTickest = function(){
-		$http.get('http://localhost:3030/maintenanceTickets',
-			data);
-	}
+	factory.getAllTickets = function(){
+		return $http.get('http://localhost:3030/maintenanceCheck/');
+
+	};
 
 	factory.getCategories = function(){
-		return['Request Item','Missing Item','Broken Item'];
+		return["Request Item","Missing Item","Broken Item"];
 	};
 
 	factory.getStatus = function(){
 		return['Submitted','In-Progress','Complete'];
 	};
 
-	factory.updateTicket = function(data,update){
-		return $http.post('http://localhost:3030/maintenanceTickets'+
-			data._id+'/'+update);
+
+	factory.getTicketById = function(id){
+		console.log(id);
+		return $http.get('http://localhost:3030/maintenanceTicket/' + id);
+	};
+
+	factory.updateTicket = function(data){
+		return $http.post('http://localhost:3030/maintenanceUpdate/',data);
 
 	};
 
-	factory.sumbmitTicket = function(data){
-		return $http.post('http://localhost:3030/maintenanceTickets',
-			data);
+	factory.getTicketsByUser = function(username){
+		return $http.get('http://localhost:3030/maintenanceCheck/' + username);
+	};
+
+
+	factory.submitNewTicket = function(data){
+		return $http.post('http://localhost:3030/maintenanceCheck/', data);
 		
-	}
-};
+	};
+
+	return factory;
+});
