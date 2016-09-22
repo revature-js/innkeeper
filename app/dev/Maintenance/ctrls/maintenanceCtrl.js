@@ -1,6 +1,6 @@
 var maintenance = angular.module('maintenanceApp', []);
 
-maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory){
+maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory,seshkeys){
 	$scope.newTicket = [];
 	$scope.ticketHistory = [];
 	$scope.ticketSubmission = [];
@@ -30,7 +30,7 @@ maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory){
 
 	};
 	
-	getTicketsByUser();//pass key
+	getTicketsByUser(seshkeys.username);//pass key
 
 	
 
