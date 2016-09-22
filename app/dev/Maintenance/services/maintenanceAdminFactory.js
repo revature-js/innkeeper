@@ -30,6 +30,10 @@ maintenance.factory('dataAdminFactory', function($http){
 
 	};
 
+	factory.getTicketsByUser = function(username){
+		return $http.get('http://localhost:3030/maintenanceCheck/' + username);
+	};
+
 
 	factory.submitNewTicket = function(data){
 		return $http.post('http://localhost:3030/maintenanceCheck/', data);

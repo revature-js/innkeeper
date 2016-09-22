@@ -23,9 +23,11 @@ exports.getAllTickets = function(req,res){
 
 exports.getTicketsByUser = function(req, res){
 	MongoClient.connect(url, function(err,db){
-		var user = req.param.usr;
+		var user = req.params.usr;
+		console.log("*** usr : " + user);
 		var collection = db.collection('maintenanceIK');
-		collection.find({usr:user}, function(err,item){
+		collection.find({usr:user}).toArray(function(err,item){
+			console.log("\t*** success: " + item);
 			res.send(item);
 		});
 		db.close();

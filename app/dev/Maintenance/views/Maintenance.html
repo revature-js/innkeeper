@@ -11,7 +11,7 @@
 					<div class='col-md-4'>
 						<div class='form-group'>
 							<h2><label for='category'><span class="glyphicon glyphicon-menu-hamburger"></span> Category</label></h2>
-							<select class= 'form-control' ng-model='category' >
+							<select class= 'form-control' ng-model='ticket.category' >
 								<option>Broken item</option>
 								<option>Missing item</option>
 								<option>Request item</option>
@@ -20,7 +20,7 @@
 					</div>
 					<div class='col-md-8'>
 						<h2><label for='description'><span class="glyphicon glyphicon-comment"></span> Description: </label></h2>
-							<textarea class='form-control' rows='4' cols='50' ng-model='description' placeholder="Enter details here."></textarea>
+							<textarea class='form-control' rows='4' cols='50' ng-model='ticket.description' placeholder="Enter details here."></textarea>
 					</div>
 
 <br>
@@ -57,7 +57,7 @@
   <div class='container-fluid'>
 <br>
 	
-	<div ng-repeat='ones in newTicket  '>
+	<div ng-repeat='ones in ticketHistory  '>
 	  <div class="row">
 	  
 		 <div class="col-sm-4">
