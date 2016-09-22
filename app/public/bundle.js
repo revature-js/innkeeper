@@ -73,14 +73,10 @@
 
 	app.controller('NavbarCtrl',function($scope,$http, $location,$window,seshkeys,$timeout){
 
-		$scope.isActive = function (viewLocation) { 
-	        return viewLocation === $location.path();
-	    };
-
-	    $scope.online = isOnline($window, seshkeys);
-
-	    $scope.$on('$locationChangeStart', function(){
+		$scope.$on('$locationChangeStart', function(){
 	    	$scope.online = isOnline($window, seshkeys);
+	    	$scope.admin = isAdmin($window, seshkeys);
+	    	console.log($scope.admin);
 	    	$scope.greetingMessage = $window.sessionStorage.getItem(seshkeys.fname) + " " + $window.sessionStorage.getItem(seshkeys.lname);
 	    });
 
@@ -89,6 +85,10 @@
 				$location.path('/login');
 			}
 		});
+
+		$scope.isActive = function (viewLocation) { 
+	        return $location.path().includes(viewLocation);
+	    };
 
 		$scope.logout=function()
 		{
@@ -100,10 +100,25 @@
 			},2000);
 		};
 
+		$scope.online = isOnline($window, seshkeys);
+
+		$scope.admin = false;
+
 	});
 
 	function isOnline(window,seshkeys){
 		if(window.sessionStorage.getItem(seshkeys.username)===null)
+		{
+			return true;
+		}
+		else{
+			return false;
+		}
+	};
+
+	function isAdmin(window, seshkeys){
+		console.log(window.sessionStorage.getItem(seshkeys.isadmin));
+		if(window.sessionStorage.getItem(seshkeys.isadmin)==="true")
 		{
 			return true;
 		}
@@ -162,8 +177,12 @@
 		promise.then(
 			function(userData){
 				storeSession($window,userData.data.user,seshkeys);
-				$location.path('/reimbursement');
-
+				if(userData.data.user.isAdmin===true){
+					$location.path('/reimbursement/manage');
+				}
+				else {
+					$location.path('/reimbursement');
+				}
 			}, function(err)
 			{
 				$timeout(function(){
@@ -448,7 +467,7 @@
 				alert("Must complete previous rows before adding another");
 			}
 			else {
-				$scope.burseSubmit.push({date:"",type:"Select a Type",desc:"",amount:"",status:"In Progress",usrname:username});
+				$scope.burseSubmit.push({date:"",type:"Select a Type",desc:"",amount:"",status:"In Progress",usrname:username,name:name});
 			}
 		};
 
@@ -459,7 +478,7 @@
 			else {
 				burseService.addReimbursement($scope.burseSubmit).then(
 					function(){
-						$scope.burseSubmit = [{date:"",type:"Select a Type",desc:"",amount:"",status:"In Progress",usrname:username}];
+						$scope.burseSubmit = [{date:"",type:"Select a Type",desc:"",amount:"",status:"In Progress",usrname:username,name:name}];
 						getReimbursementsByUsername();
 					},
 					function(){
@@ -473,9 +492,10 @@
 			$scope.burseSubmit.splice(index,1);
 		};
 
+		var name = $window.sessionStorage.getItem(seshkeys.fname)+" "+$window.sessionStorage.getItem(seshkeys.lname);
 		var username = $window.sessionStorage.getItem(seshkeys.username);
 		$scope.types = burseService.getTypesOfBurse();
-		$scope.burseSubmit = [{date:"",type:"Select a Type",desc:"",amount:"",status:"In Progress",usrname:username}];
+		$scope.burseSubmit = [{date:"",type:"Select a Type",desc:"",amount:"",status:"In Progress",usrname:username,name:name}];
 		$scope.burseHistory = [];
 		getReimbursementsByUsername();
 		$scope.emptyHistory = emptyHistory($scope.burseHistory);
