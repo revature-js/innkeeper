@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 var path = require('path');
 var glob = require('glob');
 const DEV_DIR = path.resolve('./dev');
@@ -9,5 +10,17 @@ module.exports = {
 	output: {
 		path: BUILD_DIR,
 		filename: "bundle.js"
-	}
+	},
+	plugins: [
+		new CopyWebpackPlugin([
+			{ 
+				from: DEV_DIR+'/reimbursement/views',
+				to: BUILD_DIR+'/reimbursement/views'
+			},
+			{
+				from: DEV_DIR+'/Room_Apt/views',
+				to: BUILD_DIR+'/Room_Apt/views'
+			}
+		])
+	]
 };
