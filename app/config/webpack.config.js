@@ -18,8 +18,8 @@ module.exports = {
 				to: BUILD_DIR+'/reimbursement/views'
 			},
 			{
-				from: DEV_DIR+'/Room_Apt/views',
-				to: BUILD_DIR+'/Room_Apt/views'
+				from: DEV_DIR+'/Maintenance/views',
+				to: BUILD_DIR+'/Maintenance/views'
 			}
 		])
 	]
