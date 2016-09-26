@@ -33,7 +33,6 @@ app.controller('NavbarCtrl',function($scope,$http, $location,$window,seshkeys,$t
 	$scope.$on('$locationChangeStart', function(){
     	$scope.online = isOnline($window, seshkeys);
     	$scope.admin = isAdmin($window, seshkeys);
-    	console.log($scope.admin);
     	$scope.greetingMessage = $window.sessionStorage.getItem(seshkeys.fname) + " " + $window.sessionStorage.getItem(seshkeys.lname);
     });
 
@@ -73,7 +72,6 @@ function isOnline(window,seshkeys){
 };
 
 function isAdmin(window, seshkeys){
-	console.log(window.sessionStorage.getItem(seshkeys.isadmin));
 	if(window.sessionStorage.getItem(seshkeys.isadmin)==="true")
 	{
 		return true;

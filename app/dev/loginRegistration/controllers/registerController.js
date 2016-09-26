@@ -25,13 +25,13 @@ register.controller('registerCtrl', function($scope,registerFactory,$http,$locat
 		
 		isMatch($scope.registerPassword,$scope.registerPassword2);
 
-		if(errors==true)
+		if(errors===true)
 		{
 			reset();
 			errors = false;
 		}
-		else{
-		//post to databse here
+		else
+		{
 			registerFactory.createUser(userObj).then(
 				function(){
 					$location.path('/login');
