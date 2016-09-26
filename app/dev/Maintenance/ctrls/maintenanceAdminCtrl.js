@@ -1,47 +1,96 @@
-var maintenance = angular.module('maintananceApp', []);
+var maintenance = angular.module('maintenanceApp');
 
-maintenance.controller('maintenanceAdminCtrl', function($scope){
+maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,seshkeys){
 	$scope.ticketSubmission = [];
 	$scope.ticketHistory = [];
+	$scope.categories = dataAdminFactory.getCategories();
+	$scope.changedTicket = {};
+	
+	var getAllTickets = function()
+	{
+		var result = [];
+		
+		dataAdminFactory.getAllTickets()
+		.then(
+			function(data)
+			{
+				result = data.data;
+				$scope.ticketHistory = result;
+				// console.log($scope.ticketHistory);
+				
+			},
+			function(err)
+			{
+				alert('getAllTickets'+err);
+			}
+			);
+		return result;
 
-	// var getAllTickets = function(){
-	// 	ticketFactory.getAllTickets()
-	// 	.then(
-	// 		function(data){
-	// 		$scope.ticketHistory = data.data;
-	// 	},
-	// 		function(){
-	// 			alert('nope');
-	// 	}
-	// );
+	};
+	
+	getAllTickets();
+	// console.log($scope.ticketHistory);
+		$scope.submitNewTicket  = function(){
+	 	// console.log($scope.ticket);
 
-	// };
-	//getAllTickets();
+	 	$scope.ticketSubmission.push({
+			category:$scope.ticket.category,
+			description:$scope.ticket.description,
+			startDate:new Date(),
+			completeDate:'',
+			status:'Submitted',
+			aptID:$scope.ticket.apartment,
+			usr:seshkeys.username 
+	 		});
+	 	
+	 	// console.log($scope.ticketSubmission);
 
-	$scope.submitNewTicket  = function(){
-		$scope.startDate = new Date();
-		$scope.status = 'Submitted';
+	 		dataAdminFactory.submitNewTicket($scope.ticketSubmission[0])
+	 		.then(
+	 			function(){
+	 				$scope.ticketSubmission.pop();
+	 				newTicket.$setPristine();
+	 				newTicket.$setUntouched();
+	 			},
+	 			function(){
+	 				alert('failed ticket submission');
+	 			}
+	 			);
+	 };
 
-		$scope.ticketSubmission.push({
-			category:$scope.category,
-			description:$scope.description,
-			startDate:$scope.startDate,
-			completeDate:$scope.completeDate,
-			status:$scope.status,
-			aptID:$scope.apartment,
-			usr:$scope.usr});
+	 $scope.getTicketById = function(id, callback){
+	 	dataAdminFactory.getTicketById(id)
+	 	.then(
+	 		function(result)
+	 		{
+	 			callback(result);
+	 		},
+	 		function(err){
+	 			
+	 			alert('failed to get ticket');
+	 		}
+	 		);
+	 };
+	
+	$scope.updateTicket = function(id){// updates a ticket 
+		
+		$scope.getTicketById(id, function(result) {//gets a particular ticket by it's (_id)
 
-		$scope.ticketHistory.push({
-			category:$scope.category,
-			description:$scope.description,
+			for (var i = 0; i < $scope.ticketHistory.length; i++) {
+				if (id == $scope.ticketHistory[i]._id) {
 
-			startDate:$scope.startDate,
-			completeDate:$scope.completeDate,
-			status:$scope.status,
-			aptID:$scope.apartment,
-			usr:$scope.usr});
-
-		// console.log($scope.ticketSubmission.category);
-		// alert($scope.ticketSubmission.category);
-	}
+					$scope.changedTicket = $scope.ticketHistory[i];//
+					// console.log($scope.changedTicket);
+					dataAdminFactory.updateTicket($scope.changedTicket)//change
+					 .then(
+					 	function(data){	
+					 	},
+					 	function(){
+					 		alert('Failed Update')
+					 	}
+					 );
+				}
+			}
+		});
+	};
 });

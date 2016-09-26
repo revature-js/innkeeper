@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  *	app.js
  *		- Main app routing for navigation.
@@ -6,25 +7,44 @@
 // main module.
 
 var app = angular.module("mainApp",['ngRoute','reimbursementApp','loginModule','registerModule',"ApartmentApp"]);
+=======
+var app = angular.module("mainApp",['ngRoute','loginModule','registerModule','reimbursementApp','ApartmentApp','maintenanceApp']);
+var reimbursement = angular.module('reimbursementApp', ['ui.router']);
+var register = angular.module('registerModule', []);
+var login = angular.module('loginModule', []);
+var Apartment = angular.module('ApartmentApp', []);
+var maintenance = angular.module('maintenanceApp', []);
+>>>>>>> dev
 
 app.constant('seshkeys',{
 	fname: "fname",
 	lname: "lname",
 	username: "username",
 	aptid: "aptId",
-	isadmin: "isAdmin"
+	isadmin: "isAdmin",
+	serviceurl: "serviceUrl",
+	securedurl: "securedUrl"
+});
+
+// set the service url based on dev localhost or prod domain url	
+app.run(function($window,$location,seshkeys){
+	var domain = $location.host();
+
+	if (domain && domain !== 'localhost') {
+		domain = $location.host();
+	}
+
+	$window.sessionStorage.setItem(seshkeys.serviceurl, 'http://' + domain + ':3030');
+	$window.sessionStorage.setItem(seshkeys.securedurl, 'https://' + domain + ':3030');
+	
 });
 
 app.controller('NavbarCtrl',function($scope,$http, $location,$window,seshkeys,$timeout){
 
-	$scope.isActive = function (viewLocation) { 
-        return viewLocation === $location.path();
-    };
-
-    $scope.online = isOnline($window, seshkeys);
-
-    $scope.$on('$locationChangeStart', function(){
+	$scope.$on('$locationChangeStart', function(){
     	$scope.online = isOnline($window, seshkeys);
+    	$scope.admin = isAdmin($window, seshkeys);
+    	console.log($scope.admin);
     	$scope.greetingMessage = $window.sessionStorage.getItem(seshkeys.fname) + " " + $window.sessionStorage.getItem(seshkeys.lname);
     });
 
@@ -33,6 +53,10 @@ app.controller('NavbarCtrl',function($scope,$http, $location,$window,seshkeys,$t
 			$location.path('/login');
 		}
 	});
+
+	$scope.isActive = function (viewLocation) { 
+        return $location.path().includes(viewLocation);
+    };
 
 	$scope.logout=function()
 	{
@@ -44,10 +68,25 @@ app.controller('NavbarCtrl',function($scope,$http, $location,$window,seshkeys,$t
 		},2000);
 	};
 
+	$scope.online = isOnline($window, seshkeys);
+
+	$scope.admin = false;
+
 });
 
 function isOnline(window,seshkeys){
 	if(window.sessionStorage.getItem(seshkeys.username)===null)
+	{
+		return true;
+	}
+	else{
+		return false;
+	}
+};
+
+function isAdmin(window, seshkeys){
+	console.log(window.sessionStorage.getItem(seshkeys.isadmin));
+	if(window.sessionStorage.getItem(seshkeys.isadmin)==="true")
 	{
 		return true;
 	}

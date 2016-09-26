@@ -28,7 +28,6 @@ This Angular application is an online system for managing accommodation and reim
 - Room & Apt Management ([Sam](#developers))
 - Login & Sign Up ([Weston](#developers))
 - Maintenance Request ([Jon-Erik](#developers))
-- Estimate Apt Requirements ([Alex](#developers))
 
 ### Technologies
 - Angular JS
@@ -60,7 +59,6 @@ The webhost will run on localhost:3000
 - Sam
 - Weston
 - Jon-Erik
-- Alex
 
 ### License
 [MIT](https://github.com/revature-js/Innkeeper/blob/master/LICENSE)

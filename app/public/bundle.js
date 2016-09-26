@@ -58,17 +58,34 @@
 /* 1 */
 /***/ function(module, exports) {
 
-	var app = angular.module("mainApp",['ngRoute','loginModule','registerModule','reimbursementApp']);
-	var reimbursement = angular.module('reimbursementApp', []);
+	var app = angular.module("mainApp",['ngRoute','loginModule','registerModule','reimbursementApp','ApartmentApp','maintenanceApp']);
+	var reimbursement = angular.module('reimbursementApp', ['ui.router']);
 	var register = angular.module('registerModule', []);
 	var login = angular.module('loginModule', []);
+	var Apartment = angular.module('ApartmentApp', []);
+	var maintenance = angular.module('maintenanceApp', []);
 
 	app.constant('seshkeys',{
 		fname: "fname",
 		lname: "lname",
 		username: "username",
 		aptid: "aptId",
-		isadmin: "isAdmin"
+		isadmin: "isAdmin",
+		serviceurl: "serviceUrl",
+		securedurl: "securedUrl"
+	});
+
+	// set the service url based on dev localhost or prod domain url	
+	app.run(function($window,$location,seshkeys){
+		var domain = $location.host();
+
+		if (domain && domain !== 'localhost') {
+			domain = $location.host();
+		}
+
+		$window.sessionStorage.setItem(seshkeys.serviceurl, 'http://' + domain + ':3030');
+		$window.sessionStorage.setItem(seshkeys.securedurl, 'https://' + domain + ':3030');
+		
 	});
 
 	app.controller('NavbarCtrl',function($scope,$http, $location,$window,seshkeys,$timeout){
@@ -163,180 +180,245 @@
 		})
 	});
 
+
 /***/ },
 /* 2 */
 /***/ function(module, exports) {
 
-	var login = angular.module('loginModule');
+	var maintenance = angular.module('maintenanceApp');
 
-	login.controller('loginCtrl', function($scope,$window,loginFactory,seshkeys,$location,$timeout){
-
-	$scope.login = function(){
-
-		var promise = loginFactory.tryLogin($scope.loginUsername, $scope.loginPassword);
-		promise.then(
-			function(userData){
-				storeSession($window,userData.data.user,seshkeys);
-				if(userData.data.user.isAdmin===true){
-					$location.path('/reimbursement/manage');
+	maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,seshkeys){
+		$scope.ticketSubmission = [];
+		$scope.ticketHistory = [];
+		$scope.categories = dataAdminFactory.getCategories();
+		$scope.changedTicket = {};
+		
+		var getAllTickets = function()
+		{
+			var result = [];
+			
+			dataAdminFactory.getAllTickets()
+			.then(
+				function(data)
+				{
+					result = data.data;
+					$scope.ticketHistory = result;
+					// console.log($scope.ticketHistory);
+					
+				},
+				function(err)
+				{
+					alert('getAllTickets'+err);
 				}
-				else {
-					$location.path('/reimbursement');
+				);
+			return result;
+
+		};
+		
+		getAllTickets();
+		// console.log($scope.ticketHistory);
+			$scope.submitNewTicket  = function(){
+		 	// console.log($scope.ticket);
+
+		 	$scope.ticketSubmission.push({
+				category:$scope.ticket.category,
+				description:$scope.ticket.description,
+				startDate:new Date(),
+				completeDate:'',
+				status:'Submitted',
+				aptID:$scope.ticket.apartment,
+				usr:seshkeys.username 
+		 		});
+		 	
+		 	// console.log($scope.ticketSubmission);
+
+		 		dataAdminFactory.submitNewTicket($scope.ticketSubmission[0])
+		 		.then(
+		 			function(){
+		 				$scope.ticketSubmission.pop();
+		 				newTicket.$setPristine();
+		 				newTicket.$setUntouched();
+		 			},
+		 			function(){
+		 				alert('failed ticket submission');
+		 			}
+		 			);
+		 };
+
+		 $scope.getTicketById = function(id, callback){
+		 	dataAdminFactory.getTicketById(id)
+		 	.then(
+		 		function(result)
+		 		{
+		 			callback(result);
+		 		},
+		 		function(err){
+		 			
+		 			alert('failed to get ticket');
+		 		}
+		 		);
+		 };
+		
+		$scope.updateTicket = function(id){// updates a ticket 
+			
+			$scope.getTicketById(id, function(result) {//gets a particular ticket by it's (_id)
+
+				for (var i = 0; i < $scope.ticketHistory.length; i++) {
+					if (id == $scope.ticketHistory[i]._id) {
+
+						$scope.changedTicket = $scope.ticketHistory[i];//
+						// console.log($scope.changedTicket);
+						dataAdminFactory.updateTicket($scope.changedTicket)//change
+						 .then(
+						 	function(data){	
+						 	},
+						 	function(){
+						 		alert('Failed Update')
+						 	}
+						 );
+					}
 				}
-			}, function(err)
-			{
-				$timeout(function(){
-					alert("Invalid username/password");
-					$location.path('/login');
-				});
-			}
-		);
-	};
+			});
+		};
 	});
 
-	function storeSession(window,data,seshkeys){
-	 	window.sessionStorage.setItem(seshkeys.username, data.username);
-	 	window.sessionStorage.setItem(seshkeys.fname, data.fname);
-	 	window.sessionStorage.setItem(seshkeys.lname, data.lname);
-	 	window.sessionStorage.setItem(seshkeys.aptid, data.aptId);
-	 	window.sessionStorage.setItem(seshkeys.isadmin, data.isAdmin);
-	};
 
 /***/ },
 /* 3 */
 /***/ function(module, exports) {
 
-	var register = angular.module('registerModule');
+	var maintenance = angular.module('maintenanceApp');
 
-	register.controller('registerCtrl', function($scope,$window,registerFactory,$http,$location,$timeout){
-
-		var errors = false;
-		var factory = {};
-		var flag = false;
-			
-		$scope.register = function(){
-
-			var checkPromise = registerFactory.checkUsername($scope.registerUsername);
-				checkPromise.then(				
-					function(result){
-						for(x in result.data)
-						{
-								if($scope.registerUsername===result.data[x].username){
-									alert("Username is taken");
-									flag = true;
-								}
-						}
-						if(flag===false)
-						{
-							var userObj = {
-								username: $scope.registerUsername,
-								password: $scope.registerPassword,
-								email: $scope.registerEmail,
-								fname: $scope.registerFname,
-								lname: $scope.registerLname,
-								isAdmin: false,
-								aptId: "1",
-								batch: "TESTING"
-							};
-
-							checkBody(userObj.username,'Username');
-							checkBody(userObj.password,'Password');
-							checkBody(userObj.email,'Email');
-							checkBody(userObj.fname,'First Name');
-							checkBody(userObj.lname,'Last Name');
-							checkBody($scope.registerPassword2,'Confirm Password');
-							isMatch($scope.registerPassword,$scope.registerPassword2);
-
-							if(errors==true)
-							{
-								reset();
-								errors = false;
-							}
-							else{
-							//post to databse here
-								registerFactory.createUser(userObj).then(
-									function(result){
-										$location.path('/login');
-									},
-									function(){
-										alert("There was an error registering...");
-									}
-								);
-							}
-						}
-						else{
-
-						}
-				},
-			//on error
-			function(err){
-				alert(err);
-			});
-		};	
-	});
-
-	var checkBody = function(field, fieldName){
-		if(!field) {
-			errors = true;
-			alert(fieldName + " is required.");
-		}
-	};
-
-	var isMatch = function(p1,p2)
-	{
-		if(p1!=p2)
+	maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory,seshkeys){
+		$scope.newTicket = [];
+		$scope.ticketHistory = [];
+		$scope.ticketSubmission = [];
+		
+		var getTicketsByUser = function(username)
 		{
-			errors = true;
-			alert("Passwords do not match");
-		}
-	};
+			var result = [];
+			//console.log(dataAdminFactory);
+			//console.log(dataAdminFactory.hasOwnProperty('getTicketsByUser'));
+			dataAdminFactory.getTicketsByUser(username)
+			.then(
+				function(data)
+				{
+					result = data.data;
+					$scope.ticketHistory = result;
+					console.log($scope.ticketHistory);
 
-	var reset = function()
-	{
-		$scope.registerUsername = "";
-		$scope.registerPassword = "";
-		$scope.registerPassword2 = "";
-		$scope.registerEmail = "";
-		$scope.registerFname = "";
-		$scope.registerLname = "";
-	};
+					// console.log(result);
+					//$scope.ticketHistory = data.data;
+				},
+				function(err)
+				{
+					alert(err);
+				}
+				);
+			return result;
+
+		};
+		
+		getTicketsByUser(seshkeys.username);//pass session key of user
+
+		$scope.submitNewTicket  = function(){
+		 	// console.log($scope.ticket);
+
+		 	$scope.ticketSubmission.push({
+				category:$scope.ticket.category,
+				description:$scope.ticket.description,
+				startDate:new Date(),
+				completeDate:'',
+				status:'Submitted',
+				aptID:$scope.ticket.apartment,
+				usr:seshkeys.username // for testing
+		 		});
+		 	
+		 	// console.log($scope.ticketSubmission);
+
+		 		dataAdminFactory.submitNewTicket($scope.ticketSubmission[0])
+		 		.then(
+		 			function(){
+		 				$scope.ticketSubmission.pop();
+		 			},
+		 			function(){
+		 				alert('failed ticket submission');
+		 			}
+		 			);
+
+		 	
+		 	
+		 };
+
+	});
 
 /***/ },
 /* 4 */
 /***/ function(module, exports) {
 
-	var login = angular.module('loginModule');
+	var maintenance = angular.module('maintenanceApp');
 
-	login.factory('loginFactory', function($http,$window,$timeout){
+	maintenance.factory('dataAdminFactory', function($http,seshkeys, $window){
 
+		var url = $window.sessionStorage.getItem(seshkeys.serviceurl);
 		var factory = {};
 
-			factory.tryLogin = function(username, password){
-				return $http.post('http://localhost:3030/login', {username: username, password: password});
-			};
+		factory.getAllTickets = function(){// returns all the tickets
+			return $http.get(url+'/maintenanceCheck/');
+
+		};
+
+		factory.getCategories = function(){ // incomplete returns all the distinct categories from db
+			return["Request Item","Missing Item","Broken Item"];
+		};
+
+		factory.getStatus = function(){//incomplte returns all the distinct status from db
+			return['Submitted','In-Progress','Complete'];
+		};
+
+		factory.getTicketById = function(id){//returns id of a particular ticket
+			
+			return $http.get(url+'/maintenanceTicket/' + id);
+		};
+
+		factory.updateTicket = function(data){//updates a particular ticket
+			return $http.post(url+'/maintenanceUpdate/',data);
+
+		};
+
+		factory.getTicketsByUser = function(username){//gets all ticket by a particular user
+			return $http.get(url+'/maintenanceCheck/' + username);
+		};
+
+
+		factory.submitNewTicket = function(data){//sumbmit a single ticket
+			return $http.post(url+'/maintenanceCheck/', data);
+			
+		};
+
 		return factory;
 	});
+
 
 /***/ },
 /* 5 */
 /***/ function(module, exports) {
 
-	var login = angular.module('loginModule');
+	var maintenance = angular.module('maintenanceApp');
 
-	login.factory('registerFactory', function($http,$window){
-
+	maintenance.factory('dataFactory', function($http, seshkeys, $window){
+		
+		var url = $window.sessionStorage.getItem(seshkeys.serviceurl);
 		var factory = {};
 
-		factory.checkUsername = function(username){
-			return $http.get('http://localhost:3030/login');
-		};
-		
-		factory.createUser = function(data){
-			return $http.post('http://localhost:3030/createUser', data);
+		factory.getTicketsByUser = function(){
+			return $http.get(url+'/maintenanceCheck/');
 		};
 
 		return factory;
-	});
+
+		});
+
 
 /***/ },
 /* 6 */
@@ -523,13 +605,23 @@
 		}
 	};
 
+	reimbursement.config(function($stateProvider){
+		$stateProvider
+		.state('history',{
+			templateUrl: 'reimbursement_history.html'
+		})
+		.state('submit',{
+			templateUrl: 'reimbursement_submite.html'
+		});
+	});
+
 /***/ },
 /* 8 */
 /***/ function(module, exports) {
 
 	var reimbursement = angular.module('reimbursementApp');
 
-	reimbursement.factory("burseService", function($http){
+	reimbursement.factory("burseService", function($http,seshkeys){
 
 		var service = {};
 
@@ -538,23 +630,23 @@
 		};
 
 		service.getReimbursementById = function(id){
-			return $http.get('http://localhost:3030/reimbursements/'+id);
+			return $http.get(seshkeys.serviceurl+'/reimbursements/'+id);
 		};
 
 		service.getReimbursementsByUsername = function(username){
-			return $http.get('http://localhost:3030/reimbursement/'+username);
+			return $http.get(seshkeys.serviceurl+'/reimbursement/'+username);
 		};
 
 		service.getAllReimbursements = function(){
-			return $http.get('http://localhost:3030/reimbursements/');
+			return $http.get(seshkeys.serviceurl+'/reimbursements/');
 		};
 
 		service.addReimbursement = function(data){
-			return $http.post('http://localhost:3030/reimbursements/', data);
+			return $http.post(seshkeys.serviceurl+'/reimbursements/', data);
 		};
 
 		service.updateReimbursement = function(data,decision){
-			return $http.post('http://localhost:3030/reimbursements/'+data._id+"/"+decision);
+			return $http.post(seshkeys.serviceurl+'/reimbursements/'+data._id+"/"+decision);
 		};
 
 		return service;

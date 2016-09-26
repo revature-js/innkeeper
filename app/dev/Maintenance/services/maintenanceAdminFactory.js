@@ -1,29 +1,42 @@
-maintenanceAdmin.factory('dataFactory', function($http){
-	
+var maintenance = angular.module('maintenanceApp');
+
+maintenance.factory('dataAdminFactory', function($http,seshkeys, $window){
+
+	var url = $window.sessionStorage.getItem(seshkeys.serviceurl);
 	var factory = {};
 
-	factory.getAllTickest = function(){
-		$http.get('http://localhost:3030/maintenanceTickets',
-			data);
-	}
+	factory.getAllTickets = function(){// returns all the tickets
+		return $http.get(url+'/maintenanceCheck/');
 
-	factory.getCategories = function(){
-		return['Request Item','Missing Item','Broken Item'];
 	};
 
-	factory.getStatus = function(){
+	factory.getCategories = function(){ // incomplete returns all the distinct categories from db
+		return["Request Item","Missing Item","Broken Item"];
+	};
+
+	factory.getStatus = function(){//incomplte returns all the distinct status from db
 		return['Submitted','In-Progress','Complete'];
 	};
 
-	factory.updateTicket = function(data,update){
-		return $http.post('http://localhost:3030/maintenanceTickets'+
-			data._id+'/'+update);
+	factory.getTicketById = function(id){//returns id of a particular ticket
+		
+		return $http.get(url+'/maintenanceTicket/' + id);
+	};
+
+	factory.updateTicket = function(data){//updates a particular ticket
+		return $http.post(url+'/maintenanceUpdate/',data);
 
 	};
 
-	factory.sumbmitTicket = function(data){
-		return $http.post('http://localhost:3030/maintenanceTickets',
-			data);
+	factory.getTicketsByUser = function(username){//gets all ticket by a particular user
+		return $http.get(url+'/maintenanceCheck/' + username);
+	};
+
+
+	factory.submitNewTicket = function(data){//sumbmit a single ticket
+		return $http.post(url+'/maintenanceCheck/', data);
 		
-	}
-};
+	};
+
+	return factory;
+});
