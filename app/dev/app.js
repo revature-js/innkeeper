@@ -1,5 +1,5 @@
 var app = angular.module("mainApp",['ngRoute','loginModule','registerModule','reimbursementApp','ApartmentApp','maintenanceApp']);
-var reimbursement = angular.module('reimbursementApp', []);
+var reimbursement = angular.module('reimbursementApp', ['ui.router']);
 var register = angular.module('registerModule', []);
 var login = angular.module('loginModule', []);
 var Apartment = angular.module('ApartmentApp', []);

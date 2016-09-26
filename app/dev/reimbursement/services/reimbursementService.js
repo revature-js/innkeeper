@@ -1,6 +1,6 @@
 var reimbursement = angular.module('reimbursementApp');
 
-reimbursement.factory("burseService", function($http){
+reimbursement.factory("burseService", function($http,seshkeys){
 
 	var service = {};
 
@@ -9,23 +9,23 @@ reimbursement.factory("burseService", function($http){
 	};
 
 	service.getReimbursementById = function(id){
-		return $http.get('http://localhost:3030/reimbursements/'+id);
+		return $http.get(seshkeys.serviceurl+'/reimbursements/'+id);
 	};
 
 	service.getReimbursementsByUsername = function(username){
-		return $http.get('http://localhost:3030/reimbursement/'+username);
+		return $http.get(seshkeys.serviceurl+'/reimbursement/'+username);
 	};
 
 	service.getAllReimbursements = function(){
-		return $http.get('http://localhost:3030/reimbursements/');
+		return $http.get(seshkeys.serviceurl+'/reimbursements/');
 	};
 
 	service.addReimbursement = function(data){
-		return $http.post('http://localhost:3030/reimbursements/', data);
+		return $http.post(seshkeys.serviceurl+'/reimbursements/', data);
 	};
 
 	service.updateReimbursement = function(data,decision){
-		return $http.post('http://localhost:3030/reimbursements/'+data._id+"/"+decision);
+		return $http.post(seshkeys.serviceurl+'/reimbursements/'+data._id+"/"+decision);
 	};
 
 	return service;

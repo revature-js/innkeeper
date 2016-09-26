@@ -75,3 +75,13 @@ function emptyHistory(history){
 		return false;
 	}
 };
+
+reimbursement.config(function($stateProvider){
+	$stateProvider
+	.state('history',{
+		templateUrl: 'reimbursement_history.html'
+	})
+	.state('submit',{
+		templateUrl: 'reimbursement_submite.html'
+	});
+});
