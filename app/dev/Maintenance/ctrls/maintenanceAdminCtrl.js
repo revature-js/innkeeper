@@ -6,7 +6,6 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 	$scope.categories = dataAdminFactory.getCategories();
 	$scope.changedTicket = {};
 	
-	
 
 	var getAllTickets = function()
 	{
