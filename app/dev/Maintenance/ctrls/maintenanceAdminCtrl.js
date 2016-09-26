@@ -36,7 +36,7 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 	// console.log($scope.ticketHistory);
 
 	 $scope.submitNewTicket  = function(){
-	 	console.log($scope.ticket);
+	 	// console.log($scope.ticket);
 
 	 	$scope.ticketSubmission.push({
 			category:$scope.ticket.category,
@@ -45,15 +45,17 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 			completeDate:'',
 			status:'Submitted',
 			aptID:$scope.ticket.apartment,
-			usr:seshkeys.username // for testing
+			usr:seshkeys.username 
 	 		});
 	 	
-	 	console.log($scope.ticketSubmission);
+	 	// console.log($scope.ticketSubmission);
 
 	 		dataAdminFactory.submitNewTicket($scope.ticketSubmission[0])
 	 		.then(
 	 			function(){
 	 				$scope.ticketSubmission.pop();
+	 				newTicket.$setPristine();
+	 				newTicket.$setUntouched();
 	 			},
 	 			function(){
 	 				alert('failed ticket submission');
