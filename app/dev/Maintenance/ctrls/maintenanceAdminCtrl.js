@@ -93,7 +93,7 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 
 					$scope.changedTicket = $scope.ticketHistory[i];
 
-					console.log($scope.changedTicket);
+					// console.log($scope.changedTicket);
 
 					
 

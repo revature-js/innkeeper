@@ -47,7 +47,7 @@ maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory,seshk
 			usr:seshkeys.username // for testing
 	 		});
 	 	
-	 	console.log($scope.ticketSubmission);
+	 	// console.log($scope.ticketSubmission);
 
 	 		dataAdminFactory.submitNewTicket($scope.ticketSubmission[0])
 	 		.then(
