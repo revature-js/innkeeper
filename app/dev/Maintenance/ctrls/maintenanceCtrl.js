@@ -30,9 +30,7 @@ maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory,seshk
 
 	};
 	
-	getTicketsByUser(seshkeys.username);//pass key
-
-	
+	getTicketsByUser(seshkeys.username);//pass session key of user
 
 	$scope.submitNewTicket  = function(){
 	 	// console.log($scope.ticket);

@@ -39,8 +39,8 @@ exports.submitNewTicket = function(req,res)
 	 MongoClient.connect(url, function (err, db) 
 	 {
 	 	var ticket = req.body;
-
 	 	var collection =  db.collection('maintenanceIK');
+
 	    	collection.insert(ticket, function(err,result ){
 	 	if (err) {
 	    	res.send('Unable to connect to the mongoDB server. Error:', err);
@@ -48,7 +48,6 @@ exports.submitNewTicket = function(req,res)
 	  	else {
 	    		res.send(result);
 			}
-
  	});
  	db.close();
  });
@@ -58,16 +57,13 @@ exports.submitNewTicket = function(req,res)
 exports.updateTicket = function(req,res){
 
 		MongoClient.connect(url, function (err, db){
-			// var id = req.params.id;
-			// var update = req.params.update;
-
+			
 			var object = req.body;
 			var id = req.body._id;
+			var collection = db.collection('maintenanceIK');
 		
 			// console.log("*** update ticket: " + JSON.stringify(object));
 
-			var collection = db.collection('maintenanceIK');
-			
 			object._id = new ObjectId(id);
 			if (object.status == "Complete") {
 				object.completeDate = new Date();
@@ -77,12 +73,9 @@ exports.updateTicket = function(req,res){
 			}
 
 			collection.save(object);
-
-
 			db.close();
 	});
 	};
-
 
 exports.getTicketById = function(req,res){
 	// console.log('right here');

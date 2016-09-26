@@ -6,7 +6,6 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 	$scope.categories = dataAdminFactory.getCategories();
 	$scope.changedTicket = {};
 	
-
 	var getAllTickets = function()
 	{
 		var result = [];
@@ -18,7 +17,6 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 				result = data.data;
 				$scope.ticketHistory = result;
 				// console.log($scope.ticketHistory);
-
 				
 			},
 			function(err)
@@ -31,11 +29,8 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 	};
 	
 	getAllTickets();
-
-
 	// console.log($scope.ticketHistory);
-
-	 $scope.submitNewTicket  = function(){
+		$scope.submitNewTicket  = function(){
 	 	// console.log($scope.ticket);
 
 	 	$scope.ticketSubmission.push({
@@ -61,9 +56,6 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 	 				alert('failed ticket submission');
 	 			}
 	 			);
-
-	 	
-	 	
 	 };
 
 	 $scope.getTicketById = function(id, callback){
@@ -79,24 +71,16 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 	 		}
 	 		);
 	 };
-
-	 
 	
-	$scope.updateTicket = function(id){
+	$scope.updateTicket = function(id){// updates a ticket 
 		
-		
-
-		$scope.getTicketById(id, function(result) {
+		$scope.getTicketById(id, function(result) {//gets a particular ticket by it's (_id)
 
 			for (var i = 0; i < $scope.ticketHistory.length; i++) {
 				if (id == $scope.ticketHistory[i]._id) {
 
-					$scope.changedTicket = $scope.ticketHistory[i];
-
+					$scope.changedTicket = $scope.ticketHistory[i];//
 					// console.log($scope.changedTicket);
-
-					
-
 					dataAdminFactory.updateTicket($scope.changedTicket)//change
 					 .then(
 					 	function(data){	
@@ -105,13 +89,8 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 					 		alert('Failed Update')
 					 	}
 					 );
-
-
 				}
 			}
-
-
 		});
-
 	};
 });
