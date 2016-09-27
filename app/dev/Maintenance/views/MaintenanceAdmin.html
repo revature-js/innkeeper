@@ -109,13 +109,13 @@
       <div class= 'row'>
         <div class='col-sm-3'>
           <label class="checkbox-inline">
-            <input type="checkbox" value="">Before
+            <input type="checkbox" value="Before" ng-model='beforeStartDate'>Before
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" value="">On Date
+            <input type="checkbox" value="OnDate" ng-model='onStartDate'>On Date
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" value="">After
+            <input type="checkbox" value="After" ng-model='afterStartDate'>After
           </label>
         </div> 
       </div>
@@ -161,7 +161,7 @@
       </div>
 <br>
     <!-- <div ng-repeat='ones in ticketHistory | filter:search  '> -->
-    <div ng-repeat='ones in ticketHistory |filter:search '>
+    <div ng-repeat='ones in ticketHistory |filter:search  '>
       <div class="row">
          <div class="col-sm-2">{{ones.category}}</div>
 
@@ -169,14 +169,14 @@
 
         <div class="col-sm-2">{{ones.aptID}}</div>
 
-        <div class="col-sm-2">{{ ones.startDate | date }}</div>
+        <div class="col-sm-2">{{ ones.startDate | date  }}</div>
 
         <div class="col-sm-2">{{ones.completeDate | date}}</div>
 
         <div class="col-sm-2">
 
-        <!-- <select ng-change='updateTicket(update,ones._id)' name="statusUpdate" ng-model="update" > -->
-          <select ng-change='updateTicket(ones._id)' name="statusUpdate" ng-model="ones.status" > <!-- changed -->
+        
+          <select ng-change='updateTicket(ones._id)' name="statusUpdate" ng-model="ones.status" > 
             <option value="Submitted">Submitted</option>
             <option value="In-Progress">In-Progress</option>
             <option value="Complete">Complete</option>
@@ -199,3 +199,4 @@
 
 
 </div>
+<script src="Maintenance/assets/dateFilter.js"></script>

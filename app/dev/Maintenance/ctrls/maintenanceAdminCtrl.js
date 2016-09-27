@@ -86,7 +86,7 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 					 	function(data){	
 					 	},
 					 	function(){
-					 		alert('Failed Update')
+					 		//alert('Failed Update');
 					 	}
 					 );
 				}
