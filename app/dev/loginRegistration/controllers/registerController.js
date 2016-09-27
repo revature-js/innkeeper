@@ -37,7 +37,7 @@ register.controller('registerCtrl', function($scope,registerFactory,$http,$locat
 					$location.path('/login');
 				},
 				function(err){
-					alert(err.data);
+					alert(err.data.error);
 					$scope.registerUsername = "";
 					$scope.registerPassword = "";
 					$scope.registerPassword2 = "";

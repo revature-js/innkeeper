@@ -3,17 +3,25 @@ var login = angular.module('loginModule');
 login.controller('loginCtrl', function($scope,$window,loginFactory,seshkeys,$location,$timeout){
 
 $scope.login = function(){
-
 	var promise = loginFactory.tryLogin($scope.loginUsername, $scope.loginPassword);
 	promise.then(
 		function(userData){
-			storeSession($window,userData.data.user,seshkeys);
-
-			if(userData.data.user.isAdmin===true){
-				$location.path('/reimbursement/manage');
+			if(userData.data.length > 1)
+			{
+				$timeout(function(){
+					alert("Invalid username/password");
+					$location.path('/login');
+				});
 			}
-			else {
-				$location.path('/reimbursement');
+			else{
+				storeSession($window,userData.data.user,seshkeys);
+
+				if(userData.data.user.isAdmin===true){
+					$location.path('/reimbursement/manage');
+				}
+				else {
+					$location.path('/reimbursement');
+				}
 			}
 		}, function(err)
 		{
