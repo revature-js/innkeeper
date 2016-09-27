@@ -78,7 +78,7 @@ exports.updateApartment = function (req,res){
 };
 exports.updateAptID = function (req,res){
 	client.connect(url, function(err,db){
-		var username = req.params.username;
+		var username = req.params.userName;
 		var aptId = req.params.aptId;
 		var collection = db.collection('usersIK');
 		collection.updateOne({'username': username},{$set:{'aptId': aptId}}, function(err, result){

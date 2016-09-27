@@ -20,15 +20,7 @@
                   <p>{{data.addr.state}}</p>
                   <p>{{data.addr.city}}</p>
                   <p>{{data.addr.zip}}</p>
-                  <button type='button' class="btn btn-primary" ng-show="show" ng-click="changeApt()">Change their Apartment </button><input type="text" ng-hide="hidden" ng-model="NewAptID" placeholder="New AptID"><button type='button' class="btn btn-primary" ng-hide="hidden" ng-click="assign2()">Submit</button>
-               </div>
-            </div>
-            <div class="col-md-5">
-               <br> Apartment Id:<input type="text" ng-model="Apartment">
-               <button type='button' class="btn btn-primary" ng-click="searchApt()">Search</button>
-               <div>
-                  <p ng-repeat="x in list">{{x}}
-                  </p>
+                  <button type='button' class="btn btn-primary" ng-show="show" ng-click="changeApt()">Change their Apartment </button><button type='button' class="btn btn-primary" ng-hide="hidden" ng-click="assign2()">Unassign User</button>
                </div>
             </div>
          </div>
@@ -167,7 +159,7 @@
             </div>
             <div class="row">
                <div class="col-md-5">
-                  <div ng-repeat="x in newUser track by $index" ng-hide=!"sheath">
+                  <div ng-repeat="x in newUser track by $index" ng-show="sheath">
                      <div class="col-md-5">{{x}}</div>
                      <button class="btn btn-primary" ng-click="assign(x, newUser, $index)">Assign to apartment</button>
                   </div>
@@ -178,7 +170,7 @@
                      <p>{{apt.state}}</p>
                      <p>{{apt.city}}</p>
                      <p>{{apt.zip}}</p>
-                     <button class="btn btn-primary" ng-click="assign(x, newUser, $index)" >Assign here</button>
+                     <button class="btn btn-primary" ng-click="assign3($index)" >Assign here</button>
                   </div>
                </div>
             </div>

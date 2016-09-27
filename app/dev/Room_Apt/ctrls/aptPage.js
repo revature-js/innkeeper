@@ -49,7 +49,7 @@ Apartment.controller('apt_list_admin', function($scope, myfact) {
                 $scope.aptList.push(apt[x].addr)
         }
         for (x in usr) {
-            if (usr[x].aptId === null) {
+            if (usr[x].aptId === null||usr[x].aptId === "null") {
                 $scope.newUser.push(usr[x].username)
             }
         };
@@ -69,21 +69,12 @@ Apartment.controller('apt_list_admin', function($scope, myfact) {
             }
         };
         for (x in apt) {
-            if (apt[x].aptId === id) {
+             console.log(apt[x]._id);
+            if (apt[x]._id === id) {
                 $scope.data = apt[x];
                 $scope.show = true;
             }
         }
-    };
-    $scope.searchApt = function() {
-        list=[];
-        console.log('x');
-        for (x in usr) {
-            if (usr[x].aptId === $scope.Apartment) {
-                list.push(usr[x].username);
-            }
-        };
-        $scope.list = list;
     };
     var x = false;
     $scope.dosomething = function(event, username) {
@@ -171,15 +162,16 @@ Apartment.controller('apt_list_admin', function($scope, myfact) {
         console.log($scope.NewAptID);
         myfact.updateUser($scope.username, $scope.NewAptID);
     };
-    $scope.assign = function(username, names, index) {
-        var AptID = prompt('Please input new apartment ID');
-        myfact.updateUser(username, AptID);
-        names.splice(index, 1);
+    $scope.assign = function(username) {
+       /* var AptID = prompt('Please input new apartment ID');*/
+        /*myfact.updateUser(username, AptID);*/
+/*        names.splice(index, 1);*/
+       $scope.usernames=username;
+       console.log(username);
         $scope.dynamic=false;
     };
     $scope.assign2 = function() {
-        myfact.updateUser($scope.username, $scope.NewAptID);
-        $scope.searchApt();
+        myfact.updateUser($scope.username, null);
         myfact.getUser()
             .then(
                 function(data) {
@@ -195,9 +187,15 @@ Apartment.controller('apt_list_admin', function($scope, myfact) {
         $scope.data="";
         $scope.NewAptID="";
         $scope.hidden=true;
-        $scope
         $scope.trigger();
     };
+    $scope.assign3=function(index){
+        console.log(apt[index]._id);
+        myfact.updateUser($scope.usernames, apt[index]._id);
+        confirm('This user has now been assigned an apartment');
+         $scope.dynamic=true;
+         $scope.sheath=false;
+        };
     $scope.iDGen = function() {
         $scope.AptId = $scope.aptNum;
     };
