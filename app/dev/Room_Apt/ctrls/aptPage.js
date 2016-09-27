@@ -8,7 +8,7 @@ Apartment.controller('apt_list_admin', function($scope, myfact) {
     var usr = {};
     var apt2={};
     var id;
-    $scope.hide = false;
+    $scope.hide = false;//Used for ng-shows and hides in html
     $scope.show = false;
     $scope.hidden = true;
     $scope.sheath = false;
@@ -19,13 +19,13 @@ Apartment.controller('apt_list_admin', function($scope, myfact) {
     var list = [];
     var newUser = [];
     console.log(myfact);
-    myfact.getUser()
+    myfact.getUser()//finds all users in our database
         .then(
             function(data) {
                 usr = data.data;
             }
         );
-    myfact.getAllApartments()
+    myfact.getAllApartments()//finds all apartment in database
         .then(
             function(data) {
                 apt = data.data;
@@ -232,23 +232,18 @@ Apartment.controller('apt_list_user', function($scope, $window, seshkeys, myfact
             .then(
                 function(data) {
                     apt = data.data;
-                    // console.log("succcess " +apt);
                     display();
                 },
                 function(err) {
                     console.log(err);
-                    //console.log("hhhh");
                 }
             );
 
     };
     var display = function() {
-        //console.log(apt);
         for (x in apt) {
             console.log($window.sessionStorage.getItem(seshkeys.aptid));
-            // console.log(apt[x].aptId);
             if (apt[x].aptId === $window.sessionStorage.getItem(seshkeys.aptid)) {
-                //console.log(apt[x]);
                 $scope.data = apt[x];
             }
         }
