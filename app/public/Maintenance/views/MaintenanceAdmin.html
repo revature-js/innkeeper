@@ -8,20 +8,22 @@
         <div class='col-md-4'>
            <div class='form-group'>
               <h2><label for='category'><span class="glyphicon glyphicon-menu-hamburger"></span> Category</label></h2><!-- dynamic populate -->
-                <select class= 'form-control' ng-model='ticket.category' name='CAT' ng-required='CAT' >
-                  <option>Broken item</option>
-                  <option>Missing item</option>
-                  <option>Request item</option>
+                <select class= 'form-control' ng-model='ticket.category' required='true'>
+                  <option value=''>None</option>
+                  <option value ='Broken item'>Broken item</option>
+                  <option value='Missing item'>Missing item</option>
+                  <option value='Request item'>Request item</option>
                 </select>
             </div>
         </div>
 
         <div class='col-md-4'> <!-- dynamic populate -->
           <h2><label for='apartment'><span class="glyphicon glyphicon-bed"></span> Apartment</label></h2>
-            <select class= 'form-control' ng-model='ticket.apartment' name='APT' ng-required='APT'>
-              <option>Apt1</option>
-              <option>Apt2</option>
-              <option>Apt3</option>
+            <select class= 'form-control' ng-model='ticket.apartment' required='true'>
+              <option value=''>None</option>
+              <option value ='Apt1'>Apt1</option>
+              <option value = 'Apt2'>Apt2</option>
+              <option value ='Apt3'>Apt3</option>
             </select>
         </div>
 
@@ -78,7 +80,7 @@
 
     <div class="row">
       <div class="col-sm-3">
-        <select class= 'form-control' name="multipleSelect" ng-model="search.category" >
+        <select  class= 'form-control' name="multipleSelect" ng-model="search.category" >
           <option value="">All</option>
           <option value="Broken Item">Broken Item</option>
           <option value="Missing Item">Missing Item</option>
@@ -107,13 +109,13 @@
       <div class= 'row'>
         <div class='col-sm-3'>
           <label class="checkbox-inline">
-            <input type="checkbox" value="">Before
+            <input type="checkbox" value="Before" ng-model='beforeStartDate'>Before
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" value="">On Date
+            <input type="checkbox" value="OnDate" ng-model='onStartDate'>On Date
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" value="">After
+            <input type="checkbox" value="After" ng-model='afterStartDate'>After
           </label>
         </div> 
       </div>
@@ -159,7 +161,7 @@
       </div>
 <br>
     <!-- <div ng-repeat='ones in ticketHistory | filter:search  '> -->
-    <div ng-repeat='ones in ticketHistory |filter:search '>
+    <div ng-repeat='ones in ticketHistory |filter:search  '>
       <div class="row">
          <div class="col-sm-2">{{ones.category}}</div>
 
@@ -167,14 +169,14 @@
 
         <div class="col-sm-2">{{ones.aptID}}</div>
 
-        <div class="col-sm-2">{{ ones.startDate | date }}</div>
+        <div class="col-sm-2">{{ ones.startDate | date  }}</div>
 
         <div class="col-sm-2">{{ones.completeDate | date}}</div>
 
         <div class="col-sm-2">
 
-        <!-- <select ng-change='updateTicket(update,ones._id)' name="statusUpdate" ng-model="update" > -->
-          <select ng-change='updateTicket(ones._id)' name="statusUpdate" ng-model="ones.status" > <!-- changed -->
+        
+          <select ng-change='updateTicket(ones._id)' name="statusUpdate" ng-model="ones.status" > 
             <option value="Submitted">Submitted</option>
             <option value="In-Progress">In-Progress</option>
             <option value="Complete">Complete</option>
@@ -197,3 +199,4 @@
 
 
 </div>
+<script src="Maintenance/assets/dateFilter.js"></script>
