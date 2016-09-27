@@ -51,6 +51,7 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 	 				$scope.ticketSubmission.pop();
 	 				newTicket.$setPristine();
 	 				newTicket.$setUntouched();
+	 				$scope.ticket.category
 	 			},
 	 			function(){
 	 				alert('failed ticket submission');
