@@ -25,6 +25,7 @@ reimbursement.controller("BurseCtrl", function($scope, burseService, $window, se
 	};
 
 	$scope.submitReimbursement = function() {
+		console.log($scope.burseSubmit);
 		if (checkEmptyBurse($scope.burseSubmit)){
 			alert("Must complete all rows before submitting");
 		}
