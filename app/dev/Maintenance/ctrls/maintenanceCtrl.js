@@ -41,8 +41,8 @@ maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory,seshk
 			startDate:new Date(),
 			completeDate:'',
 			status:'Submitted',
-			aptID:$scope.ticket.apartment,
-			usr:seshkeys.username // for testing
+			aptID:seshkeys.aptId,
+			usr:seshkeys.username 
 	 		});
 	 	
 	 	// console.log($scope.ticketSubmission);
