@@ -1,8 +1,8 @@
-var app = angular.module("mainApp",['ngRoute','loginModule','registerModule','reimbursementApp','maintenanceApp']);
+var app = angular.module("mainApp",['ngRoute','loginModule','registerModule','reimbursementApp','maintenanceApp','ApartmentApp']);
 var reimbursement = angular.module('reimbursementApp', ['ui.router']);
 var register = angular.module('registerModule', []);
 var login = angular.module('loginModule', []);
-//var Apartment = angular.module('ApartmentApp', []);
+var Apartment = angular.module('ApartmentApp', []);
 var maintenance = angular.module('maintenanceApp', []);
 
 app.constant('seshkeys',{
