@@ -14,6 +14,7 @@ passport.serializeUser(function(user, done) {
 
 passport.use(new LocalStrategy(
     function(username, password, done) {
+
         client.connect(url, function(err,db){
             var collection = db.collection('usersIK');
             collection.findOne({username:username}, function(err, user){

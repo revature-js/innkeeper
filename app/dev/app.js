@@ -48,7 +48,8 @@ app.controller('NavbarCtrl',function($scope,$http, $location,$window,seshkeys,$t
 
 	$scope.logout=function()
 	{
-		$window.sessionStorage.clear();
+		clearStorage($window,seshkeys);
+
 		$http.get('http://localhost:3030/logout');
 		$scope.online = isOnline($window, seshkeys);
 		$timeout(function(){
@@ -60,6 +61,14 @@ app.controller('NavbarCtrl',function($scope,$http, $location,$window,seshkeys,$t
 
 	$scope.admin = false;
 });
+
+function clearStorage(window,seshkeys){
+	window.sessionStorage.setItem(seshkeys.username, "");
+ 	window.sessionStorage.setItem(seshkeys.fname, "");
+ 	window.sessionStorage.setItem(seshkeys.lname, "");
+ 	window.sessionStorage.setItem(seshkeys.aptid, "");
+ 	window.sessionStorage.setItem(seshkeys.isadmin, "");
+};
 
 function isOnline(window,seshkeys){
 	if(window.sessionStorage.getItem(seshkeys.username)===null)
