@@ -14,13 +14,21 @@ module.exports = {
 	},
 	plugins: [
 		new CopyWebpackPlugin([
-			{ 
+			{
 				from: DEV_DIR+'/reimbursement/views',
 				to: BUILD_DIR+'/reimbursement/views'
 			},
 			{
 				from: DEV_DIR+'/Maintenance/views',
 				to: BUILD_DIR+'/Maintenance/views'
+			},
+			{
+				from: DEV_DIR+'/loginRegistration/views',
+				to: BUILD_DIR+'/loginRegistration/views'
+			},
+			{
+				from: DEV_DIR+'/Room_Apt/views',
+				to: BUILD_DIR+'/Room_Apt/views'
 			}
 		]),
 		new ngAnnotatePlugin({

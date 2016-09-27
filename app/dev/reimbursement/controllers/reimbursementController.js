@@ -57,9 +57,9 @@ reimbursement.controller("BurseCtrl", function($scope, burseService, $window, se
 function checkEmptyBurse(data){
 	var empty = false;
 	for (index in data){
-		if(data[index].date === "" || 
-			data[index].type === "Select a Type" || 
-			data[index].desc === "" || 
+		if(data[index].date === "" ||
+			data[index].type === "Select a Type" ||
+			data[index].desc === "" ||
 			data[index].amount === ""){
 			empty = true;
 		}
@@ -79,9 +79,10 @@ function emptyHistory(history){
 reimbursement.config(function($stateProvider){
 	$stateProvider
 	.state('history',{
-		templateUrl: 'reimbursement_history.html'
+		url: '/reimbursement',
+		templateUrl: 'reimbursement/views/reimbursement_history.html'
 	})
 	.state('submit',{
-		templateUrl: 'reimbursement_submite.html'
+		templateUrl: 'reimbursement/views/reimbursement_submit.html'
 	});
 });

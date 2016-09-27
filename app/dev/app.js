@@ -1,8 +1,8 @@
-var app = angular.module("mainApp",['ngRoute','loginModule','registerModule','reimbursementApp','ApartmentApp','maintenanceApp']);
+var app = angular.module("mainApp",['ngRoute','loginModule','registerModule','reimbursementApp','maintenanceApp']);
 var reimbursement = angular.module('reimbursementApp', ['ui.router']);
 var register = angular.module('registerModule', []);
 var login = angular.module('loginModule', []);
-var Apartment = angular.module('ApartmentApp', []);
+//var Apartment = angular.module('ApartmentApp', []);
 var maintenance = angular.module('maintenanceApp', []);
 
 app.constant('seshkeys',{
@@ -15,7 +15,7 @@ app.constant('seshkeys',{
 	securedurl: "securedUrl"
 });
 
-// set the service url based on dev localhost or prod domain url	
+// set the service url based on dev localhost or prod domain url
 app.run(function($window,$location,seshkeys){
 	var domain = $location.host();
 
@@ -25,7 +25,7 @@ app.run(function($window,$location,seshkeys){
 
 	$window.sessionStorage.setItem(seshkeys.serviceurl, 'http://' + domain + ':3030');
 	$window.sessionStorage.setItem(seshkeys.securedurl, 'https://' + domain + ':3030');
-	
+
 });
 
 app.controller('NavbarCtrl',function($scope,$http, $location,$window,seshkeys,$timeout){
@@ -38,18 +38,18 @@ app.controller('NavbarCtrl',function($scope,$http, $location,$window,seshkeys,$t
     });
 
     $scope.$on('$locationChangeStart', function(){
-		if($scope.online === true && !$location.path().includes('register')){
+		if($scope.online === false && !$location.path().includes('register')){
 			$location.path('/login');
 		}
 	});
 
-	$scope.isActive = function (viewLocation) { 
+	$scope.isActive = function (viewLocation) {
         return $location.path().includes(viewLocation);
     };
 
 	$scope.logout=function()
 	{
-		$window.sessionStorage.clear();
+		clearStorage($window, seshkeys);
 		$http.get('http://localhost:3030/logout');
 		$scope.online = isOnline($window, seshkeys);
 		$timeout(function(){
@@ -63,13 +63,21 @@ app.controller('NavbarCtrl',function($scope,$http, $location,$window,seshkeys,$t
 
 });
 
+function clearStorage(window, seshkeys){
+	window.sessionStorage.setItem(seshkeys.username, "");
+ 	window.sessionStorage.setItem(seshkeys.fname, "");
+ 	window.sessionStorage.setItem(seshkeys.lname,"");
+ 	window.sessionStorage.setItem(seshkeys.aptid, "");
+ 	window.sessionStorage.setItem(seshkeys.isadmin, "");
+}
+
 function isOnline(window,seshkeys){
-	if(window.sessionStorage.getItem(seshkeys.username)===null)
+	if(window.sessionStorage.getItem(seshkeys.username)===null||window.sessionStorage.getItem(seshkeys.username)==="")
 	{
-		return true;
+		return false;
 	}
 	else{
-		return false;
+		return true;
 	}
 };
 

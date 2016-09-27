@@ -1,28 +1,41 @@
 <div class="panel panel-primary">
 	<div class="panel-heading">
-		<h2>Reimbursement History</h2>
+		<h2>Submit Reimbursements</h2>
 	</div><br>
-	<div ng-show="emptyHistory">
-		<h4 class="text-center">No reimbursements submitted</h4>
-	</div>
-	<table ng-hide="emptyHistory" class="table">
+	<table class="table">
 		<thead>
 			<tr>
 				<th class="col-md-2">Date</th>
 				<th class="col-md-2">Reimbursement Type</th>
-				<th class="col-md-5">Description</th>
+				<th class="col-md-6">Description</th>
 				<th class="col-md-2">Amount</th>
-				<th class="col-md-1">Status</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="line in burseHistory">
-				<td>{{line.date | date : 'M/d/yyyy'}}</td>
-				<td>{{line.type}}</td>
-				<td>{{line.desc}}</td>
-				<td>{{line.amount | currency}}</td>
-				<td>{{line.status}}</td>
+			<tr ng-repeat="line in burseSubmit">
+				<td><input type="date" class="col-md-12 form-control" ng-model="line.date"></td>
+				<td>
+					<select class="btn btn-default col-md-12 form-control" ng-model="line.type">
+						<option disabled="disabled" selected="selected">Select a Type</option>
+						<option ng-repeat="type in types">{{type}}</option>
+					</select>
+				</td>
+				<td><input type="text" class="col-md-12 form-control" ng-model="line.desc"></td>
+				<td class="input-group"><span class="input-group-addon">$</span><input type="number" class="col-md-12 form-control" ng-model="line.amount"></td>
+				<td>
+					<button class="btn btn-danger form-control" ng-click="removeReimbursement($index)">
+						<span class="glyphicon glyphicon-remove"></span>
+					</button>
+				</td>
 			</tr>
 		</tbody>
 	</table><br>
+	<div class="row">
+		<div class="col-md-offset-9">
+			<div class="btn-group">
+				<button class="btn btn-success" ng-click="addReimbursement()">+ Add Row</button>
+				<button class="btn btn-primary" ng-click="submitReimbursement()">Submit Reimbursement</button>
+			</div>
+		</div>
+	</div><br>
 </div>
