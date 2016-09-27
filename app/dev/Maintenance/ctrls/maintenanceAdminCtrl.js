@@ -1,15 +1,15 @@
-var maintenance = angular.module('maintenanceApp');
+
 
 maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,seshkeys){
 	$scope.ticketSubmission = [];
 	$scope.ticketHistory = [];
 	$scope.categories = dataAdminFactory.getCategories();
 	$scope.changedTicket = {};
-
+	
 	var getAllTickets = function()
 	{
 		var result = [];
-
+		
 		dataAdminFactory.getAllTickets()
 		.then(
 			function(data)
@@ -17,7 +17,7 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 				result = data.data;
 				$scope.ticketHistory = result;
 				// console.log($scope.ticketHistory);
-
+				
 			},
 			function(err)
 			{
@@ -27,7 +27,7 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 		return result;
 
 	};
-
+	
 	getAllTickets();
 	// console.log($scope.ticketHistory);
 		$scope.submitNewTicket  = function(){
@@ -39,10 +39,10 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 			startDate:new Date(),
 			completeDate:'',
 			status:'Submitted',
-			aptID:$scope.ticket.apartment,
-			usr:seshkeys.username
+			aptID:seshkeys.aptId,
+			usr:seshkeys.username 
 	 		});
-
+	 	
 	 	// console.log($scope.ticketSubmission);
 
 	 		dataAdminFactory.submitNewTicket($scope.ticketSubmission[0])
@@ -51,6 +51,7 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 	 				$scope.ticketSubmission.pop();
 	 				newTicket.$setPristine();
 	 				newTicket.$setUntouched();
+	 				$scope.ticket.category
 	 			},
 	 			function(){
 	 				alert('failed ticket submission');
@@ -66,14 +67,14 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 	 			callback(result);
 	 		},
 	 		function(err){
-
+	 			
 	 			alert('failed to get ticket');
 	 		}
 	 		);
 	 };
-
-	$scope.updateTicket = function(id){// updates a ticket
-
+	
+	$scope.updateTicket = function(id){// updates a ticket 
+		
 		$scope.getTicketById(id, function(result) {//gets a particular ticket by it's (_id)
 
 			for (var i = 0; i < $scope.ticketHistory.length; i++) {
@@ -83,10 +84,10 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 					// console.log($scope.changedTicket);
 					dataAdminFactory.updateTicket($scope.changedTicket)//change
 					 .then(
-					 	function(data){
+					 	function(data){	
 					 	},
 					 	function(){
-					 		alert('Failed Update')
+					 		//alert('Failed Update');
 					 	}
 					 );
 				}

@@ -1,10 +1,10 @@
-var maintenance = angular.module('maintenanceApp');
+var maintenance = angular.module('maintenanceApp', []);
 
 maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory,seshkeys){
 	$scope.newTicket = [];
 	$scope.ticketHistory = [];
 	$scope.ticketSubmission = [];
-
+	
 	var getTicketsByUser = function(username)
 	{
 		var result = [];
@@ -29,7 +29,7 @@ maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory,seshk
 		return result;
 
 	};
-
+	
 	getTicketsByUser(seshkeys.username);//pass session key of user
 
 	$scope.submitNewTicket  = function(){
@@ -41,10 +41,10 @@ maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory,seshk
 			startDate:new Date(),
 			completeDate:'',
 			status:'Submitted',
-			aptID:$scope.ticket.apartment,
-			usr:seshkeys.username // for testing
+			aptID:seshkeys.aptId,
+			usr:seshkeys.username 
 	 		});
-
+	 	
 	 	// console.log($scope.ticketSubmission);
 
 	 		dataAdminFactory.submitNewTicket($scope.ticketSubmission[0])
@@ -57,8 +57,8 @@ maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory,seshk
 	 			}
 	 			);
 
-
-
+	 	
+	 	
 	 };
 
 });

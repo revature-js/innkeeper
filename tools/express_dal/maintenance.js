@@ -3,39 +3,67 @@ var MongoClient = require('mongodb').MongoClient
 
 // Connection URL
 var url = 'mongodb://innkeeper:inn123@ds017636.mlab.com:17636/rlms';
+var ObjectId = require('mongodb').ObjectID;
 
 exports.getAllTickets = function(req,res){
 	 MongoClient.connect(url, function(err,db){
 		var collection = db.collection('maintenanceIK');
 		collection.find().toArray(function(err,tickets){
-			if(!err){
+			if(tickets){
 				res.send(tickets);
 			}
+			if(err){
+				res.send(err);
+			}
+		});
+		db.close();
+	});
+	
+};
+
+exports.getTicketsByUser = function(req, res){
+	MongoClient.connect(url, function(err,db){
+		var user = req.params.usr;
+		// console.log("*** usr : " + user);
+		var collection = db.collection('maintenanceIK');
+		collection.find({usr:user}).toArray(function(err,item){
+			// console.log("\t*** success: " + item);
+			res.send(item);
 		});
 		db.close();
 	});
 };
 
+exports.submitNewTicket = function(req,res)
+{
+	 MongoClient.connect(url, function (err, db) 
+	 {
+	 	var ticket = req.body;
+	 	var collection =  db.collection('maintenanceIK');
+
+	    	collection.insert(ticket, function(err,result ){
+	 	if (err) {
+	    	res.send('Unable to connect to the mongoDB server. Error:', err);
+	  			} 
+	  	else {
+	    		res.send(result);
+			}
+ 	});
+ 	db.close();
+ });
+	
+};
+
 exports.updateTicket = function(req,res){
 
 		MongoClient.connect(url, function (err, db){
-			// var id = req.params.id;
-			// var update = req.params.update;
-
+			
 			var object = req.body;
 			var id = req.body._id;
-		
-			console.log("*** update ticket: " + JSON.stringify(object));
-
 			var collection = db.collection('maintenanceIK');
-			// collection.updateOne({'_id':ObjectId(id)},{$set:{'status':update}}, function(err,result){
-			// 	if(err){
-			// 		res.send(err);
-			// 	}
-			// 	else{
-			// 		res.send(result);
-			// 	}
-			// });
+		
+			// console.log("*** update ticket: " + JSON.stringify(object));
+
 			object._id = new ObjectId(id);
 			if (object.status == "Complete") {
 				object.completeDate = new Date();
@@ -45,14 +73,12 @@ exports.updateTicket = function(req,res){
 			}
 
 			collection.save(object);
-
-
 			db.close();
 	});
-};
+	};
 
 exports.getTicketById = function(req,res){
-	console.log('right here');
+	// console.log('right here');
 
 	MongoClient.connect(url, function(err,db) {
         var id = req.params.ticket_id;
@@ -62,52 +88,4 @@ exports.getTicketById = function(req,res){
         });
         db.close();
     });
-};
-
-exports.getTicketsByUser = function(req, res){
-	MongoClient.connect(url, function(err,db){
-		var user = req.param.usr;
-		var collection = db.collection('maintenanceIK');
-		collection.find({usr:user}, function(err,item){
-			res.send(item);
-		});
-		db.close();
-	});
-};
-
-exports.submitNewTicket = function($scope)
-{
- 	MongoClient.connect(url, function (err, db) 
- 	{
- 		if (err) {
-    		console.log('Unable to connect to the mongoDB server. Error:', err);
-  		} else {
-    		var collection =  db.collection('maintenanceIK');
-    		var newTicket = collection.insert
-    		(
-	    		{
-					category: $scope.category,
-					description: $scope.description,
-					startDate: $scope.startDate,
-					completeDate: $scope.completeDate,
-					status: $scope.status,
-					aptID: $scope.aptID,
-					usr: $scope.usr
-				}
-			);
-		}
- });
- 	db.close();
-};
-
-exports.getAllCategories = function(req,res){
-	MongoClient.connect(url, function(err,db){
-		var collection = db.collection('maintenanceIK');
-			collection.find().toArray(function(err,tickets){
-				if(!err){
-					res.send(tickets);
-				}
-			});
-		db.close();
-	});
 }
