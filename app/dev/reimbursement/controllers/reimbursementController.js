@@ -15,6 +15,21 @@ reimbursement.controller("BurseCtrl", function($scope, burseService, $window, se
 		);
 	};
 
+	var getAllReimbursements = function(){
+		burseService.getAllReimbursements()
+		.then(
+			function(data){
+				$scope.burseHistory = data.data;
+				$scope.emptyHistory = emptyHistory($scope.burseHistory);
+			},
+			function(){
+				alert("Failed to retreive reimbursements...");
+			}
+		);
+	};
+
+	getAllReimbursements();
+
 	$scope.addReimbursement = function() {
 		if (checkEmptyBurse($scope.burseSubmit)){
 			alert("Must complete previous rows before adding another");
@@ -75,13 +90,3 @@ function emptyHistory(history){
 		return false;
 	}
 };
-
-reimbursement.config(function($stateProvider){
-	$stateProvider
-	.state('history',{
-		templateUrl: 'reimbursement_history.html'
-	})
-	.state('submit',{
-		templateUrl: 'reimbursement_submite.html'
-	});
-});

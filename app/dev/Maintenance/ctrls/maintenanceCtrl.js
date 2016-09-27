@@ -1,6 +1,6 @@
 var maintenance = angular.module('maintenanceApp');
 
-maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory,seshkeys){
+maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory){
 	$scope.newTicket = [];
 	$scope.ticketHistory = [];
 	$scope.ticketSubmission = [];
@@ -30,10 +30,38 @@ maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory,seshk
 
 	};
 	
-	getTicketsByUser(seshkeys.username);//pass session key of user
+	getTicketsByUser('jack');
+
+	//
+
+	// $scope.submitNewTicket  = function(){
+	// 	$scope.startDate = new Date();
+	// 	$scope.status = 'Submitted';
+
+	// 	$scope.newTicket.push({
+	// 		category:$scope.category,
+	// 		description:$scope.description,
+	// 		startDate:$scope.startDate,
+	// 		completeDate:$scope.completeDate,
+	// 		status:$scope.status,
+	// 		aptID:$scope.apartment,
+	// 		usr:$scope.usr});
+
+	// 	$scope.ticketHistory.push({
+	// 		category:$scope.category,
+	// 		description:$scope.description,
+	// 		startDate:$scope.startDate,
+	// 		completeDate:$scope.completeDate,
+	// 		status:$scope.status,
+	// 		aptID:$scope.apartment,
+	// 		usr:$scope.usr});
+
+	// 	console.log($scope.newTicket[0]);
+	// 	alert($scope.newTicket[0].category);
+	// }
 
 	$scope.submitNewTicket  = function(){
-	 	// console.log($scope.ticket);
+	 	console.log($scope.ticket);
 
 	 	$scope.ticketSubmission.push({
 			category:$scope.ticket.category,
@@ -42,10 +70,10 @@ maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory,seshk
 			completeDate:'',
 			status:'Submitted',
 			aptID:$scope.ticket.apartment,
-			usr:seshkeys.username // for testing
+			usr:'jack' // for testing
 	 		});
 	 	
-	 	// console.log($scope.ticketSubmission);
+	 	console.log($scope.ticketSubmission);
 
 	 		dataAdminFactory.submitNewTicket($scope.ticketSubmission[0])
 	 		.then(

@@ -1,6 +1,4 @@
 var webpack = require('webpack');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
-var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 var path = require('path');
 var glob = require('glob');
 const DEV_DIR = path.resolve('./dev');
@@ -11,25 +9,5 @@ module.exports = {
 	output: {
 		path: BUILD_DIR,
 		filename: "bundle.js"
-	},
-	plugins: [
-		new CopyWebpackPlugin([
-			{ 
-				from: DEV_DIR+'/reimbursement/views',
-				to: BUILD_DIR+'/reimbursement/views'
-			},
-			{
-				from: DEV_DIR+'/Maintenance/views',
-				to: BUILD_DIR+'/Maintenance/views'
-			}
-		]),
-		new ngAnnotatePlugin({
-            add: true
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        })
-	]
+	}
 };
