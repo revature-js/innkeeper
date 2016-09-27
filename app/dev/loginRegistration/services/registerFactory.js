@@ -1,15 +1,12 @@
-login.factory('registerFactory', function($http,$window){
+var register = angular.module('registerModule');
+
+register.factory('registerFactory', function($http,$window,seshkeys){
 
 	var factory = {};
 
-		factory.getRegisterInfo = function(successCallback, errorCallback){
-			$http.get('mockdata.json')
-			.then(function(data){
-				successCallback(data);
-			},
-			function(err){
-				errorCallback(err);
-			});
-		};
-		return factory;
+	factory.createUser = function(data){
+		return $http.post($window.sessionStorage.getItem(seshkeys.serviceurl) + '/createUser', data);
+	};
+
+	return factory;
 });

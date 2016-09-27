@@ -13,7 +13,7 @@ exports.findAllReimbursements = function(req,res){
 			}
 		});
 		db.close();
-	});	
+	});
 };
 
 exports.findReimbursementById = function(req,res){
@@ -23,7 +23,7 @@ exports.findReimbursementById = function(req,res){
 		collection.findOne({'_id': ObjectID(id)}, function(err, item){
 			res.send(item);
 		});
-
+		
 		db.close();
 	});
 };
@@ -56,7 +56,6 @@ exports.addReimbursement = function(req,res){
 		});
 		db.close();
 	});
-	
 };
 
 exports.updateReimbursement = function (req,res){

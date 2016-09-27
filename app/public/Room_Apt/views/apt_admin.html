@@ -1,0 +1,180 @@
+<div ng-app="ApartmentApp">
+   <div class="container">
+      <div>
+         <ul class="nav nav-tabs">
+            <li ><a href="" class="tablinks" ng-click="Lookup()">Apartment Lookup</a></li>
+            <li ><a href="" class="tablinks" ng-click="New()">New Apartment</a></li>
+            <li ><a href="" class="tablinks" ng-click="Vacant()">Assign Users To Apartment</a></li>
+         </ul>
+      </div>
+      <div class="panel panel-primary" ng-hide="Lookuphide">
+         <div class="panel-heading">
+            <h2>Apartment lookup</h2>
+         </div>
+         <div class="panel-body">
+            <div class="col-md-5">
+               <br> User Name:<input type="text" ng-model="username" ng-keypress="dosomething($event,username)">
+               <button class="btn btn-primary" type='button' ng-click="search()">Search</button>
+               <div>
+                  <p>{{data.addr.num}} {{data.addr.street}}</p>
+                  <p>{{data.addr.state}}</p>
+                  <p>{{data.addr.city}}</p>
+                  <p>{{data.addr.zip}}</p>
+                  <button type='button' class="btn btn-primary" ng-show="show" ng-click="changeApt()">Change their Apartment </button><button type='button' class="btn btn-primary" ng-hide="hidden" ng-click="assign2()">Unassign User</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="panel panel-primary" ng-hide="Apartmenthide">
+         <div class="panel-heading">
+            <h2>New Apartment</h2>
+         </div>
+         <div class="panel-body">
+            <table class="table">
+               <tbody>
+                  <tr>
+                     <td><input type="text" ng-model="aptNum" placeholder="Apartment Number"></td>
+                     <td><input type="text" ng-model="Street" placeholder="Street"></td>
+                  </tr>
+                  <tr>
+                     <td>
+                        State
+                        <select ng-model="State">
+                           <option value="AL">Alabama</option>
+                           <option value="AK">Alaska</option>
+                           <option value="AZ">Arizona</option>
+                           <option value="AR">Arkansas</option>
+                           <option value="CA">California</option>
+                           <option value="CO">Colorado</option>
+                           <option value="CT">Connecticut</option>
+                           <option value="DE">Delaware</option>
+                           <option value="DC">District Of Columbia</option>
+                           <option value="FL">Florida</option>
+                           <option value="GA">Georgia</option>
+                           <option value="HI">Hawaii</option>
+                           <option value="ID">Idaho</option>
+                           <option value="IL">Illinois</option>
+                           <option value="IN">Indiana</option>
+                           <option value="IA">Iowa</option>
+                           <option value="KS">Kansas</option>
+                           <option value="KY">Kentucky</option>
+                           <option value="LA">Louisiana</option>
+                           <option value="ME">Maine</option>
+                           <option value="MD">Maryland</option>
+                           <option value="MA">Massachusetts</option>
+                           <option value="MI">Michigan</option>
+                           <option value="MN">Minnesota</option>
+                           <option value="MS">Mississippi</option>
+                           <option value="MO">Missouri</option>
+                           <option value="MT">Montana</option>
+                           <option value="NE">Nebraska</option>
+                           <option value="NV">Nevada</option>
+                           <option value="NH">New Hampshire</option>
+                           <option value="NJ">New Jersey</option>
+                           <option value="NM">New Mexico</option>
+                           <option value="NY">New York</option>
+                           <option value="NC">North Carolina</option>
+                           <option value="ND">North Dakota</option>
+                           <option value="OH">Ohio</option>
+                           <option value="OK">Oklahoma</option>
+                           <option value="OR">Oregon</option>
+                           <option value="PA">Pennsylvania</option>
+                           <option value="RI">Rhode Island</option>
+                           <option value="SC">South Carolina</option>
+                           <option value="SD">South Dakota</option>
+                           <option value="TN">Tennessee</option>
+                           <option value="TX">Texas</option>
+                           <option value="UT">Utah</option>
+                           <option value="VT">Vermont</option>
+                           <option value="VA">Virginia</option>
+                           <option value="WA">Washington</option>
+                           <option value="WV">West Virginia</option>
+                           <option value="WI">Wisconsin</option>
+                           <option value="WY">Wyoming</option>
+                        </select>
+                     </td>
+                     <td><input type="text" ng-model="City" placeholder="City"></td>
+                  </tr>
+                  <tr>
+                     <td><input type="text" ng-model="Zip" placeholder="Zip"></td>
+                     <td> <input type="text" ng-model="SuiteNo" placeholder="SuiteNo"></td>
+                  </tr>
+                  <tr>
+                     <td>
+                        <button type='button' class="btn btn-primary" ng-click="anotherApt()">Add Apartment
+                        </button>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <div class="panel panel-primary" ng-show="hide">
+         <div class="panel-heading">
+            <h2>Apartment Info</h2>
+         </div>
+         <div class="panel-body" ng-show="hide">
+            <table class="table">
+               <tbody>
+                  <tr>
+                     <td>
+                        chairs
+                        <select ng-model="chairs">
+                           <option value="1">1</option>
+                           <option value="2">2</option>
+                           <option value="3">3</option>
+                           <option value="4">4</option>
+                           <option value="5">5</option>
+                           <option selected="selected" value="6">6</option>
+                        </select>
+                     </td>
+                     <td>
+                        beds
+                        <select ng-model="beds">
+                           <option value=1>1</option>
+                           <option value=2>2</option>
+                           <option value=3>3</option>
+                           <option value=4>4</option>
+                           <option value=5>5</option>
+                           <option selected="selected" value=6>6</option>
+                        </select>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td><button type='button' class="btn btn-primary" ng-click="updateApt()">Submit
+                        </button>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <div class="panel panel-primary" ng-hide="Userhide">
+         <div class="panel-heading">
+            Assign New Users Apartments
+         </div>
+         <div class="panel-body">
+            <div class="row">
+               <button class="btn btn-primary col-md-offset-1" ng-click="trigger()" ng-hide="sheath">Assign New Users </button>
+            </div>
+            <div class="row">
+               <div class="col-md-5">
+                  <div ng-repeat="x in newUser track by $index" ng-show="sheath">
+                     <div class="col-md-5">{{x}}</div>
+                     <button class="btn btn-primary" ng-click="assign(x, newUser, $index)">Assign to apartment</button>
+                  </div>
+               </div>
+               <div class="col-md-5">
+                  <div ng-repeat="apt in aptList track by $index" ng-hide="dynamic">
+                     <p>{{apt.num}} {{apt.street}}</p>
+                     <p>{{apt.state}}</p>
+                     <p>{{apt.city}}</p>
+                     <p>{{apt.zip}}</p>
+                     <button class="btn btn-primary" ng-click="assign3($index)" >Assign here</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

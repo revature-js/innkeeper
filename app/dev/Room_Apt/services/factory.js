@@ -1,14 +1,24 @@
-ApartmentApp.factory('myfact',function($http){
+var Apartment = angular.module('ApartmentApp');
+Apartment.factory('myfact',function($http,$window,seshkeys){
+   var url =$window.sessionStorage.getItem(seshkeys.serviceurl);
     var fact={};
-fact.getJSON=function(successCallback,errorCallback){
-    $http.get('../Room_Apt/assets/data.json')
-    .then(function(data){
-        successCallback(data);
-    },
-        function(err){
-            errorCallback(err);
-        }
-    );
-};
-    return fact;
+            fact.getAllApartments=function(){
+                return $http.get(url+ '/apartments')
+            };
+            fact.getUser = function(){
+                     console.log("get user called");
+                    return $http.get(url +'/apartments/allusers');
+                };
+
+            fact.updateUser = function(username,aptId){
+                console.log("x");
+                    return $http.post(url+'/apartments/allusers/'+username+"/"+aptId);
+                };
+
+            fact.addApartment = function(data){
+                    console.log("data");
+                    return $http.post(url+'/apartments', data);
+                };
+                 return fact;
 });
+

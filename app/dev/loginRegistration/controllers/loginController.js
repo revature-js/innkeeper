@@ -1,27 +1,40 @@
-var login = angular.module('loginModule', []);
+var login = angular.module('loginModule');
 
-login.controller('loginCtrl', function($scope,$window,loginFactory){
-
-	var successFunction = function(data){
-		$scope.data = data;
-		//console.log($scope.data.data);
-	}
-
-	var errorFunction = function(err){
-		$scope.data = err;
-	};
-
-	loginFactory.getLoginInfo(successFunction,errorFunction);
-
+login.controller('loginCtrl', function($scope,$window,loginFactory,seshkeys,$location,$timeout){
+	
 	$scope.login = function(){
-		if($scope.data.data.username==$scope.loginUsername && $scope.data.data.password == $scope.loginPassword)
-		{
-			alert('Successful Login');
-		}
-		else{
-			alert('Username or Password is incorrect.');
-			$scope.loginUsername = "";
-			$scope.loginPassword = "";
-		}
+		var promise = loginFactory.tryLogin($scope.loginUsername, $scope.loginPassword);
+		promise.then(
+			function(userData){
+				if(userData.data.length > 1){
+					$timeout(function(){
+						alert("Invalid username/password");
+						$location.path('/login');
+					});
+				}else{
+					storeSession($window,userData.data.user,seshkeys);
+
+					if(userData.data.user.isAdmin===true){
+						$location.path('/reimbursement/manage');
+					}else {
+						$location.path('/reimbursement');
+					}
+				}
+			},function(err)
+			{
+				$timeout(function(){
+					alert("Invalid username/password");
+					$location.path('/login');
+				});
+			}
+		);
 	};
 });
+
+function storeSession(window,data,seshkeys){
+ 	window.sessionStorage.setItem(seshkeys.username, data.username);
+ 	window.sessionStorage.setItem(seshkeys.fname, data.fname);
+ 	window.sessionStorage.setItem(seshkeys.lname, data.lname);
+ 	window.sessionStorage.setItem(seshkeys.aptid, data.aptId);
+ 	window.sessionStorage.setItem(seshkeys.isadmin, data.isAdmin);
+};

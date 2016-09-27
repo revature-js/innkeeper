@@ -1,24 +1,11 @@
-login.factory('loginFactory', function($http,$window){
+var login = angular.module('loginModule');
+
+login.factory('loginFactory', function($http,$window,$timeout,seshkeys){
 
 	var factory = {};
 
-		factory.getLoginInfo = function(successCallback, errorCallback){
-			$http.get('mockdata.json')
-			.then(function(data){
-				successCallback(data);
-			},
-			function(err){
-				errorCallback(err);
-			});
+		factory.tryLogin = function(username, password){
+			return $http.post($window.sessionStorage.getItem(seshkeys.serviceurl) + '/login', {username: username, password: password});
 		};
-		return factory;
+	return factory;
 });
-
-// function storeSession(window,data){
-// 	window.sessionStorage.setItem('username', data.username);
-// 	window.sessionStorage.setItem('fname', data.fname);
-// 	window.sessionStorage.setItem('flname', data.lname);
-// 	window.sessionStorage.setItem('batch', data.batch);
-// 	window.sessionStorage.setItem('aptId', data.aptId);
-// 	console.log(window.sessionStorage);
-// };
