@@ -22,16 +22,13 @@ register.controller('registerCtrl', function($scope,registerFactory,$http,$locat
 		checkBody(userObj.fname,'First Name');
 		checkBody(userObj.lname,'Last Name');
 		checkBody($scope.registerPassword2,'Confirm Password');
-		
 		isMatch($scope.registerPassword,$scope.registerPassword2);
 
 		if(errors===true)
 		{
 			reset();
 			errors = false;
-		}
-		else
-		{
+		}else{
 			registerFactory.createUser(userObj).then(
 				function(){
 					$location.path('/login');
