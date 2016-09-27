@@ -42,8 +42,10 @@ app.get('/maintenanceTicket/:ticket_id', maintenance.getTicketById);
 app.post('/maintenanceCheck', maintenance.submitNewTicket);
 app.post('/maintenanceUpdate', maintenance.updateTicket);
 
+app.get('/apartments/allusers',apartments.allusers);
 app.get('/apartments', apartments.findAllApartments);
 app.get('/apartments/:aptId', apartments.findApartmentsByAptId);
+app.post('/apartments/allusers/:userName/:aptId',apartments.updateAptID);
 app.post('/apartments', apartments.addApartment);
 app.post('/apartments/:aptId/:userName',apartments.updateApartment);
 

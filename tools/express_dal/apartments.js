@@ -5,6 +5,7 @@ var url = 'mongodb://innkeeper:inn123@ds017636.mlab.com:17636/rlms';
 var ObjectID = mongo.ObjectID;
 
 exports.findAllApartments = function(req,res){
+		console.log('all apartments');
 	client.connect(url, function(err,db){
 		var collection = db.collection('apartmentsIK');
 		collection.find().toArray(function(err,items){
@@ -15,6 +16,18 @@ exports.findAllApartments = function(req,res){
 		db.close();
 	});
 	
+};
+exports.allusers = function (req, res){
+	console.log('all users');
+    client.connect(url, function(err,db){
+        var collection = db.collection('usersIK');
+        collection.find().toArray(function(err,items){
+            if(!err){
+                res.send(items);
+            }
+        });
+        db.close();
+    });
 };
 exports.findApartmentsByAptId = function(req,res){
 	client.connect(url, function(err,db){
@@ -65,7 +78,7 @@ exports.updateApartment = function (req,res){
 };
 exports.updateAptID = function (req,res){
 	client.connect(url, function(err,db){
-		var username = req.params.username;
+		var username = req.params.userName;
 		var aptId = req.params.aptId;
 		var collection = db.collection('usersIK');
 		collection.updateOne({'username': username},{$set:{'aptId': aptId}}, function(err, result){

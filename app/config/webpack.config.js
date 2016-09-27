@@ -10,7 +10,7 @@ module.exports = {
 	entry: glob.sync(DEV_DIR + '/**/*.js'),
 	output: {
 		path: BUILD_DIR,
-		filename: "bundle.js"
+		filename: "bundle.min.js"
 	},
 	plugins: [
 		new CopyWebpackPlugin([
