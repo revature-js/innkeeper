@@ -3,12 +3,12 @@
      $scope.apt=myserv.func();
 });*/
 var Apartment = angular.module('ApartmentApp');
-Apartment.controller('apt_list_admin', function($scope, myfact) {
+Apartment.controller('apt_list_admin', function($scope, $window, seshkeys, myfact) {
     var apt = {};
     var usr = {};
     var apt2={};
     var id;
-    $scope.hide = false;
+    $scope.hide = false;//Used for ng-shows and hides in html
     $scope.show = false;
     $scope.hidden = true;
     $scope.sheath = false;
@@ -18,14 +18,13 @@ Apartment.controller('apt_list_admin', function($scope, myfact) {
     $scope.dynamic=true;
     var list = [];
     var newUser = [];
-    console.log(myfact);
-    myfact.getUser()
+    myfact.getUser()//finds all users in our database
         .then(
             function(data) {
                 usr = data.data;
             }
         );
-    myfact.getAllApartments()
+    myfact.getAllApartments()//finds all apartment in database
         .then(
             function(data) {
                 apt = data.data;
@@ -44,7 +43,6 @@ Apartment.controller('apt_list_admin', function($scope, myfact) {
             });
          $scope.newUser=[];
          $scope.aptList=[];
-         console.log(apt[1].addr.num);
          for (x in apt) {
                 $scope.aptList.push(apt[x].addr)
         }
@@ -69,7 +67,6 @@ Apartment.controller('apt_list_admin', function($scope, myfact) {
             }
         };
         for (x in apt) {
-             console.log(apt[x]._id);
             if (apt[x]._id === id) {
                 $scope.data = apt[x];
                 $scope.show = true;
@@ -86,10 +83,7 @@ Apartment.controller('apt_list_admin', function($scope, myfact) {
         if ($scope.aptNum === undefined || $scope.Street === undefined || $scope.State === undefined || $scope.City === undefined || $scope.Zip === undefined || $scope.SuiteNo === undefined) {
             confirm("Value was left blank");
         } else {
-            console.log("KEVIN");
-            console.log(apt);
             for(a in apt){
-                console.log('d');
                 if (($scope.aptNum === apt[a].addr.num) && ($scope.Street === apt[a].addr.street) && ($scope.City === apt[a].addr.city) &&( $scope.Zip === apt[a].addr.zip ) && ($scope.SuiteNo === apt[a].addr.suite)){
                     confirm('apartment taken');
                     break;
@@ -104,11 +98,9 @@ Apartment.controller('apt_list_admin', function($scope, myfact) {
                 "suite": $scope.SuiteNo
             };
             $scope.hide = true;
-            console.log(apt);
             break;
                 }
             }
-            //myfact.addApartment(add);
         };
     }
     $scope.updateApt = function() {
@@ -148,18 +140,20 @@ Apartment.controller('apt_list_admin', function($scope, myfact) {
                 }
             }]
         }];
-        $scope.hide = true;
-        console.log(apt.rooms);
-        console.log(apt);
         myfact.addApartment(apt);
+         $scope.aptNum="";
+        $scope.Street="";
+         $scope.State="";
+        $scope.City="";
+        $scope.Zip="";
+        $scope.SuiteNo="";
+        $scope.hide = false;
     };
     $scope.changeApt = function() {
         $scope.hidden = false;
         $scope.show = false;
     };
     $scope.editApt = function() {
-        console.log($scope.username);
-        console.log($scope.NewAptID);
         myfact.updateUser($scope.username, $scope.NewAptID);
     };
     $scope.assign = function(username) {
@@ -167,22 +161,17 @@ Apartment.controller('apt_list_admin', function($scope, myfact) {
         /*myfact.updateUser(username, AptID);*/
 /*        names.splice(index, 1);*/
        $scope.usernames=username;
-       console.log(username);
         $scope.dynamic=false;
     };
     $scope.assign2 = function() {
         myfact.updateUser($scope.username, null);
+        $window.sessionStorage.setItem(seshkeys.aptid,null);
         myfact.getUser()
             .then(
                 function(data) {
                     usr = data.data;
                 }
             );
-        for (x in usr) {
-            if (usr[x].aptId === null) {
-                console.log(usr[x].username);
-            }
-        }
         $scope.username="";
         $scope.data="";
         $scope.NewAptID="";
@@ -190,7 +179,6 @@ Apartment.controller('apt_list_admin', function($scope, myfact) {
         $scope.trigger();
     };
     $scope.assign3=function(index){
-        console.log(apt[index]._id);
         myfact.updateUser($scope.usernames, apt[index]._id);
         confirm('This user has now been assigned an apartment');
          $scope.dynamic=true;
@@ -205,6 +193,7 @@ Apartment.controller('apt_list_admin', function($scope, myfact) {
             $scope.Lookuphide=false;
             $scope.sheath=false;
             $scope.newUser=[];
+            $scope.dynamic=true;
     };
     $scope.New=function(){
         $scope.Apartmenthide=false;
@@ -212,6 +201,7 @@ Apartment.controller('apt_list_admin', function($scope, myfact) {
             $scope.Lookuphide=true;
             $scope.sheath=false;
             $scope.newUser=[];
+            $scope.dynamic=true;
     };
     $scope.Vacant=function(){
         $scope.Apartmenthide=true;
@@ -232,27 +222,29 @@ Apartment.controller('apt_list_user', function($scope, $window, seshkeys, myfact
             .then(
                 function(data) {
                     apt = data.data;
-                    // console.log("succcess " +apt);
                     display();
                 },
                 function(err) {
                     console.log(err);
-                    //console.log("hhhh");
                 }
             );
 
     };
     var display = function() {
-        //console.log(apt);
         for (x in apt) {
-            console.log($window.sessionStorage.getItem(seshkeys.aptid));
-            // console.log(apt[x].aptId);
             if (apt[x]._id === $window.sessionStorage.getItem(seshkeys.aptid)) {
-                //console.log(apt[x]);
                 $scope.data = apt[x];
+                console.log($scope.data);
             }
-        }
+        };
+        console.log($scope.data);
+    if($window.sessionStorage.getItem(seshkeys.aptid)===null){
+        $scope.userhide=true;
+    }
+    else{
+         $scope.userhide=false;
     };
+};
     getAllUsers();
 
 
