@@ -53,7 +53,6 @@ app.get('/logout', function(req, res){ //passports logout function
   res.redirect('/');
 });
 
-console.log(apartments.allusers);
 app.get('/apartments/allusers',apartments.allusers);
 app.get('/apartments', apartments.findAllApartments);
 app.get('/apartments/:aptId', apartments.findApartmentsByAptId);
