@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>InnKeeper</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+	<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://code.angularjs.org/1.5.8/angular.js"></script>
+	<script src="https://code.angularjs.org/1.5.8/angular-route.js"></script>
+	<script src ="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
+	<script src="bundle.min.js"></script>
+</head>
+<body ng-app="mainApp">
+	<div ng-controller="NavbarCtrl">
+		<nav ng-show="online" class="navbar navbar-inverse ng-cloak">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand">InnKeeper</a>
+				</div>
+				<ul ng-hide="admin" class="nav navbar-nav">
+					<li ng-class="{active: isActive('apartments')}" >
+						<a href="#/apartments">Rooms and Apartments</a>
+					</li>
+					<li ng-class="{active: isActive('reimbursement')}" >
+						<a href="#/reimbursement">Reimbursements</a>
+					</li>
+					<li ng-class="{active: isActive('maintenance')}">
+						<a href="#/maintenance">Maintenance</a>
+					</li>
+				</ul>
+				<ul ng-show="admin" class="nav navbar-nav">
+					<li ng-class="{active: isActive('apartments')}" >
+						<a href="#/apartments/manage">Rooms and Apartments</a>
+					</li>
+					<li ng-class="{active: isActive('reimbursement')}" >
+						<a href="#/reimbursement/manage">Reimbursements</a>
+					</li>
+					<li ng-class="{active: isActive('maintenance')}">
+						<a href="#/maintenance/manage">Maintenance</a>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li ng-hide="online"><a href="#/login"><span class="glyphicon glyphicon-log-in">
+					</span> Login</a></li>
+
+					<li class="dropdown" ng-show="online">
+						<a class="dropdown-toggle" data-toggle="dropdown">Welcome, {{greetingMessage}}
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li ng-click="logout()"><a href="#/login">Logout</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+	<br>
+	<div ng-view></div>
+
+</body>
+</html>

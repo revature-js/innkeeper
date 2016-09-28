@@ -1,22 +1,31 @@
-reimbursement.factory("burseService", function(){
+var reimbursement = angular.module('reimbursementApp');
 
-	var burseHistory = [];
+reimbursement.factory("burseService", function($http,$window,seshkeys){
+
 	var service = {};
-
-	service.updateBurseHistory = function(index, burse){
-		burseHistory.splice(index,1,burse);
-	};
 
 	service.getTypesOfBurse = function(){
 		return ["Travel","Certification","Supplies"];
 	};
 
-	service.getBurseHistory = function(){
-		return burseHistory;
+	service.getReimbursementById = function(id){
+		return $http.get($window.sessionStorage.getItem(seshkeys.serviceurl)+'/reimbursements/'+id);
 	};
 
-	service.addBurseHistory = function(data){
-		burseHistory.push(data);
+	service.getReimbursementsByUsername = function(username){
+		return $http.get($window.sessionStorage.getItem(seshkeys.serviceurl)+'/reimbursement/'+username);
+	};
+
+	service.getAllReimbursements = function(){
+		return $http.get($window.sessionStorage.getItem(seshkeys.serviceurl)+'/reimbursements/');
+	};
+
+	service.addReimbursement = function(data){
+		return $http.post($window.sessionStorage.getItem(seshkeys.serviceurl)+'/reimbursements/', data);
+	};
+
+	service.updateReimbursement = function(data,decision){
+		return $http.post($window.sessionStorage.getItem(seshkeys.serviceurl)+'/reimbursements/'+data._id+"/"+decision);
 	};
 
 	return service;

@@ -1,0 +1,174 @@
+
+
+<div ng-app='maintenanceApp' class= "container">
+
+  <div class='well'>
+    <form class='form-inline' ng-submit='submitNewTicket()' name='newTicket'>
+      <div class='row'>
+        <div class='col-md-4'>
+            <div class='form-group'>
+                <h2><label for='category'><span class="glyphicon glyphicon-menu-hamburger"></span> Category</label></h2><!-- dynamic populate -->
+                <select class= 'form-control' ng-model='ticket.category' required='true'>
+                  <option value=''>None</option>
+                  <option value ='Broken item'>Broken item</option>
+                  <option value='Missing item'>Missing item</option>
+                  <option value='Request item'>Request item</option>
+                </select>
+            </div>
+        </div>
+
+        <div class='col-md-4'> <!-- dynamic populate -->
+            <h2><label for='apartment'><span class="glyphicon glyphicon-bed"></span> Apartment</label></h2>
+            <select class= 'form-control' ng-model='ticket.apartment' required='true'>
+              <option value=''>None</option>
+              <option value ='Apt1'>Apt1</option>
+              <option value = 'Apt2'>Apt2</option>
+              <option value ='Apt3'>Apt3</option>
+            </select>
+        </div>
+
+        <div class='col-md-4'>
+          <h2><label for='descript'><span class="glyphicon glyphicon-comment"></span> Description </label></h2>
+          <textarea class='form-control' rows='3' cols='30' ng-model='ticket.description' placeholder="Enter details here." ng-required='true'></textarea> 
+        </div>
+      </div>
+      <div class='container-fluid'>
+        <div class='row'>
+          <div class='col-sm-11'></div>
+          <div class='col-m-1'> <input type="submit" class="btn btn-primary"> </div>
+        </div>
+      </div>
+    </form> 
+    <br>
+    <div class='well'>
+        <div class='panel panel-primary'>
+          <div class='panel-heading'>
+            <h4><span class="glyphicon glyphicon-search"></span> Search Request Tickets</h4>
+          </div>
+        </div>
+        <div class='well'>
+          <div class='container-fluid'>
+            <div class="row">
+
+              <div class="col-sm-3">
+                <label for='Category'>Category</label>
+              </div>
+
+              <div class="col-sm-3">
+                <label for='Apartment'>Apartment</label>
+              </div>
+
+              <div class="col-sm-3">
+                <label for='Status'>Status</label>
+              </div>
+
+              <div class="col-sm-3">
+               <label for='Start Date'>Start Date</label>
+              </div>      
+            </div>
+
+            <div class="row">
+              <div class="col-sm-3">
+                <select  class= 'form-control' name="multipleSelect" ng-model="search.category" >
+                  <option value="">All</option>
+                  <option value="Broken Item">Broken Item</option>
+                  <option value="Missing Item">Missing Item</option>
+                  <option value="Request Item">Request Item</option>
+                </select>
+              </div>
+               
+              <div class="col-sm-3">
+                <input type="text" ng-model='search.aptID'>
+              </div>
+              <div class="col-sm-3">
+                <select class= 'form-control' name="multipleSelect" ng-model="search.status"  >
+                  <option value="">All</option>
+                  <option value="Submitted">Submitted</option>
+                  <option value="In-Progress">In-Progress</option>
+                  <option value="Complete">Complete</option>
+                </select>
+              </div>
+
+              <div class="col-sm-3">
+                <input type='date' ng-model='search.startDate'>
+              </div>
+
+              <div class= 'row'>
+                <div class='col-sm-3'>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" value="Before" ng-model='beforeStartDate'>Before
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" value="OnDate" ng-model='onStartDate'>On Date
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" value="After" ng-model='afterStartDate'>After
+                  </label>
+                </div> 
+              </div>             
+            </div>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-sm-2'>
+            <h4><span class="glyphicon glyphicon-th-list"></span> Results:</h4>
+          </div>
+       
+          <div class='col-m-2 col-sm-offset-10' >
+            <button type="button" class="btn btn-primary">
+              <span class="glyphicon glyphicon-save"></span> Save Changes
+            </button>
+          </div>
+        </div>
+      <div class='well'>
+        <div class='container-fluid'>
+          <div class="row">
+            <div class="col-sm-2">
+              <label for='Category'>Category</label>
+            </div>
+
+            <div class="col-sm-2">
+              <label for='Description'>Description</label>
+            </div>
+
+            <div class="col-sm-2">
+              <label for='Apartment'>Apartment</label>
+            </div>
+
+            <div class="col-sm-2">
+              <label for='Start Date'>Start Date</label>
+            </div>
+
+            <div class="col-sm-2">
+              <label for='Complete Date'>Complete Date</label>
+            </div>
+
+            <div class="col-sm-2">
+              <label for='Status'>Status</label>
+            </div>
+          </div>
+          <br>
+          <!-- <div ng-repeat='ones in ticketHistory | filter:search  '> -->
+          <div ng-repeat='ones in ticketHistory |filter:search  '>
+            <div class="row">
+              <div class="col-sm-2">{{ones.category}}</div>
+              <div class="col-sm-2">{{ones.description}}</div>
+              <div class="col-sm-2">{{ones.aptID}}</div>
+              <div class="col-sm-2">{{ ones.startDate | date  }}</div>
+              <div class="col-sm-2">{{ones.completeDate | date}}</div>
+              <div class="col-sm-2">
+                <select ng-change='updateTicket(ones._id)' name="statusUpdate" ng-model="ones.status" > 
+                  <option value="Submitted">Submitted</option>
+                  <option value="In-Progress">In-Progress</option>
+                  <option value="Complete">Complete</option>
+                </select>
+              </div>
+            </div>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+  </div>
+</div>

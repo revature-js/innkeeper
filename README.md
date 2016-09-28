@@ -1,5 +1,5 @@
 # Innkeeper
-This Angular application is an online system for managing accomodation and reimbursement logistics that incorporates various service features.  It allows admins and associates to interact within a facilities portal.  The environment is complete with Angular, Webpack, Mongo Driver, Express, and Node.
+This Angular application is an online system for managing accommodation and reimbursement logistics that incorporates various service features.  It allows admins and associates to interact within a facilities portal.  The environment is complete with Angular, Webpack, Mongo Driver, Express, and Node.
 
 ###### menu
 - [Description](#innkeeper)
@@ -28,7 +28,6 @@ This Angular application is an online system for managing accomodation and reimb
 - Room & Apt Management ([Sam](#developers))
 - Login & Sign Up ([Weston](#developers))
 - Maintenance Request ([Jon-Erik](#developers))
-- Estimate Apt Requirements ([Alex](#developers))
 
 ### Technologies
 - Angular JS
@@ -60,7 +59,6 @@ The webhost will run on localhost:3000
 - Sam
 - Weston
 - Jon-Erik
-- Alex
 
 ### License
 [MIT](https://github.com/revature-js/Innkeeper/blob/master/LICENSE)
