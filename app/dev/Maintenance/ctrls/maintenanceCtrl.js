@@ -1,4 +1,4 @@
-var maintenance = angular.module('maintenanceApp', []);
+var maintenance = angular.module('maintenanceApp',[]);
 
 maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory,seshkeys){
 	$scope.newTicket = [];
@@ -41,7 +41,7 @@ maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory,seshk
 			startDate:new Date(),
 			completeDate:'',
 			status:'Submitted',
-			aptID:seshkeys.aptId,
+			aptID:seshkeys.aptid,
 			usr:seshkeys.username 
 	 		});
 	 	

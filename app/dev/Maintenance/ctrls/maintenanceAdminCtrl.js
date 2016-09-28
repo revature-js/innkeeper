@@ -1,4 +1,4 @@
-var maintenance = angular.module('maintenanceApp');
+var maintenance = angular.module('maintenanceApp',[]);
 
 maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,seshkeys){
 	$scope.ticketSubmission = [];
@@ -39,7 +39,7 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 			startDate:new Date(),
 			completeDate:'',
 			status:'Submitted',
-			aptID:seshkeys.aptId,
+			aptID:seshkeys.aptid,
 			usr:seshkeys.username
 	 		});
 
@@ -82,9 +82,10 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 
 					$scope.changedTicket = $scope.ticketHistory[i];//
 					// console.log($scope.changedTicket);
-					dataAdminFactory.updateTicket($scope.changedTicket)//change
-					 .then(
+					dataAdminFactory.updateTicket($scope.changedTicket)
+					   .then(
 					 	function(data){
+					 		getAllTickets();
 					 	},
 					 	function(){
 					 		//alert('Failed Update');
