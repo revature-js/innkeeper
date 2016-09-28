@@ -1,35 +1,41 @@
 
 <div ng-app="ApartmentApp">
    <div class="container">
-      <div class="panel panel-primary">
-         <div class="panel-heading">
+      <div class="panel panel-primary" ng-hide="userhide">
+         <div class="panel-heading" ng-hide="userhide">
             <h3>Apartment Address</h3>
          </div>
-         <div class="panel-body">
-            <div class="col-md-offset-2">{{data.addr.num}} {{data.addr.street}}</div>
+         <div class="panel-body" ng-hide="userhide">
+            <div class="col-md-offset-2">Street: {{data.addr.num}} {{data.addr.street}}</div>
             </p>
             <p>
-            <div class="col-md-offset-2">{{data.addr.city}}</div>
+            <div class="col-md-offset-2">City: {{data.addr.city}}</div>
             </p>
             <p>
-            <div class="col-md-offset-2">{{data.addr.state}}</div>
+            <div class="col-md-offset-2">State: {{data.addr.state}}</div>
             </p>
             <p>
-            <div class="col-md-offset-2">{{data.addr.zip}}</div>
+            <div class="col-md-offset-2">Zip Code: {{data.addr.zip}}</div>
             </p>
-            <p> Suite No.
-            </p>
-            <div class="col-md-offset-2">{{data.addr.suite}}</p></div>
+            <div class="col-md-offset-2">Suite No: {{data.addr.suite}}</p></div>
          </div>
       </div>
-      <div class="panel panel-primary">
+      <div class="panel panel-primary" ng-hide="userhide">
          <div class="panel-heading">
             <h3>Room Information</h3>
          </div>
-         <div class="panel-body">
+         <div class="panel-body" ng-hide="userhide">
             <p>chairs:{{data.rooms[0].bedrooms[0].room.chair}}</p>
             <p>beds:{{data.rooms[0].bedrooms[0].room.bed}}</p>
          </div>
       </div>
    </div>
 </div>
+  <div class="panel panel-primary" ng-show="userhide">
+<div class="panel-heading" ng-show="userhide">
+            <h3>Apartment Address</h3>
+         </div>
+  <div class="panel-body" ng-show="userhide">
+            <p>Not yet assigned an apartment</p>
+         </div>
+         </div>

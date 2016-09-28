@@ -1,13 +1,17 @@
-
+ 
 <div class= "container">
-<br>
-<br>
+	<br>
+	<br>
 	<div class="well" >
 		<form class='form-inline' ng-submit='submitNewTicket()'>
 			<div class='row'>
 				<div class='col-md-4'>
 					<div class='form-group'>
-						<h2><label for='category'><span class="glyphicon glyphicon-menu-hamburger"></span> Category</label></h2>
+						<h2>
+							<label for='category'>
+								<span class="glyphicon glyphicon-menu-hamburger"></span>Category
+							</label>
+						</h2>
 						<select class= 'form-control' ng-model='ticket.category' required='true'>
 							<option value=''>None</option>
 	          				<option value ='Broken item'>Broken item</option>
@@ -17,35 +21,34 @@
 					</div>
 				</div>
 				<div class='col-md-8'>
-					<h2><label for='description'><span class="glyphicon glyphicon-comment"></span> Description: </label></h2>
-						<textarea class='form-control' rows='4' cols='50' ng-model='ticket.description' placeholder="Enter details here." ng-required='true'></textarea>
+					<h2>
+						<label for='description'><span class="glyphicon glyphicon-comment"></span> Description: </label>
+					</h2>
+					<textarea class='form-control' rows='4' cols='50' ng-model='ticket.description' placeholder="Enter details here." ng-required='true'></textarea>
 				</div>
-<br>
-			<div class='container-fluid'>
-				<div class='row'>
-					<div class='col-m-1 col-m-offset-8'>
-						<input type="submit" class="btn btn-primary" >
+				<br>
+				<div class='container-fluid'>
+					<div class='row'>
+						<div class='col-m-1 col-m-offset-8'>
+							<input type="submit" class="btn btn-primary" >
+						</div>
 					</div>
 				</div>
 			</div>
 		</form>	
 	</div>
-</div>
-		
+</div>	
 <br>
-
-
-<!-- dynamic naming -->
-
-<div class='panel panel-primary'>
-	<div class='panel-heading'>
-		<h2>
-			<span class="glyphicon glyphicon-list-alt"></span> Active Maintance Requests:
-		</h2>
+<div class='container'>
+	<div class='panel panel-primary'  >
+		<div class='panel-heading'>
+			<h2>
+				<span class="glyphicon glyphicon-list-alt"></span> Active Maintance Requests:
+			</h2>
+		</div>
 	</div>
 </div>
-
-<div class='containter' >
+<div class='container'>
 	<div class='well' >
 		<div class='container-fluid'>
 			<div class="row">
@@ -55,8 +58,9 @@
 					<div class="col-sm-4">Status</div>
 				</h3>
 			</div>
+		</div>
   		<div class='container-fluid'>
-<br>
+			<br>
 			<div ng-repeat='ones in ticketHistory  '>
 				<div class="row">
 			  		<div class="col-sm-4">
@@ -71,12 +75,11 @@
 						{{ones.status}}
 					</div>
 				</div>
-		<br>
+				<br>
 			</div>
   		</div>
-		</div>	
-<br>
-	</div>
+	</div>	
+	<br>
 </div>
 
 
