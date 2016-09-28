@@ -1,4 +1,4 @@
-var maintenance = angular.module('maintenanceApp');
+var maintenance = angular.module('maintenanceApp',[]);
 
 maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,seshkeys){
 	$scope.ticketSubmission = [];
@@ -85,6 +85,7 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 					dataAdminFactory.updateTicket($scope.changedTicket)
 					   .then(
 					 	function(data){
+					 		getAllTickets();
 					 	},
 					 	function(){
 					 		//alert('Failed Update');
