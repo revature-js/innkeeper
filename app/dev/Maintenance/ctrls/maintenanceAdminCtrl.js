@@ -85,7 +85,7 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 					dataAdminFactory.updateTicket($scope.changedTicket)//change
 					 .then(
 					 	function(data){
-							getAllTickets();
+							$scope.ticketHistory = getAllTickets();
 					 	},
 					 	function(){
 					 		//alert('Failed Update');
