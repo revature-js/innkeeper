@@ -41,7 +41,7 @@ maintenance.controller('maintenanceCtrl', function($scope,dataAdminFactory,seshk
 			startDate:new Date(),
 			completeDate:'',
 			status:'Submitted',
-			aptID:seshkeys.aptId,
+			aptID:seshkeys.aptid,
 			usr:seshkeys.username 
 	 		});
 	 	
