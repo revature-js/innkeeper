@@ -89,7 +89,7 @@ Apartment.controller('apt_list_admin', function($scope, $window, seshkeys, myfac
                     break;
                 }
                 else{
-                apt.addr = {
+                apt2.addr = {
                 "num": $scope.aptNum,
                 "street": $scope.Street,
                 "state": $scope.State,
@@ -107,7 +107,7 @@ Apartment.controller('apt_list_admin', function($scope, $window, seshkeys, myfac
         if ($scope.chairs === undefined || $scope.beds === undefined) {
             confirm("Value was left blank");
         }
-        apt.rooms = [{
+        apt2.rooms = [{
             "bedrooms": [{
                 "room": {
                     "chair": $scope.chairs,
@@ -140,7 +140,8 @@ Apartment.controller('apt_list_admin', function($scope, $window, seshkeys, myfac
                 }
             }]
         }];
-        myfact.addApartment(apt);
+        console.log(apt2);
+        myfact.addApartment(apt2);
          $scope.aptNum="";
         $scope.Street="";
          $scope.State="";
