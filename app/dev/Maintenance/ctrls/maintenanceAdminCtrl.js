@@ -85,7 +85,6 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 					dataAdminFactory.updateTicket($scope.changedTicket)//change
 					 .then(
 					 	function(data){
-							$scope.ticketHistory = getAllTickets();
 					 	},
 					 	function(){
 					 		//alert('Failed Update');
@@ -93,6 +92,7 @@ maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,
 					 );
 				}
 			}
+			getAllTickets();
 		});
 	};
 });
