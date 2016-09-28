@@ -1,4 +1,4 @@
-var maintenance = angular.module('maintenanceApp',[]);
+var maintenance = angular.module('maintenanceApp');
 
 maintenance.controller("maintenanceAdminCtrl", function($scope,dataAdminFactory,seshkeys){
 	$scope.ticketSubmission = [];
